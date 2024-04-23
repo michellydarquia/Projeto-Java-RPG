@@ -12,34 +12,14 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 
 Para compilar e executar o jogo, siga estas instruções:
 
-1. Clone este repositório:
-
-```bash
-git clone https://github.com/seu-usuario/guardioes-das-lendas-antigas.git
-```
-
-2. Navegue até o diretório do projeto:
-
-```bash
-cd guardioes-das-lendas-antigas
-```
-
-3. Compile o jogo:
-
-```bash
-javac *.java
-```
-
-4. Execute o jogo:
-
-```bash
-java JogoPrincipal
-```
 
 ## Autoras
 
 - **Nome:** Maria Luísa Barreto dos Santos Costa
 - **Nome:** [Michelly Darquia da Silva]
+
+##
+
 - **Instituição:** Universidade de Pernambuco 
 - **Curso:** Engenharia de Computação
 - **Disciplina:** Programação Orientada a Objetos - LPOO

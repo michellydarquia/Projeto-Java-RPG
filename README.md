@@ -1,18 +1,49 @@
-## Getting Started
+# Guardiões das Lendas Antigas - Jogo RPG de Turnos
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Introdução
 
-## Folder Structure
+Neste projeto, desenvolveremos uma versão em Java de um jogo de RPG por turnos chamado "Guardiões das Lendas Antigas". Este jogo levará os jogadores a uma jornada épica em um mundo de fantasia, onde eles controlarão um grupo de heróis em uma missão para salvar o reino de uma antiga ameaça. Este jogo será focado em lógica de programação e estratégia, proporcionando uma experiência desafiadora para os jogadores.
 
-The workspace contains two folders by default, where:
+## Desenvolvimento
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+O projeto será implementado em Java. Java oferece uma ampla gama de recursos para lidar com lógica de programação e algoritmos, tornando-a uma escolha ideal para o desenvolvimento deste jogo para a disciplina de Programação Orientada a Objetos.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Compilação e Execução
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Para compilar e executar o jogo, siga estas instruções:
 
-## Dependency Management
+1. Clone este repositório:
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+```bash
+git clone https://github.com/seu-usuario/guardioes-das-lendas-antigas.git
+```
+
+2. Navegue até o diretório do projeto:
+
+```bash
+cd guardioes-das-lendas-antigas
+```
+
+3. Compile o jogo:
+
+```bash
+javac *.java
+```
+
+4. Execute o jogo:
+
+```bash
+java JogoPrincipal
+```
+
+## Autoras
+
+- **Nome:** Maria Luísa Barreto dos Santos Costa
+- **Nome:** [Michelly Darquia da Silva]
+- **Instituição:** Universidade de Pernambuco 
+- **Curso:** Engenharia de Computação
+- **Disciplina:** Programação Orientada a Objetos - LPOO
+- **Professor:** Bruno José Torres Fernandes
+- **Monitores:** 
+
+Este projeto promete oferecer uma experiência desafiadora para os jogadores, focada em lógica de programação e estratégia. Vamos em frente, Guardiões das Lendas Antigas aguarda! 🛡️🐉✨

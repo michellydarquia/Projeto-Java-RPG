@@ -15,8 +15,8 @@ Para compilar e executar o jogo, siga estas instruções:
 
 ## Autoras
 
-- **Nome:** Maria Luísa Barreto dos Santos Costa
-- **Nome:** Michelly Darquia da Silva
+-  Maria Luísa Barreto dos Santos Costa
+-  Michelly Darquia da Silva
 
 ##
 

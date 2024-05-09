@@ -12,7 +12,7 @@ public class GUI extends Canvas implements Runnable {
     public static int escala =3;
 
     public GUI(){
-        this.setPreferredSize(new Dimension(altura*escala,largura*escala));
+        this.setPreferredSize(new Dimension(largura*escala,altura*escala));
         frame = new JFrame(("Game 01"));
         frame.add(this);
         frame.setResizable(false);

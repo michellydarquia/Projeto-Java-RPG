@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class Utils {
 
     public void GerarIntro() throws InterruptedException {
-        String intro = "BEM VINDOS AO MUNDO DE FANTASIA ASZADDAS";
+        String intro = "BEM VINDOS AO MUNDO DE FANTASIA";
         Escrevendotextos(intro);
 
     }

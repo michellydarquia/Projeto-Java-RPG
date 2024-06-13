@@ -20,6 +20,7 @@ public class GUI extends Canvas implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setTitle(String.valueOf("A Conspiração na Corte Real"));
     }
 
 

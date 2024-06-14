@@ -1,16 +1,33 @@
 import game.personagens.classes.Guerreiro;
 import game.personagens.classes.Mago;
-import gui.GUI;
-import utils.Utils;
+import gui.GamePanel;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        GUI gui = new GUI();
 
-        Utils utils = new Utils();
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("A Conspiração na Corte Real");
 
-        //utils.GerarIntro();
 
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+
+        gamePanel.iniciarGameThread();
+
+
+
+
+//        Utils utils = new Utils();
+//        utils.GerarIntro();
+
+/*
         Guerreiro guerreiro = new Guerreiro(2);
         Mago mago = new Mago(2);
 
@@ -23,7 +40,7 @@ public class Main {
         mago.usarHabilidade1();
         mago.usarHabilidade2();
         mago.usarHabilidade3();
-
+*/
 
     }
 }

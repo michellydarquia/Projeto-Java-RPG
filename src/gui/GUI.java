@@ -1,26 +1,34 @@
 package gui;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 import java.awt.*;
 
 public class GUI extends Canvas implements Runnable {
 
     public static JFrame frame;
 
-    public static int largura = 240;
-    public static int altura = 160;
-    public static int escala =3;
+    // 16x16 será o tamanho nos personagens para criação
+    // a escala é 3 então o personagem sera 16x6 = 48 pixels na tela
+    //
+
+    final int originalSizeLadrilho = 16;
+    final int scale = 3;
+    final int sizeLadrilho = originalSizeLadrilho * scale;
+
+    final int maxTelaColunas = 16;
+    final int maxTelaLinhas = 12;
+    final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
+    final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
+
 
     public GUI(){
-        this.setPreferredSize(new Dimension(largura*escala,altura*escala));
+        this.setPreferredSize(new Dimension(telaWidth,telaHeight));
         frame = new JFrame(("Game 01"));
-        frame.add(this);
-        frame.setResizable(false);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setTitle(String.valueOf("A Conspiração na Corte Real"));
+
+
+        // se der bug retire
+        frame.setBackground(Color.BLACK);
+
     }
 
 

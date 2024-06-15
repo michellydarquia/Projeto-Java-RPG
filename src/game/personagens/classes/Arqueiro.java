@@ -1,10 +1,10 @@
 package game.personagens.classes;
 import game.personagens.BasePersonagem;
 
-public class Ladrao extends BasePersonagem {
+public class Arqueiro extends BasePersonagem {
 
 
-    public Ladrao(int nivel) {
+    public Arqueiro(int nivel) {
         super(80 + (nivel * 4), // saude
                 8 + (nivel * 1), // defesa
                 15 + (nivel * 3), // ataque

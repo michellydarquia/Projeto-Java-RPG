@@ -1,6 +1,8 @@
 package gui;
 
 import game.personagens.KeyHandler;
+import game.personagens.Player;
+
 import javax.swing.JPanel;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable{
     // constantes de config
     final int originalSizeLadrilho = 16;
     final int scale = 3;
-    final int sizeLadrilho = originalSizeLadrilho * scale;
+    public final int sizeLadrilho = originalSizeLadrilho * scale;
 
     // dimensões da tela
     final int maxTelaColunas = 16;
@@ -24,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // instanciando a movimentação do jogador
     KeyHandler keyH = new KeyHandler();
+    Player player = new Player(this, keyH);
 
 
     // posição inicial
@@ -87,19 +90,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void atualizar(){
 
-        if(keyH.upPressed){
-            jogadory -= jogadorSpeed;
-        }else if (keyH.downPressed){
-            jogadory += jogadorSpeed;
-
-        }else if (keyH.leftPressed){
-            jogadorx -= jogadorSpeed;
-
-        }else if (keyH.rightPressed){
-            jogadorx += jogadorSpeed;
-        }
+        player.atualizar();
 
     }
+
+
 @Override
     public void paintComponent(Graphics g){
 
@@ -107,9 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.white);
-
-        g2.fillRect(jogadorx,jogadory,sizeLadrilho, sizeLadrilho);
+        player.draw(g2);
 
         g2.dispose(); // Libera os recursos gráficos
 

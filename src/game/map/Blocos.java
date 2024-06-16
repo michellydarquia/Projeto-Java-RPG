@@ -8,11 +8,4 @@ public class Blocos {
     public BufferedImage image;
     public boolean colisao = false;
 
-
-
-
-
-
-
-
 }

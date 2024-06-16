@@ -6,6 +6,7 @@ import game.personagens.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.EventListener;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -24,6 +25,15 @@ public class GamePanel extends JPanel implements Runnable{
     // thread do jogo e FPS desejado
     int FPS = 60;
 
+    // ESTADOS DO JOGO
+    public int gameState=0;
+    public int menuinicialState=0;
+
+
+
+
+
+
     // instanciando a atualização de tela, movimentação do jogador, player, blocos
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
@@ -38,7 +48,17 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true); // melhorar performance
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+
+        configurarGame();
     }
+
+    public void configurarGame(){
+
+        gameState = menuinicialState;
+
+    }
+
 
     public void iniciarGameThread(){
         gameThread = new Thread(this);
@@ -96,13 +116,28 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D)g;
 
-        blocoM.draw(g2);
-        player.draw(g2);// tem q ficar dps des blocos
+        // TELA DE MENU
+
+        if(gameState == menuinicialState){
+
+
+            g2.setColor(Color.black);
+            g2.fillRect(0,0, telaWidth,telaHeight);
+
+
+        }else {
+            blocoM.draw(g2);
+            player.draw(g2);// tem q ficar dps des blocos
+
+
+        }
+
+
 
         g2.dispose(); // Libera os recursos gráficos
+
 
     }
 

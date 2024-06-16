@@ -1,5 +1,6 @@
 package gui;
 
+import game.map.BlocosManager;
 import game.personagens.KeyHandler;
 import game.personagens.Player;
 
@@ -10,29 +11,25 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     // constantes de config
-    final int originalSizeLadrilho = 16;
-    final int scale = 3;
+    public final int originalSizeLadrilho = 16;
+    public final int scale = 3;
     public final int sizeLadrilho = originalSizeLadrilho * scale;
 
     // dimensões da tela
-    final int maxTelaColunas = 16;
-    final int maxTelaLinhas = 12;
-    final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
-    final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
+    public final int maxTelaColunas = 16;
+    public final int maxTelaLinhas = 12;
+    public final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
+    public final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
 
     // thread do jogo e FPS desejado
     int FPS = 60;
-    Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
 
-    // instanciando a movimentação do jogador
+    // instanciando a atualização de tela, movimentação do jogador, player, blocos
+
+    Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
-
-
-    // posição inicial
-    int jogadorx = 100;
-    int jogadory = 100;
-    int jogadorSpeed = 4; // 4 pixels, no caso  ele anda 4 pixels
+    BlocosManager blocoM = new BlocosManager(this);
 
 
     public GamePanel(){
@@ -102,7 +99,8 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        player.draw(g2);
+        blocoM.draw(g2);
+        player.draw(g2);// tem q ficar dps des blocos
 
         g2.dispose(); // Libera os recursos gráficos
 

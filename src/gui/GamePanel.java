@@ -1,49 +1,62 @@
 package gui;
 
+import game.map.BlocosManager;
 import game.personagens.KeyHandler;
 import game.personagens.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.EventListener;
 
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
     // constantes de config
-    final int originalSizeLadrilho = 16;
-    final int scale = 3;
+    public final int originalSizeLadrilho = 16;
+    public final int scale = 3;
     public final int sizeLadrilho = originalSizeLadrilho * scale;
 
     // dimensões da tela
-    final int maxTelaColunas = 16;
-    final int maxTelaLinhas = 12;
-    final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
-    final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
+    public final int maxTelaColunas = 16;
+    public final int maxTelaLinhas = 12;
+    public final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
+    public final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
 
     // thread do jogo e FPS desejado
     int FPS = 60;
-    Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
 
-    // instanciando a movimentação do jogador
+    // ESTADOS DO JOGO
+    public int gameState = 0;
+    public int menuinicialState = 0;
+
+
+    // instanciando a atualização de tela, movimentação do jogador, player, blocos
+
+    Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
+    BlocosManager blocoM = new BlocosManager(this);
 
 
-    // posição inicial
-    int jogadorx = 100;
-    int jogadory = 100;
-    int jogadorSpeed = 4; // 4 pixels, no caso  ele anda 4 pixels
-
-
-    public GamePanel(){
-        this.setPreferredSize(new Dimension(telaWidth,telaHeight));
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(telaWidth, telaHeight));
         this.setBackground(Color.BLACK);// esse this. se refere a gamepanel
         this.setDoubleBuffered(true); // melhorar performance
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+
+        configurarGame();
     }
 
-    public void iniciarGameThread(){
+    public void configurarGame() {
+
+        gameState = menuinicialState;
+
+    }
+
+
+    public void iniciarGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -88,24 +101,40 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-    public void atualizar(){
+    public void atualizar() {
 
         player.atualizar();
 
     }
 
 
-@Override
-    public void paintComponent(Graphics g){
+    @Override
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
 
-        Graphics2D g2 = (Graphics2D)g;
+        // TELA DE MENU
 
-        player.draw(g2);
-
+//        if(gameState == menuinicialState){
+//
+//
+//            g2.setColor(Color.black);
+//            g2.fillRect(0,0, telaWidth,telaHeight);
+//
+//
+//        }else {
+        blocoM.draw(g2);
+        player.draw(g2);// tem q ficar dps des blocos
         g2.dispose(); // Libera os recursos gráficos
+
 
     }
 
-}
+
+
+
+
+    }
+
+

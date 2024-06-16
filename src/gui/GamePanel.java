@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.EventListener;
 
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
     // constantes de config
     public final int originalSizeLadrilho = 16;
@@ -26,12 +26,8 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
 
     // ESTADOS DO JOGO
-    public int gameState=0;
-    public int menuinicialState=0;
-
-
-
-
+    public int gameState = 0;
+    public int menuinicialState = 0;
 
 
     // instanciando a atualização de tela, movimentação do jogador, player, blocos
@@ -42,8 +38,8 @@ public class GamePanel extends JPanel implements Runnable{
     BlocosManager blocoM = new BlocosManager(this);
 
 
-    public GamePanel(){
-        this.setPreferredSize(new Dimension(telaWidth,telaHeight));
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(telaWidth, telaHeight));
         this.setBackground(Color.BLACK);// esse this. se refere a gamepanel
         this.setDoubleBuffered(true); // melhorar performance
         this.addKeyListener(keyH);
@@ -53,14 +49,14 @@ public class GamePanel extends JPanel implements Runnable{
         configurarGame();
     }
 
-    public void configurarGame(){
+    public void configurarGame() {
 
         gameState = menuinicialState;
 
     }
 
 
-    public void iniciarGameThread(){
+    public void iniciarGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -105,40 +101,40 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-    public void atualizar(){
+    public void atualizar() {
 
         player.atualizar();
 
     }
 
 
-@Override
-    public void paintComponent(Graphics g){
+    @Override
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
         // TELA DE MENU
 
-        if(gameState == menuinicialState){
-
-
-            g2.setColor(Color.black);
-            g2.fillRect(0,0, telaWidth,telaHeight);
-
-
-        }else {
-            blocoM.draw(g2);
-            player.draw(g2);// tem q ficar dps des blocos
-
-
-        }
-
-
-
+//        if(gameState == menuinicialState){
+//
+//
+//            g2.setColor(Color.black);
+//            g2.fillRect(0,0, telaWidth,telaHeight);
+//
+//
+//        }else {
+        blocoM.draw(g2);
+        player.draw(g2);// tem q ficar dps des blocos
         g2.dispose(); // Libera os recursos gráficos
 
 
     }
 
-}
+
+
+
+
+    }
+
+

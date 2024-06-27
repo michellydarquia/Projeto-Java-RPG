@@ -6,10 +6,9 @@ import game.personagens.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.util.EventListener;
 
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable{
 
     // constantes de config
     public final int originalSizeLadrilho = 16;
@@ -22,24 +21,30 @@ public class GamePanel extends JPanel implements Runnable {
     public final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
     public final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
 
+
     // thread do jogo e FPS desejado
     int FPS = 60;
 
     // ESTADOS DO JOGO
-    public int gameState = 0;
-    public int menuinicialState = 0;
+    public int gameState=0;
+    public final int menuinicialState= 1;
+    public final int playState=2;
+    public final int pauseState=3;
+    public final int dialogueState=4;
+
 
 
     // instanciando a atualização de tela, movimentação do jogador, player, blocos
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Player player = new Player(this, keyH);
     BlocosManager blocoM = new BlocosManager(this);
 
+    public Ui uiM = new Ui(this);
 
-    public GamePanel() {
-        this.setPreferredSize(new Dimension(telaWidth, telaHeight));
+    public GamePanel(){
+        this.setPreferredSize(new Dimension(telaWidth,telaHeight));
         this.setBackground(Color.BLACK);// esse this. se refere a gamepanel
         this.setDoubleBuffered(true); // melhorar performance
         this.addKeyListener(keyH);
@@ -49,17 +54,18 @@ public class GamePanel extends JPanel implements Runnable {
         configurarGame();
     }
 
-    public void configurarGame() {
+    public void configurarGame(){
 
         gameState = menuinicialState;
 
     }
 
 
-    public void iniciarGameThread() {
+    public void iniciarGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
     }
+
 
 
     @Override
@@ -101,40 +107,33 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void atualizar() {
+    public void atualizar(){
 
         player.atualizar();
 
     }
 
 
-    @Override
-    public void paintComponent(Graphics g) {
+@Override
+    public void paintComponent(Graphics g){
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D)g;
 
         // TELA DE MENU
 
-//        if(gameState == menuinicialState){
-//
-//
-//            g2.setColor(Color.black);
-//            g2.fillRect(0,0, telaWidth,telaHeight);
-//
-//
-//        }else {
-        blocoM.draw(g2);
-        player.draw(g2);// tem q ficar dps des blocos
+        if(gameState == menuinicialState){
+            uiM.draw(g2);
+
+        }else {
+            blocoM.draw(g2);
+            player.draw(g2);// tem q ficar dps des blocos
+
+        }
+
         g2.dispose(); // Libera os recursos gráficos
 
-
     }
 
 
-
-
-
-    }
-
-
+}

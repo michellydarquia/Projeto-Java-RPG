@@ -2,12 +2,11 @@ package game.personagens;
 
 public abstract class BasePersonagem {
 
-        private int saude;
-        private int defesa;
-        private int agilidade;
-        private int ataque;
-        private int nivel;
-
+    private int saude;
+    private int defesa;
+    private int agilidade;
+    private int ataque;
+    private int nivel;
 
 
     public BasePersonagem(int saude, int defesa, int ataque, int agilidade, int nivel){

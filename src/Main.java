@@ -22,12 +22,6 @@ public class Main {
         gamePanel.iniciarGameThread();
 
 
-
-
-//        Utils utils = new Utils();
-//        utils.GerarIntro();
-
-/*
         Guerreiro guerreiro = new Guerreiro(2);
         Mago mago = new Mago(2);
 
@@ -40,7 +34,7 @@ public class Main {
         mago.usarHabilidade1();
         mago.usarHabilidade2();
         mago.usarHabilidade3();
-*/
+
 
     }
 }

@@ -5,13 +5,14 @@ import game.personagens.BasePersonagem;
 public class Mago extends BasePersonagem {
 
     private int mana;
+    private int nivel;
 
-    public Mago(int nivel) {
-        super(80 + (nivel * 4), // saude
-                8 + (nivel * 1), // defesa
-                15 + (nivel * 3), // ataque
-                7 + (nivel * 1), // agilidade
-                nivel);
+
+    public Mago() {
+        super(80 + (1 * 4), // saude
+                8 + (1 * 1), // defesa
+                15 + (1 * 3), // ataque
+                7 + (1 * 1));// agilidade);
 
         mana = 50 + (nivel * 5) / 100;
 
@@ -56,7 +57,6 @@ public class Mago extends BasePersonagem {
             System.out.println("Mago usa Barreira Elemental! Dano recebido reduzido por um turno.");
         }
     }
-
 
 
 }

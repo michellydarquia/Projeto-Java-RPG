@@ -4,12 +4,18 @@ import game.personagens.BasePersonagem;
 
 public class Druida extends BasePersonagem {
 
-    public Druida(int nivel) {
-        super(80 + (nivel * 4), // saude
-                8 + (nivel * 1), // defesa
-                15 + (nivel * 3), // ataque
-                7 + (nivel * 1), // agilidade
-                nivel);
+    private int nivel;
+    private int energia;
+
+    public Druida() {
+        super(80 + (1 * 4), // saude
+                8 + (1 * 1), // defesa
+                15 + (1 * 3), // ataque
+                7 + (1 * 1) // agilidade
+                );
+
+        energia = 50;
+
     }
 
     @Override

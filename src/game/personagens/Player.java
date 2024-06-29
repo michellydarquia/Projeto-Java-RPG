@@ -1,22 +1,41 @@
 package game.personagens;
 
-import gui.GamePanel;
+import Menu.GamePanel;
+import game.personagens.classes.Arqueiro;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Player extends Entity {
+public class Player  {
+
+    public int speed;
+    public int y;
+    public int x;
+    public BufferedImage up1, up2, down1, down2 ,left1, left2, rigth1, rigth2;
+    public String direcao;
+    public int spriteCounter = 0;
+    public int spriteNum = 0;
+
+
 
     GamePanel gp;
     KeyHandler keyH;
+    BasePersonagem classePersonagem;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
         setDefaultValues();
         getPlayerImage();
+        if(classePersonagem == null){
+            System.out.println("SEM INSTANCIA DO PERSONAGEM");
+        }else {
+            System.out.println("COM INSTANCIA DO PERSONAGEM");
+        }
+
     }
 
     public void setDefaultValues() {
@@ -111,6 +130,24 @@ public class Player extends Entity {
 
         g2.drawImage(image, x, y, gp.sizeLadrilho, gp.sizeLadrilho, null);
     }
+
+
+    public BasePersonagem getClassePersonagem() {
+        return classePersonagem;
+    }
+
+    public void setClassePersonagem(BasePersonagem classePersonagem) {
+        this.classePersonagem = classePersonagem;
+        if(classePersonagem == null){
+            System.out.println("SEM INSTANCIA DO PERSONAGEM");
+        }else {
+            System.out.println("COM INSTANCIA DO PERSONAGEM");
+        }
+
+    }
+
+
+
 }
 
 

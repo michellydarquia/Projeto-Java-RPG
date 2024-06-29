@@ -1,4 +1,4 @@
-package gui;
+package Menu;
 
 import game.map.BlocosManager;
 import game.personagens.KeyHandler;
@@ -27,11 +27,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     // ESTADOS DO JOGO
     public int gameState=0;
-    public final int menuinicialState= 1;
-    public final int playState=2;
-    public final int pauseState=3;
-    public final int dialogueState=4;
-
+    public final int stateMenuInicial = 1;
+    public final int statePlay = 2;
+    public final int statePause =3;
+    public final int stateDialoge =4;
+    public final int stateMenuclasses = 5;
+    public final int stateBatalha =6;
 
 
     // instanciando a atualização de tela, movimentação do jogador, player, blocos
@@ -41,7 +42,13 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this, keyH);
     BlocosManager blocoM = new BlocosManager(this);
 
-    public Ui uiM = new Ui(this);
+
+    public Menu menu = new Menu(this);
+    public MenuClasses menuClass = new MenuClasses(this);
+
+
+    public MenuBattleScreen menuBatalha;
+
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(telaWidth,telaHeight));
@@ -55,9 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void configurarGame(){
-
-        gameState = menuinicialState;
-
+        gameState = stateMenuInicial;
     }
 
 
@@ -122,13 +127,21 @@ public class GamePanel extends JPanel implements Runnable{
 
         // TELA DE MENU
 
-        if(gameState == menuinicialState){
-            uiM.draw(g2);
+        if(gameState == stateMenuInicial){
+            menu.draw(g2);
 
-        }else {
+
+        }if(gameState == statePlay){
             blocoM.draw(g2);
             player.draw(g2);// tem q ficar dps des blocos
 
+        }if(gameState == stateMenuclasses){
+            menuClass.draw(g2);
+
+        }if(gameState == stateBatalha) {
+            menuBatalha = new MenuBattleScreen(this, player.getClassePersonagem());
+            System.out.println("BATALHANDO");
+            menuBatalha.draw(g2);
         }
 
         g2.dispose(); // Libera os recursos gráficos

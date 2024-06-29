@@ -1,6 +1,6 @@
 package game.personagens;
 
-public abstract class BasePersonagem {
+public abstract class BasePersonagem implements Habilidades {
 
     private int saude;
     private int defesa;
@@ -9,13 +9,13 @@ public abstract class BasePersonagem {
     private int nivel;
 
 
-    public BasePersonagem(int saude, int defesa, int ataque, int agilidade, int nivel){
+    public BasePersonagem(int saude, int defesa, int ataque, int agilidade){
 
         this.saude = saude;
         this.defesa = defesa;
         this.agilidade = agilidade;
         this.ataque = ataque;
-        this.nivel = nivel;
+        this.nivel = 1;
 
         imprimiratributos();
     }
@@ -61,19 +61,17 @@ public abstract class BasePersonagem {
     }
 
 
-    public abstract void usarHabilidade1();
-    public abstract void usarHabilidade2();
-    public abstract void usarHabilidade3();
 
     public void imprimiratributos(){
         System.out.printf("---------- ATRIBUTOS PERSONAGEM --------- \n" +
+                        "Classe: %s \n" +
                         "Saude: %s \n" +
                         "Defesa: %s \n" +
                         "Ataque: %s \n" +
                         "Agilidade: %s \n" +
                         "Nivel: %s \n" +
                         "------------------------------------ \n"
-                , getSaude(), getDefesa(), getAtaque(),getAgilidade(),getNivel());
+                ,getClass(), getSaude(), getDefesa(), getAtaque(),getAgilidade(),getNivel());
     }
 
 

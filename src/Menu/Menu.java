@@ -1,13 +1,14 @@
-package gui;
+package Menu;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
 
-public class GUI {
+public class Menu {
 
     GamePanel gp;
     Graphics2D g2;
@@ -15,7 +16,7 @@ public class GUI {
     public BufferedImage background;
 
 
-    public GUI(GamePanel gp) {
+    public Menu(GamePanel gp) {
         this.gp = gp;
         getBlackGroundImage();
 
@@ -26,24 +27,8 @@ public class GUI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
-//        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.KEY_TEXT_ANTIALIASING);
-//        g2.setColor(Color.white);
-
-
-        drawBack(g2);
-        drawTituloMenu(g2);
-
-
-        if(gp.gameState == gp.playState){//JOGANDO
-            g2.setColor(Color.white);
-
-        } if(gp.gameState == gp.pauseState){ //PAUSE
-            g2.setColor(Color.white);
-
-        } if(gp.gameState == gp.dialogueState){ //DIALOGOS
-            g2.setColor(Color.white);
-        }
-
+            drawBack(g2);
+            drawTituloMenu(g2);
 
 
     }
@@ -52,7 +37,7 @@ public class GUI {
 
     public void getBlackGroundImage() {
         try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/gui/Background.png")));
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/Background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,4 +92,51 @@ public class GUI {
     }
 
 
+
+    public void navigateMenu1(int code) {
+
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+            comandomenu--;
+            if (comandomenu < 0) {
+                comandomenu = 2;
+            }
+        }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            comandomenu++;
+            if (comandomenu > 2) {
+                comandomenu = 0;
+            }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            switch (comandomenu) {
+                case 0: // Jogar
+                    gp.gameState = gp.stateMenuclasses;
+                    break;
+                case 1: // Carregar o mesmo jogo
+                    gp.gameState = gp.stateBatalha;
+                    break;
+                case 2: // Quit
+                    System.exit(0);
+                    break;
+            }
+        }
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

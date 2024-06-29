@@ -3,13 +3,18 @@ import game.personagens.BasePersonagem;
 
 public class Arqueiro extends BasePersonagem {
 
+    private int flechas;
+    private int nivel;
 
-    public Arqueiro(int nivel) {
-        super(80 + (nivel * 4), // saude
-                8 + (nivel * 1), // defesa
-                15 + (nivel * 3), // ataque
-                7 + (nivel * 1), // agilidade
-                nivel);
+    public Arqueiro() {
+        super(80 + (1 * 4), // saude
+                8 + (1 * 1), // defesa
+                15 + (1 * 3), // ataque
+                7 + (1 * 1));// agilidade);
+
+        flechas = 15;
+
+
     }
 
     @Override
@@ -26,4 +31,7 @@ public class Arqueiro extends BasePersonagem {
     public void usarHabilidade3() {
 
     }
+
+
+
 }

@@ -5,12 +5,12 @@ public class Guerreiro extends BasePersonagem{
 
     private int energia;
 
-    public Guerreiro(int nivel) {
+    public Guerreiro() {
         // iniciando com esses atributos
-        super(100+(nivel*5), // saude
-               15+(nivel*2), // defesa
-                10+(nivel*3), // ataque
-                5 +(nivel*1), nivel); // agilidade
+        super(100+(1*5), // saude
+               15+(1*2), // defesa
+                10+(1*3), // ataque
+                5 +(1*1)); // agilidade
 
         energia = 100;
 

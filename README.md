@@ -1,4 +1,4 @@
-# Guardiões das Lendas Antigas - Jogo RPG de Turnos em JAVA
+# Jogo RPG de Turnos em JAVA
 
 ## Introdução
 

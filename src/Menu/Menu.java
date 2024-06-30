@@ -113,7 +113,7 @@ public class Menu {
                     gp.gameState = gp.stateMenuclasses;
                     break;
                 case 1: // Carregar o mesmo jogo
-                    gp.gameState = gp.stateBatalha;
+                    gp.gameState = gp.stateMenuBatalha;
                     break;
                 case 2: // Quit
                     System.exit(0);

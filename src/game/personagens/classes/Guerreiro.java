@@ -1,16 +1,14 @@
 package game.personagens.classes;
-import game.personagens.BasePersonagem;
+import game.personagens.Personagem;
 
-public class Guerreiro extends BasePersonagem{
+public class Guerreiro extends Personagem {
 
     private int energia;
 
+
     public Guerreiro() {
         // iniciando com esses atributos
-        super(100+(1*5), // saude
-               15+(1*2), // defesa
-                10+(1*3), // ataque
-                5 +(1*1)); // agilidade
+        super(100, 17, 15); // ataque
 
         energia = 100;
 
@@ -18,20 +16,20 @@ public class Guerreiro extends BasePersonagem{
     }
 
     @Override
-    public void usarHabilidade1() {
+    public void usarHabilidade1(Personagem inimigo) {
         // Ataque Físico: Dano Moderado, não consome energia
 
-        imprimirenergia();
+
 
         if (energia < 10) {
 
             System.out.println("Energia insuficiente para usar Ataque Físico!");
-            imprimirenergia();
+
 
         } else {
             setEnergia(-10);
             System.out.println("Guerreiro usa Ataque Físico!");
-            imprimirenergia();
+
         }
     }
 
@@ -40,7 +38,7 @@ public class Guerreiro extends BasePersonagem{
     public void usarHabilidade2() {
         // Proteção: Aumenta Defesa Temporária, recupera energia
 
-        imprimirenergia();
+
         setEnergia(20);
         System.out.println("Guerreiro usa Proteção! Defesa aumentada temporariamente e energia recuperada.");
     }
@@ -49,17 +47,23 @@ public class Guerreiro extends BasePersonagem{
     public void usarHabilidade3() {
         // Investida: Ataque Poderoso com Redução de Defesa do Alvo, consome energia
 
-        imprimirenergia();
+
 
         if (energia >= 30) {
             setEnergia(-30);
-            imprimirenergia();
+
             System.out.println("Guerreiro usa Investida! Ataque poderoso com redução de defesa do alvo.");
         } else {
-            imprimirenergia();
+
             System.out.println("Energia insuficiente para usar Investida!");
         }
     }
+
+    @Override
+    public void getPlayerImage() {
+
+    }
+
 
     public void setEnergia(int energia) {
 
@@ -71,9 +75,15 @@ public class Guerreiro extends BasePersonagem{
         return energia;
     }
 
-    public void imprimirenergia(){
-        System.out.println("Energia: " + getEnergia());
-    }
+    public String imprimiratributos() {
 
+        return "ATRIBUTOS PERSONAGEM\n" +
+                "Nível: " + getNivel() + "\n" +
+                " " + "\n" +
+                "Energia: " + getEnergia() + "\n" +
+                "Saúde: " + getSaude() + "\n" +
+                "Defesa: " + getDefesa() + "\n" +
+                "Ataque: " + getAtaque() + "\n" ;
+    }
 
 }

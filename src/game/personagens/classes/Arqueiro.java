@@ -1,24 +1,30 @@
 package game.personagens.classes;
-import game.personagens.BasePersonagem;
+import game.personagens.Personagem;
 
-public class Arqueiro extends BasePersonagem {
+public class Arqueiro extends Personagem {
 
     private int flechas;
+
+
     private int nivel;
 
     public Arqueiro() {
-        super(80 + (1 * 4), // saude
-                8 + (1 * 1), // defesa
-                15 + (1 * 3), // ataque
-                7 + (1 * 1));// agilidade);
+        super(100, 9, 17);
 
         flechas = 15;
 
+    }
 
+    public int getFlechas() {
+        return flechas;
+    }
+
+    public void setFlechas(int flechas) {
+        this.flechas = flechas;
     }
 
     @Override
-    public void usarHabilidade1() {
+    public void usarHabilidade1(Personagem inimigo) {
 
     }
 
@@ -31,6 +37,24 @@ public class Arqueiro extends BasePersonagem {
     public void usarHabilidade3() {
 
     }
+
+    @Override
+    public void getPlayerImage() {
+
+    }
+
+    public String imprimiratributos() {
+
+        return "ATRIBUTOS PERSONAGEM\n" +
+                "Nível: " + getNivel() + "\n" +
+                " " + "\n" +
+                "Energia: " + getFlechas() + "\n" +
+                "Saúde: " + getSaude() + "\n" +
+                "Defesa: " + getDefesa() + "\n" +
+                "Ataque: " + getAtaque() + "\n";
+    }
+
+
 
 
 

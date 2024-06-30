@@ -2,7 +2,9 @@ package Menu;
 
 import game.map.BlocosManager;
 import game.personagens.KeyHandler;
-import game.personagens.Player;
+import game.personagens.Jogador;
+import game.personagens.Personagem;
+import game.personagens.enemies.GoblinArcher;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -21,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int telaWidth = sizeLadrilho * maxTelaColunas; // 768 pixels
     public final int telaHeight = sizeLadrilho * maxTelaLinhas; // 576 pixels
 
+    public long tempoInicial;
 
     // thread do jogo e FPS desejado
     int FPS = 60;
@@ -32,15 +35,20 @@ public class GamePanel extends JPanel implements Runnable{
     public final int statePause =3;
     public final int stateDialoge =4;
     public final int stateMenuclasses = 5;
-    public final int stateBatalha =6;
+    public final int stateMenuBatalha =6;
+    public final int stateSubMenuBatalha = 7;
+    public final int stateInfoBatalha = 8;
+
 
 
     // instanciando a atualização de tela, movimentação do jogador, player, blocos
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-    Player player = new Player(this, keyH);
+    Jogador jogador = new Jogador(this, keyH);
     BlocosManager blocoM = new BlocosManager(this);
+
+    Personagem inimigo = new GoblinArcher();
 
 
     public Menu menu = new Menu(this);
@@ -60,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         configurarGame();
     }
+
 
     public void configurarGame(){
         gameState = stateMenuInicial;
@@ -114,7 +123,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void atualizar(){
 
-        player.atualizar();
+        jogador.atualizar();
 
     }
 
@@ -133,14 +142,18 @@ public class GamePanel extends JPanel implements Runnable{
 
         }if(gameState == statePlay){
             blocoM.draw(g2);
-            player.draw(g2);// tem q ficar dps des blocos
+            jogador.draw(g2);// tem q ficar dps des blocos
 
         }if(gameState == stateMenuclasses){
-            menuClass.draw(g2);
+        System.out.println("SELECIONANDO CLASSES");
+        menuClass.draw(g2);
 
-        }if(gameState == stateBatalha) {
-            menuBatalha = new MenuBattleScreen(this, player.getClassePersonagem());
-            System.out.println("BATALHANDO");
+        }if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha ) {
+            if(menuBatalha == null) {
+                menuBatalha = new MenuBattleScreen(this, jogador.getClassePersonagem(), inimigo);
+            }
+            menuBatalha.draw(g2);
+        }if(gameState == stateInfoBatalha){
             menuBatalha.draw(g2);
         }
 

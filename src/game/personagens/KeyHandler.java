@@ -31,9 +31,13 @@ public class KeyHandler implements KeyListener {
         } else if (gp.gameState == gp.stateMenuclasses) {
             gp.menuClass.navigateMenu2(code);
 
-        }else if (gp.gameState == gp.stateBatalha){
+        } else if (gp.gameState == gp.stateMenuBatalha) {
             gp.menuBatalha.navigateMenuBatalha(code);
-        }else {
+
+        } else if (gp.gameState == gp.stateSubMenuBatalha) {
+            gp.menuBatalha.navigateSubMenuBatalha(code);
+
+        } else {
 
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
@@ -48,14 +52,10 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
 
             } if(code == KeyEvent.VK_I ){
-                gp.gameState = gp.stateBatalha;
+                gp.gameState = gp.stateMenuBatalha;
             }
 
-
         }
-
-
-
 
 
     }

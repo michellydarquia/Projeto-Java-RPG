@@ -1,19 +1,19 @@
 package game.personagens;
 
 import Menu.GamePanel;
-import game.personagens.classes.Arqueiro;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
-public class Player  {
+public class Jogador {
 
     public int speed;
     public int y;
     public int x;
-    public BufferedImage up1, up2, down1, down2 ,left1, left2, rigth1, rigth2;
+    public BufferedImage up1, up2, down1, down2 ,left1, left2, rigth1, rigth2, principal;
     public String direcao;
     public int spriteCounter = 0;
     public int spriteNum = 0;
@@ -22,10 +22,10 @@ public class Player  {
 
     GamePanel gp;
     KeyHandler keyH;
-    BasePersonagem classePersonagem;
+    Personagem classePersonagem;
 
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Jogador(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
         setDefaultValues();
@@ -33,6 +33,7 @@ public class Player  {
         if(classePersonagem == null){
             System.out.println("SEM INSTANCIA DO PERSONAGEM");
         }else {
+
             System.out.println("COM INSTANCIA DO PERSONAGEM");
         }
 
@@ -49,14 +50,18 @@ public class Player  {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_costa1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_costa2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_frente3.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_frente2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_left1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_left2.png"));
-            rigth1 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_right1.png"));
-            rigth2 = ImageIO.read(getClass().getResourceAsStream("/player/guerreiro_right2.png"));
+
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_costa1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_costa2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente3.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_left1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_left2.png")));
+            rigth1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_right1.png")));
+            rigth2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_right2.png")));
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,20 +137,18 @@ public class Player  {
     }
 
 
-    public BasePersonagem getClassePersonagem() {
+    public Personagem getClassePersonagem() {
         return classePersonagem;
     }
 
-    public void setClassePersonagem(BasePersonagem classePersonagem) {
-        this.classePersonagem = classePersonagem;
+    public void setClassePersonagem(Personagem classePersonagem) {
+
         if(classePersonagem == null){
-            System.out.println("SEM INSTANCIA DO PERSONAGEM");
-        }else {
-            System.out.println("COM INSTANCIA DO PERSONAGEM");
+            throw new IllegalArgumentException("SEM INSTANCIA DO PERSONAGEM");
         }
+        this.classePersonagem = classePersonagem;
 
     }
-
 
 
 }

@@ -1,6 +1,6 @@
 package Menu;
 
-import game.personagens.BasePersonagem;
+import game.personagens.Personagem;
 import game.personagens.classes.Arqueiro;
 import game.personagens.classes.Druida;
 import game.personagens.classes.Guerreiro;
@@ -20,7 +20,7 @@ public class MenuClasses {
     Graphics2D g2;
     public int comandomenu =0;
     public BufferedImage background;
-    BasePersonagem jogador ;
+    Personagem jogador ;
 
     public MenuClasses(GamePanel gp) {
         this.gp = gp;
@@ -120,27 +120,27 @@ public class MenuClasses {
             switch (comandomenu) {
                 case 0: // ARQUEIRO
                     jogador  = new Arqueiro();
-                    gp.player.setClassePersonagem(jogador );
+                    gp.jogador.setClassePersonagem(jogador );
                     System.out.println("ARQUEIRO");
                     gp.gameState = gp.statePlay;
                     break;
                 case 1: // DRUIDA
                     jogador  = new Druida();
-                    gp.player.setClassePersonagem(jogador);
+                    gp.jogador.setClassePersonagem(jogador);
                     System.out.println("DRUIDA");
                     gp.gameState = gp.statePlay;
 
                     break;
                 case 2: // GUERREIRO
                     jogador = new Guerreiro();
-                    gp.player.setClassePersonagem(jogador );
+                    gp.jogador.setClassePersonagem(jogador );
                     System.out.println("GUERREIRO");
                     gp.gameState = gp.statePlay;
 
                     break;
                 case 3: // MAGO
                     jogador = new Mago();
-                    gp.player.setClassePersonagem(jogador );
+                    gp.jogador.setClassePersonagem(jogador );
                     System.out.println("MAGO");
                     gp.gameState = gp.statePlay;
                     break;

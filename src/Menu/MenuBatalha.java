@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class MenuBatalha {
 
-    GamePanel gp;
+    public GamePanel gp;
     Graphics2D g2;
     public int comandomenu =0;
     public BufferedImage background;
@@ -28,15 +28,12 @@ public class MenuBatalha {
         this.gp = gp;
         this.jogador = jogador;
         this.inimigo = inimigo;
-        this.batalhaManager = new BatalhaManager(g2,jogador, inimigo);
         getBlackGroundImage();
         getImagemPersonagem();
         inimigo.getPlayerImage();
         drawMensagem(g2, jogador);
         drawMensagem(g2, inimigo);
-
     }
-
 
     public void draw(Graphics2D g2) {
 
@@ -50,13 +47,24 @@ public class MenuBatalha {
             drawBackGround(g2);
             drawPlayerAtributos(g2, jogador, 0);
             drawPlayerAtributos(g2, inimigo, 1);
+
             drawImagemPersonagens(g2, inimigo, jogador);
+
             drawRetanguloTranslucido(g2, 70, y + 400, 576, y + 70);
 
+            if (batalhaManager == null) {
+                batalhaManager = new BatalhaManager(g2, this, jogador, inimigo);
+            }
 
             switch (gp.gameState) {
 
+                case 10: // gp.stateinicioBatalha:
+
+                    batalhaManager.batalhaturno();
+                    break;
+
                 case 6: // gp.stateMenuBatalha:
+
                     drawTituloMenu(g2);
 
                     break;
@@ -66,23 +74,21 @@ public class MenuBatalha {
                         jogador.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
                         inimigo.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
                     }
+
                     drawTituloSubMenu(g2);
                     break;
 
                 case 8: // gp.stateInfoBatalha:
-//                    batalhaManager.batalhaturno();
+
                     drawInfoBatalha(g2, jogador);
                     break;
 
                 case 9: // gp.stateInimigoAcao:
-                    if (!inimigo.isUsouHabilidade()) {
-                        inimigoUsandoHabilidade();
-
-                        inimigo.setUsouHabilidade(true); //nimigo ja atacou neste
-                    }
                     drawInfoBatalha(g2, inimigo);
                     break;
 
+
+//
             }
 
         }
@@ -151,6 +157,7 @@ public class MenuBatalha {
                 case 0: // HABILIDADE 1
 
                     jogador.usarHabilidade1(inimigo);
+
 
                     gp.gameState = gp.stateInfoBatalha;
 

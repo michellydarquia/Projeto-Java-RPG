@@ -25,7 +25,6 @@ public class Mago extends Personagem {
     @Override
     public void usarHabilidade1(Personagem inimigo) { // Raio Mágico, -20 mana
 
-
         if (mana >= 20) {
 
             setHabilidadeUsada("Mago usou Raio Mágico! \nDano aplicado ( + 40 ).");

@@ -9,43 +9,75 @@ import java.awt.*;
 
 public class BatalhaManager {
 
+    MenuBatalha menuBatalha;
     Personagem jogador;
     Personagem inimigo;
     private boolean turnoDojogadorVez;
-    MenuBatalha menuBatalha;
+    private boolean batalhaTerminada;
+
     Graphics2D g2;
 
 
-    public BatalhaManager(Graphics2D g2,Personagem jogador, Personagem inimigo){
+
+    public BatalhaManager(Graphics2D g2,MenuBatalha menuBatalha, Personagem jogador, Personagem inimigo){
         this.g2 = g2;
+        this.menuBatalha = menuBatalha;
         this.jogador = jogador;
         this.inimigo = inimigo;
         turnoDojogadorVez = true;
+        batalhaTerminada = false;
+        inimigo.getPlayerImage();
 
     }
 
     public void batalhaturno(){
 
+        menuBatalha.drawImagemPersonagens(g2,jogador,inimigo);
+
+        if (jogador.getHabilidadeUsada() == null || inimigo.getHabilidadeUsada() == null) {
+            jogador.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+            inimigo.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+        }
+
+        if(batalhaTerminada){
+            System.out.println("ENCERADAAAAAAA");
+            menuBatalha.gp.gameState = menuBatalha.gp.statePlay;
+            return;
+        }
+
+        if (isBatalhaAcabou()) {
+            System.out.println("BATALHA TERMINOU");
+            batalhaTerminada = true;
+            menuBatalha.gp.gameState = menuBatalha.gp.statePlay; // Saia do estado de batalha
+            return;
+        }
+
         if (turnoDojogadorVez){
+            System.out.println("JOGADOR JOGANDO");
             turnoJogador();
-        }else {
+
+
+        }if(!turnoDojogadorVez) {
+            System.out.println("INIMIGO JOGANDO");
             turnoInimigo();
         }
 
-    turnoDojogadorVez = false;
-
     }
 
-
     public void turnoJogador(){
-        menuBatalha.drawInfoBatalha(g2,jogador);
-
+        menuBatalha.gp.gameState = menuBatalha.gp.stateMenuBatalha;
+        turnoDojogadorVez = false;
 
     }
 
     public void turnoInimigo(){
-        inimigo.usarHabilidade1(jogador);
+        inimigo.getPlayerImage();
+        inimigo.usarHabilidade1(jogador); // O inimigo usa uma habilidade
+        menuBatalha.drawInfoBatalha(g2, inimigo);
+        turnoDojogadorVez = true;
+
     }
+
 
 
     public boolean isBatalhaAcabou(){

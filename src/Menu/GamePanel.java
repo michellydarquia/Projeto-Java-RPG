@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int stateSubMenuBatalha = 7;
     public final int stateInfoBatalha = 8;
     public final int stateInimigoAcao = 9;
+    public final int stateinicioBatalha = 10;
 
 
 
@@ -143,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable{
             jogador.draw(g2);// tem q ficar dps des blocos
         }
 
-        if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha  || gameState == stateInfoBatalha  || gameState == stateInimigoAcao) { // BATALHANDO
+        if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha  || gameState == stateInfoBatalha  || gameState == stateInimigoAcao || gameState == stateinicioBatalha )  { // BATALHANDO
             if(menuBatalha == null) {
                 menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
             }

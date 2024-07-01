@@ -52,7 +52,7 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
 
             } if(code == KeyEvent.VK_I ){
-                gp.gameState = gp.stateMenuBatalha;
+                gp.gameState = gp.stateinicioBatalha;
             }
 
         }

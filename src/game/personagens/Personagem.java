@@ -59,10 +59,6 @@ public abstract class Personagem implements Habilidades {
         return vivo;
     }
 
-    public void setVivo(boolean vivo) {
-        this.vivo = vivo;
-    }
-
     public void alterarSaude(int valor) {
 
         int limiteSaude = 100 * nivel;
@@ -71,6 +67,9 @@ public abstract class Personagem implements Habilidades {
 
         if (novaSaude < 0) {
             System.out.println("PERDI A BATALHA");
+            this.saude = 0;
+            vivo = false;
+
         } else if (novaSaude >  limiteSaude ) {
             this.saude = novaSaude + (limiteSaude - novaSaude);
         } else {

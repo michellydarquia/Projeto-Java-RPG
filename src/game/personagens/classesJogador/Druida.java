@@ -1,27 +1,28 @@
-package game.personagens.classes;
+package game.personagens.classesJogador;
+
 import game.personagens.Personagem;
 
-public class Arqueiro extends Personagem {
-
-    private int flechas;
-
+public class Druida extends Personagem {
 
     private int nivel;
+    private int energia;
 
-    public Arqueiro() {
+
+    public Druida() {
         super(100, 9, 17);
 
-        flechas = 15;
+        energia = 50;
 
     }
 
-    public int getFlechas() {
-        return flechas;
+    public int getEnergia() {
+        return energia;
     }
 
-    public void setFlechas(int flechas) {
-        this.flechas = flechas;
+    public void setEnergia(int energia) {
+        this.energia = energia;
     }
+
 
     @Override
     public void usarHabilidade1(Personagem inimigo) {
@@ -39,6 +40,11 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
+    public void usarHabilidade4() {
+
+    }
+
+    @Override
     public void getPlayerImage() {
 
     }
@@ -48,14 +54,11 @@ public class Arqueiro extends Personagem {
         return "ATRIBUTOS PERSONAGEM\n" +
                 "Nível: " + getNivel() + "\n" +
                 " " + "\n" +
-                "Energia: " + getFlechas() + "\n" +
+                "Energia: " + getEnergia() + "\n" +
                 "Saúde: " + getSaude() + "\n" +
                 "Defesa: " + getDefesa() + "\n" +
-                "Ataque: " + getAtaque() + "\n";
+                "Ataque: " + getAtaque() + "\n" ;
     }
-
-
-
 
 
 }

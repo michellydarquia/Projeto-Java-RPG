@@ -1,10 +1,10 @@
 package Menu;
 
 import game.personagens.Personagem;
-import game.personagens.classes.Arqueiro;
-import game.personagens.classes.Druida;
-import game.personagens.classes.Guerreiro;
-import game.personagens.classes.Mago;
+import game.personagens.classesJogador.Arqueiro;
+import game.personagens.classesJogador.Druida;
+import game.personagens.classesJogador.Guerreiro;
+import game.personagens.classesJogador.Mago;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class MenuClasses {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
-        drawBack(g2);
+        drawBackGround(g2);
         drawTituloMenu(g2);
 
     }
@@ -90,7 +90,7 @@ public class MenuClasses {
         }
 
     }
-    public void drawBack(Graphics g2) {
+    public void drawBackGround(Graphics g2) {
         if (background  != null) {
             g2.drawImage(background, 0, 0, background.getWidth(), background.getHeight(), null);
         }
@@ -102,8 +102,7 @@ public class MenuClasses {
     }
 
 
-    public void navigateMenu2(int code) {
-
+    public void navigateMenuClasses(int code) {
 
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             comandomenu--;
@@ -120,33 +119,19 @@ public class MenuClasses {
             switch (comandomenu) {
                 case 0: // ARQUEIRO
                     jogador  = new Arqueiro();
-                    gp.jogador.setClassePersonagem(jogador );
-                    System.out.println("ARQUEIRO");
-                    gp.gameState = gp.statePlay;
                     break;
                 case 1: // DRUIDA
                     jogador  = new Druida();
-                    gp.jogador.setClassePersonagem(jogador);
-                    System.out.println("DRUIDA");
-                    gp.gameState = gp.statePlay;
-
                     break;
                 case 2: // GUERREIRO
                     jogador = new Guerreiro();
-                    gp.jogador.setClassePersonagem(jogador );
-                    System.out.println("GUERREIRO");
-                    gp.gameState = gp.statePlay;
-
                     break;
                 case 3: // MAGO
                     jogador = new Mago();
-                    gp.jogador.setClassePersonagem(jogador );
-                    System.out.println("MAGO");
-                    gp.gameState = gp.statePlay;
                     break;
             }
-
-
+            gp.jogador.setClassePersonagem(jogador);
+            gp.gameState = gp.statePlay;
         }
 
     }

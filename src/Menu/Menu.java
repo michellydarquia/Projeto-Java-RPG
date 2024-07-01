@@ -22,14 +22,10 @@ public class Menu {
 
     }
 
-
-
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-
-            drawBack(g2);
-            drawTituloMenu(g2);
-
+        drawBack(g2);
+        drawTituloMenu(g2);
 
     }
 

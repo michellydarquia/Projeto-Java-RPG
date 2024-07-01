@@ -29,7 +29,7 @@ public class KeyHandler implements KeyListener {
             gp.menu.navigateMenu1(code);
 
         } else if (gp.gameState == gp.stateMenuclasses) {
-            gp.menuClass.navigateMenu2(code);
+            gp.menuClass.navigateMenuClasses(code);
 
         } else if (gp.gameState == gp.stateMenuBatalha) {
             gp.menuBatalha.navigateMenuBatalha(code);

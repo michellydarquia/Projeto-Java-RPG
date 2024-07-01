@@ -18,8 +18,6 @@ public class Jogador {
     public int spriteCounter = 0;
     public int spriteNum = 0;
 
-
-
     GamePanel gp;
     KeyHandler keyH;
     Personagem classePersonagem;
@@ -30,14 +28,8 @@ public class Jogador {
         this.keyH = keyH;
         setDefaultValues();
         getPlayerImage();
-        if(classePersonagem == null){
-            System.out.println("SEM INSTANCIA DO PERSONAGEM");
-        }else {
-
-            System.out.println("COM INSTANCIA DO PERSONAGEM");
-        }
-
     }
+
 
     public void setDefaultValues() {
         x = 100;
@@ -69,67 +61,51 @@ public class Jogador {
 
     public void atualizar() {
 
-        if(keyH.upPressed == true || keyH.downPressed  == true || keyH.leftPressed  == true || keyH.rightPressed == true ){
-            if (keyH.upPressed) {
-                direcao = "up";
-                y -= speed;
-            } else if (keyH.downPressed) {
-                direcao = "down";
-                y += speed;
-            } else if (keyH.leftPressed) {
-                direcao = "left";
-                x -= speed;
-            } else if (keyH.rightPressed) {
-                direcao = "right";
-                x += speed;
-            }
-
+        if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed){
+            moverJogador();
+            //MUDANDO A IMAGEM A CADA MOVIMENTO
             spriteCounter++;
             if (spriteCounter > 5) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
+                spriteNum = spriteNum == 1 ? 2 : 1;
                 spriteCounter = 0;
             }
         }
 
+    }
+
+    public void moverJogador(){
+        if (keyH.upPressed) {
+            direcao = "up";
+            y -= speed;
+        } else if (keyH.downPressed) {
+            direcao = "down";
+            y += speed;
+        } else if (keyH.leftPressed) {
+            direcao = "left";
+            x -= speed;
+        } else if (keyH.rightPressed) {
+            direcao = "right";
+            x += speed;
+        }
 
     }
+
 
     public void draw(Graphics g2) {
         BufferedImage image = null;
 
         switch (direcao) {
             case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
+                image = spriteNum == 1 ?  up1 : up2;
                 break;
             case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                } else if (spriteNum == 2) {
-                    image = down2;
-                }
+                image = spriteNum == 1 ?  down1 : down2;
                 break;
             case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                } else if (spriteNum == 2) {
-                    image = left2;
-                }
+                image = spriteNum == 1 ?  left1 : left2;
                 break;
             case "right":
-                if (spriteNum == 1) {
-                    image = rigth1;
-                } else if (spriteNum == 2) {
-                    image = rigth2;
-                }
+                image = spriteNum == 1 ?  rigth1  : rigth2 ;
                 break;
         }
 

@@ -38,24 +38,23 @@ public class GamePanel extends JPanel implements Runnable{
     public final int stateMenuBatalha =6;
     public final int stateSubMenuBatalha = 7;
     public final int stateInfoBatalha = 8;
+    public final int stateInimigoAcao = 9;
 
 
 
-    // instanciando a atualização de tela, movimentação do jogador, player, blocos
+    // instanciando a atualização de tela, movimentação do jogador, player, blocos, inimgios, menus , batalhas
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-    Jogador jogador = new Jogador(this, keyH);
+
     BlocosManager blocoM = new BlocosManager(this);
 
+    Jogador jogador = new Jogador(this, keyH);
     Personagem inimigo = new GoblinArcher();
-
 
     public Menu menu = new Menu(this);
     public MenuClasses menuClass = new MenuClasses(this);
-
-
-    public MenuBattleScreen menuBatalha;
+    public MenuBatalha menuBatalha;
 
 
     public GamePanel(){
@@ -84,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-
+////////////////////////////////////////  FPS NO GAME     //////////////////////////////////////////////////////////////////////////////
         // config do intervalo de desenho baseado no FPS
         double desenharintervalo = 1000000000.0 / FPS; // atualizando a cada 0,0166 seg (1 segundo / 60 FPS)
         double delta = 0;
@@ -94,31 +93,27 @@ public class GamePanel extends JPanel implements Runnable{
         long timer = 0;
         long desenharcontador = 0;
 
-
         while (gameThread != null) {
 
             timecorrido = System.nanoTime(); // pega o tempo atual em nanossegundos
-
             delta += (timecorrido - lasttime) / desenharintervalo;  // Atualiza o delta com a diferença de tempo ajustada pelo intervalo de desenho
             timer += (timecorrido - lasttime); //mostrar fps
             lasttime = timecorrido; // atualiza o tempo anterior para o próximo cálculo
             // Se delta for maior ou igual a 1 signf que é hora de atualizar e desenhar a tela
-
             if (delta >= 1) {
                 atualizar();//  1 atualiza posição do personagem ou estado do jogo
                 repaint(); // repinta a tela
                 delta--; // reduz delta para continuar o controle de tempo
                 desenharcontador++;
             }
-
             if (timer >= 1000000000) {
                 System.out.println("FPS:" + desenharcontador);
                 desenharcontador = 0;
                 timer = 0;
             }
 
-
         }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void atualizar(){
@@ -134,30 +129,30 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
-        // TELA DE MENU
-
-        if(gameState == stateMenuInicial){
+        if(gameState == stateMenuInicial){   // TELA DE MENU
             menu.draw(g2);
 
-
-        }if(gameState == statePlay){
-            blocoM.draw(g2);
-            jogador.draw(g2);// tem q ficar dps des blocos
-
-        }if(gameState == stateMenuclasses){
+        }
+        if(gameState == stateMenuclasses){ // TELA DE MENU CLASSES
         System.out.println("SELECIONANDO CLASSES");
         menuClass.draw(g2);
 
-        }if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha ) {
-            if(menuBatalha == null) {
-                menuBatalha = new MenuBattleScreen(this, jogador.getClassePersonagem(), inimigo);
-            }
-            menuBatalha.draw(g2);
-        }if(gameState == stateInfoBatalha){
-            menuBatalha.draw(g2);
+        }
+        if(gameState == statePlay){  // JOGANDO
+            blocoM.draw(g2);
+            jogador.draw(g2);// tem q ficar dps des blocos
         }
 
-        g2.dispose(); // Libera os recursos gráficos
+        if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha  || gameState == stateInfoBatalha  || gameState == stateInimigoAcao) { // BATALHANDO
+            if(menuBatalha == null) {
+                menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
+            }
+            menuBatalha.draw(g2);
+
+        }
+
+
+        g2.dispose();
 
     }
 

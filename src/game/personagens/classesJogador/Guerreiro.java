@@ -1,4 +1,4 @@
-package game.personagens.classes;
+package game.personagens.classesJogador;
 import game.personagens.Personagem;
 
 public class Guerreiro extends Personagem {
@@ -57,6 +57,11 @@ public class Guerreiro extends Personagem {
 
             System.out.println("Energia insuficiente para usar Investida!");
         }
+    }
+
+    @Override
+    public void usarHabilidade4() {
+
     }
 
     @Override

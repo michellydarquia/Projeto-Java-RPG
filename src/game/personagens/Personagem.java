@@ -1,6 +1,7 @@
 package game.personagens;
 
 
+import Exceptions.ExceptionAtributo;
 import java.awt.image.BufferedImage;
 
 public abstract class Personagem implements Habilidades {
@@ -9,10 +10,22 @@ public abstract class Personagem implements Habilidades {
     private int defesa;
     private int ataque;
     private int nivel;
-    private String habilidadeUsada;
+    private int experiencia = 0;
+    private int subirDeNivel;
 
+    private String habilidadeUsada;
+    private boolean usouHabilidade = false;
+    private boolean vivo = true;
     public BufferedImage imagemGrande;
 
+    public Personagem(int saude, int defesa, int ataque) {
+        this.saude = saude;
+        this.defesa = defesa;
+        this.ataque = ataque;
+        this.nivel = 1;
+
+        subirDeNivel = 200 * nivel;
+    }
 
     public void setImagemGrande(BufferedImage imagemGrande) {
         this.imagemGrande = imagemGrande;
@@ -21,51 +34,59 @@ public abstract class Personagem implements Habilidades {
         return imagemGrande;
     }
 
-//////////////////////////////////////////////////////////////////////
-//    COLOCAR O NOME DAS HABILIDADES NO LUGAR DE ATAQUE 1,2,3 ETC..
-//    String[] NomeHabilidadeS = new String[5];
 
-//    String nomeHabilidade1 = "Raio Mágico";
-//    String nomeHabilidade2 = "Tormento Mágico";
-//    String nomeHabilidade3 = "Bola de Fogo";
-//    String nomeHabilidade4 = "Escudo Arcano";
-//    String nomeHabilidade6 = "ESPECIAL";
-//    String nomeHabilidade5 = "Barreira Elemental";
-//////////////////////////////////////////////////////////////////
+    public void verificadorLimiteAtributos(String atributo, int valor){
+        switch (atributo.toLowerCase()){
+            case "saude":
 
-    public Personagem(int saude, int defesa, int ataque) {
+            case "defesa":
 
-        this.saude = saude;
-        this.defesa = defesa;
+            case "ataque":
 
-        this.ataque = ataque;
-        this.nivel = 1;
+            case "nivel":
 
+            case "experiencia":
+
+
+
+        }
 
     }
 
 
-    public void setSaude(int saude) {
 
-        if (saude < 0) {
-            this.saude = this.saude + saude;
-        }else {
-            this.saude = this.saude - saude;
+    public boolean isVivo() {
+        return vivo;
+    }
+
+    public void setVivo(boolean vivo) {
+        this.vivo = vivo;
+    }
+
+    public void alterarSaude(int valor) {
+
+        int limiteSaude = 100 * nivel;
+        int novaSaude = this.saude + valor;
+
+
+        if (novaSaude < 0) {
+            System.out.println("PERDI A BATALHA");
+        } else if (novaSaude >  limiteSaude ) {
+            this.saude = novaSaude + (limiteSaude - novaSaude);
+        } else {
+            this.saude = novaSaude;
         }
     }
 
-    public void setDefesa(int defesa) {
+    public void alterarDefesa(int defesa) {
         this.defesa = defesa;
     }
 
 
-    public void setAtaque(int ataque) {
+    public void alterarAtaque(int ataque) {
         this.ataque = ataque;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
 
     public int getDefesa() {
         return defesa;
@@ -84,6 +105,43 @@ public abstract class Personagem implements Habilidades {
         return nivel;
     }
 
+    public int getSubirDeNivel() {
+        return subirDeNivel;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(int valor) {
+
+        if(valor < 0){
+            throw new ExceptionAtributo("experiencia");
+        } else if (valor == 0) {
+            this.experiencia = 0;
+        }
+        this.experiencia += valor;
+        verificadorExperiencia(this.experiencia);
+    }
+    public void verificadorExperiencia(int experiencia) {
+
+        if(experiencia == this.subirDeNivel ){
+            setExperiencia(0);
+            this.nivel++;
+        }
+        subirDeNivel = 200 * nivel;
+
+    }
+
+
+    public boolean isUsouHabilidade() {
+        return usouHabilidade;
+    }
+
+    public void setUsouHabilidade(boolean usouHabilidade) {
+        this.usouHabilidade = usouHabilidade;
+    }
+
     public String getHabilidadeUsada() {
         return habilidadeUsada;
     }
@@ -94,6 +152,14 @@ public abstract class Personagem implements Habilidades {
         }
 
         this.habilidadeUsada = habilidadeUsada;
+    }
+
+    public void setGanhouBatalha(){
+
+
+    }
+    public void setPerdeuBatalha(){
+
     }
 
 

@@ -1,6 +1,8 @@
 package Menu;
 
 
+import Exceptions.ExceptionBatalha;
+import game.configs.BatalhaManager;
 import game.personagens.Personagem;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class MenuBattleScreen {
+public class MenuBatalha {
 
     GamePanel gp;
     Graphics2D g2;
@@ -17,69 +19,198 @@ public class MenuBattleScreen {
     public BufferedImage background;
     Personagem jogador;
     Personagem inimigo;
+    BatalhaManager batalhaManager;
 
 
 
-    public MenuBattleScreen(GamePanel gp, Personagem jogador, Personagem inimigo) {
+
+    public MenuBatalha(GamePanel gp, Personagem jogador, Personagem inimigo) {
         this.gp = gp;
         this.jogador = jogador;
         this.inimigo = inimigo;
+        this.batalhaManager = new BatalhaManager(g2,jogador, inimigo);
         getBlackGroundImage();
-        drawMensagem(g2);
+        getImagemPersonagem();
+        inimigo.getPlayerImage();
+        drawMensagem(g2, jogador);
+        drawMensagem(g2, inimigo);
 
     }
 
 
     public void draw(Graphics2D g2) {
-        this.g2 = g2;
-        int y = gp.sizeLadrilho;
 
         if (jogador == null || inimigo == null) {
-            throw new IllegalArgumentException("NÃO FOI POSSIVEL ENTRAR NA BATALHA, INIMIGO ou JOGADOR NULL");
-        }
+            throw new ExceptionBatalha("INIMIGO ou JOGADOR NULL");
+        }else {
 
-        drawBackGround(g2);
-        drawPlayerAtributos(g2, jogador, 0);
-        drawPlayerAtributos(g2, inimigo, 1);
+            this.g2 = g2;
+            int y = gp.sizeLadrilho;
 
-        try {
-            jogador.setImagemGrande(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente3.png"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        inimigo.getPlayerImage();
-        drawPersonagens(g2,inimigo, jogador);
+            drawBackGround(g2);
+            drawPlayerAtributos(g2, jogador, 0);
+            drawPlayerAtributos(g2, inimigo, 1);
+            drawImagemPersonagens(g2, inimigo, jogador);
+            drawRetanguloTranslucido(g2, 70, y + 400, 576, y + 70);
 
 
-        drawRetanguloTranslucido( g2,  70, y + 400, 576 , y + 70);
+            switch (gp.gameState) {
 
-        if (gp.gameState == gp.stateMenuBatalha) {
-            drawTituloMenu(g2);
+                case 6: // gp.stateMenuBatalha:
+                    drawTituloMenu(g2);
 
-        }
-        if (gp.gameState == gp.stateSubMenuBatalha) {
-            if (jogador.getHabilidadeUsada() == null) {
-                jogador.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+                    break;
+
+                case 7: // gp.stateSubMenuBatalha:
+                    if (jogador.getHabilidadeUsada() == null || inimigo.getHabilidadeUsada() == null) {
+                        jogador.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+                        inimigo.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+                    }
+                    drawTituloSubMenu(g2);
+                    break;
+
+                case 8: // gp.stateInfoBatalha:
+//                    batalhaManager.batalhaturno();
+                    drawInfoBatalha(g2, jogador);
+                    break;
+
+                case 9: // gp.stateInimigoAcao:
+                    if (!inimigo.isUsouHabilidade()) {
+                        inimigoUsandoHabilidade();
+
+                        inimigo.setUsouHabilidade(true); //nimigo ja atacou neste
+                    }
+                    drawInfoBatalha(g2, inimigo);
+                    break;
+
             }
-            drawTituloSubMenu(g2);
+
         }
-        if (gp.gameState == gp.stateInfoBatalha) {
-            long tempofinal = System.currentTimeMillis();
-            long tempoDecorrido = tempofinal - gp.tempoInicial ;
 
-            System.out.println( tempoDecorrido);
 
-            drawMensagem(g2);
-            if(tempoDecorrido >= 4000 ){ // ALTERAR ESSE VALOR PARA MAIS NEVAGAR APOS TERMINAR
-                gp.gameState = gp.stateMenuBatalha;
+    }
+
+
+
+    public void navigateMenuBatalha(int code) {
+
+
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+            comandomenu--;
+            if (comandomenu < 0) {
+                comandomenu = 3;
+            }
+        }
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+            comandomenu++;
+            if (comandomenu > 3) {
+                comandomenu = 0;
+            }
+        }
+
+        if (code == KeyEvent.VK_ENTER) {
+
+            switch (gp.menuBatalha.comandomenu) {
+                case 0: // HABILIDADE 1
+                    gp.gameState = gp.stateSubMenuBatalha;
+                    break;
+                case 1: // HABILIDADE 2
+                    jogador.usarHabilidade4();
+                    break;
+                case 2: // HABILIDADE 3
+                    jogador.usarHabilidade3();
+                    break;
+                case 3: // DESISTIR // Lógica para finalizar a batalha ou sair do menu
+                    gp.gameState = gp.statePlay;
+                    break;
             }
 
 
         }
 
     }
-//
+
+    public void navigateSubMenuBatalha(int code) {
+
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+            comandomenu--;
+            if (comandomenu < 0) {
+                comandomenu = 3;
+            }
+        }
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+            comandomenu++;
+            if (comandomenu > 3) {
+                comandomenu = 0;
+            }
+        }
+
+        if (code == KeyEvent.VK_ENTER) {
+            gp.tempoInicial = System.currentTimeMillis();
+            switch (gp.menuBatalha.comandomenu) {
+                case 0: // HABILIDADE 1
+
+                    jogador.usarHabilidade1(inimigo);
+
+                    gp.gameState = gp.stateInfoBatalha;
+
+
+                    break;
+                case 1: // HABILIDADE 2
+                    jogador.usarHabilidade2();
+
+                    gp.gameState = gp.stateInfoBatalha;
+
+                    break;
+                case 2: // HABILIDADE 3
+                    jogador.usarHabilidade3();
+
+                    gp.gameState = gp.stateInfoBatalha;
+
+                    break;
+                case 3: // VOLTAR
+                    gp.gameState = gp.stateMenuBatalha;
+                    break;
+            }
+
+        }
+    }
+
+
+///////////////////////////////////// DRAW E GETS ////////////////////////////////////////////////////////////////////
+
+    public void drawInfoBatalha(Graphics2D g2, Personagem personagem){
+
+        long tempofinal = System.currentTimeMillis();
+        long tempoDecorrido = tempofinal - gp.tempoInicial ;
+        System.out.println( tempoDecorrido);
+
+        int mudarestado = gp.stateInimigoAcao;
+        int segundos = 2000;
+        if(personagem == inimigo){
+
+            segundos = segundos * 2;
+            mudarestado = gp.stateMenuBatalha;
+
+        }
+
+        drawMensagem(g2, personagem);
+
+        if(tempoDecorrido >= segundos ){// ALTERAR ESSE VALOR PARA MAIS NEVAGAR APOS TERMINAR
+            gp.gameState = mudarestado;
+            inimigo.setUsouHabilidade(false);
+        }
+
+
+    }
+
+
+    public void inimigoUsandoHabilidade(){
+
+        inimigo.usarHabilidade1(jogador);
+
+
+    }
 
 
 
@@ -167,8 +298,6 @@ public class MenuBattleScreen {
             }
         }
     }
-
-
     public void getBlackGroundImage() {
         try {
             background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/Floresta.png")));
@@ -181,13 +310,19 @@ public class MenuBattleScreen {
             g2.drawImage(background, 0, 0, background.getWidth(), background.getHeight(), null);
         }
     }
+    public void drawMensagem(Graphics2D g2, Personagem personagem) {
 
+        String mensagem = personagem.getHabilidadeUsada();
 
-    public void drawMensagem(Graphics2D g2) {
-        String mensagem = jogador.getHabilidadeUsada();
         if (mensagem != null && !mensagem.isEmpty()) {
+
             g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.setColor(Color.black);
+
+            if (personagem == inimigo){
+                g2.setColor(Color.red);
+            } else {
+                g2.setColor(Color.black);
+            }
             int x = 150;
             int y = 490;
 
@@ -198,7 +333,6 @@ public class MenuBattleScreen {
 
         }
     }
-
     public void drawPlayerAtributos(Graphics g2, Personagem jogador, int indice) {
 
         int x = gp.sizeLadrilho; // 48
@@ -225,8 +359,6 @@ public class MenuBattleScreen {
 
 
     }
-
-
     public void drawRetanguloTranslucido(Graphics2D g2, int x, int y, int width, int height) {
 
         // Salva o estado atual do Graphics2D
@@ -244,8 +376,14 @@ public class MenuBattleScreen {
         // Restaura o estado original do Graphics2D
         g2.setComposite(originalComposite);
     }
-
-    public void drawPersonagens(Graphics2D g2 , Personagem inimigo , Personagem jogador){
+    public void getImagemPersonagem(){
+        try {
+            jogador.setImagemGrande(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente3.png"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void drawImagemPersonagens(Graphics2D g2 , Personagem inimigo , Personagem jogador){
 
         BufferedImage imageInimigo;
         BufferedImage imageJogador;
@@ -263,87 +401,9 @@ public class MenuBattleScreen {
 
     }
 
-    public void navigateMenuBatalha(int code) {
 
 
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            comandomenu--;
-            if (comandomenu < 0) {
-                comandomenu = 3;
-            }
-        }
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            comandomenu++;
-            if (comandomenu > 3) {
-                comandomenu = 0;
-            }
-        }
-
-        if (code == KeyEvent.VK_ENTER) {
-
-            switch (gp.menuBatalha.comandomenu) {
-                case 0: // HABILIDADE 1
-                    gp.gameState = gp.stateSubMenuBatalha;
-                    break;
-                case 1: // HABILIDADE 2
-                    jogador.usarHabilidade3();
-                    break;
-                case 2: // HABILIDADE 3
-                    jogador.usarHabilidade3();
-                    break;
-                case 3: // DESISTIR // Lógica para finalizar a batalha ou sair do menu
-                    gp.gameState = gp.statePlay;
-                    break;
-            }
-
-
-        }
-
-    }
-
-    public void navigateSubMenuBatalha(int code) {
-
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            comandomenu--;
-            if (comandomenu < 0) {
-                comandomenu = 3;
-            }
-        }
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            comandomenu++;
-            if (comandomenu > 3) {
-                comandomenu = 0;
-            }
-        }
-
-        if (code == KeyEvent.VK_ENTER) {
-            gp.tempoInicial = System.currentTimeMillis();
-            switch (gp.menuBatalha.comandomenu) {
-                case 0: // HABILIDADE 1
-                    jogador.usarHabilidade1(inimigo);
-
-                    gp.gameState = gp.stateInfoBatalha;
-
-                    break;
-                case 1: // HABILIDADE 2
-                    jogador.usarHabilidade2();
-
-                    gp.gameState = gp.stateInfoBatalha;
-
-                    break;
-                case 2: // HABILIDADE 3
-                    jogador.usarHabilidade3();
-
-                    gp.gameState = gp.stateInfoBatalha;
-
-                    break;
-                case 3: // VOLTAR
-                    gp.gameState = gp.stateMenuBatalha;
-                    break;
-            }
-
-        }
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
 

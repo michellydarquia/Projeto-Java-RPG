@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
 
     // ESTADOS DO JOGO
-    public int gameState=0;
+    public int gameState;
     public final int stateMenuInicial = 1;
     public final int statePlay = 2;
     public final int statePause =3;
@@ -37,9 +37,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int stateMenuclasses = 5;
     public final int stateMenuBatalha =6;
     public final int stateSubMenuBatalha = 7;
-    public final int stateInfoBatalha = 8;
-    public final int stateInimigoAcao = 9;
-    public final int stateinicioBatalha = 10;
+
+
 
 
 
@@ -47,9 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-
     BlocosManager blocoM = new BlocosManager(this);
-
     Jogador jogador = new Jogador(this, keyH);
     Personagem inimigo = new GoblinArcher();
 
@@ -132,22 +129,24 @@ public class GamePanel extends JPanel implements Runnable{
 
         if(gameState == stateMenuInicial){   // TELA DE MENU
             menu.draw(g2);
-
+            System.out.println("GP - MENU");
         }
         if(gameState == stateMenuclasses){ // TELA DE MENU CLASSES
-        System.out.println("SELECIONANDO CLASSES");
+        System.out.println(" GP - SELECIONANDO CLASSES");
         menuClass.draw(g2);
 
         }
         if(gameState == statePlay){  // JOGANDO
             blocoM.draw(g2);
             jogador.draw(g2);// tem q ficar dps des blocos
+            System.out.println("GP -JOGANDO");
         }
 
-        if(gameState == stateMenuBatalha || gameState == stateSubMenuBatalha  || gameState == stateInfoBatalha  || gameState == stateInimigoAcao || gameState == stateinicioBatalha )  { // BATALHANDO
+        if(gameState == stateMenuBatalha  || gameState == stateSubMenuBatalha ) {
             if(menuBatalha == null) {
                 menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
             }
+//            System.out.println("GP - BATALAHDNO");
             menuBatalha.draw(g2);
 
         }

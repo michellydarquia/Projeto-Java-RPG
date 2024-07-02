@@ -6,25 +6,27 @@ import java.awt.image.BufferedImage;
 
 public abstract class Personagem implements Habilidades {
 
-    private int saude;
-    private int defesa;
+    private int hp;
+   private int defesa;
     private int ataque;
     private int nivel;
-    private int experiencia = 0;
+    private int xp = 0;
     private int subirDeNivel;
+    private int limiteSaude;;
 
     private String habilidadeUsada;
     private boolean usouHabilidade = false;
     private boolean vivo = true;
     public BufferedImage imagemGrande;
 
-    public Personagem(int saude, int defesa, int ataque) {
-        this.saude = saude;
+    public Personagem(int hp, int defesa, int ataque) {
+        this.hp = hp;
         this.defesa = defesa;
         this.ataque = ataque;
         this.nivel = 1;
 
         subirDeNivel = 200 * nivel;
+        limiteSaude = 100 * nivel;
     }
 
     public void setImagemGrande(BufferedImage imagemGrande) {
@@ -55,27 +57,34 @@ public abstract class Personagem implements Habilidades {
 
 
 
+    public int getLimiteSaude() {
+        return limiteSaude;
+    }
+
+
     public boolean isVivo() {
         return vivo;
     }
 
     public void alterarSaude(int valor) {
-
-        int limiteSaude = 100 * nivel;
-        int novaSaude = this.saude + valor;
-
-
+        int novaSaude = this.hp + valor;
         if (novaSaude < 0) {
-            System.out.println("PERDI A BATALHA");
-            this.saude = 0;
+            System.out.println("MORREU");
+            this.hp = 0;
             vivo = false;
+            System.out.println("ESTOU VIVO?: " + isVivo());
 
         } else if (novaSaude >  limiteSaude ) {
-            this.saude = novaSaude + (limiteSaude - novaSaude);
+            this.hp = novaSaude + (limiteSaude - novaSaude);
         } else {
-            this.saude = novaSaude;
+            this.hp = novaSaude;
         }
     }
+
+    public void setDefesa(int defesa) {
+        this.defesa = defesa;
+    }
+
 
     public void alterarDefesa(int defesa) {
         this.defesa = defesa;
@@ -92,7 +101,7 @@ public abstract class Personagem implements Habilidades {
     }
 
     public int getSaude() {
-        return saude;
+        return hp;
     }
 
 
@@ -108,24 +117,24 @@ public abstract class Personagem implements Habilidades {
         return subirDeNivel;
     }
 
-    public int getExperiencia() {
-        return experiencia;
+    public int getXp() {
+        return xp;
     }
 
-    public void setExperiencia(int valor) {
+    public void setXp(int valor) {
 
         if(valor < 0){
             throw new ExceptionAtributo("experiencia");
         } else if (valor == 0) {
-            this.experiencia = 0;
+            this.xp = 0;
         }
-        this.experiencia += valor;
-        verificadorExperiencia(this.experiencia);
+        this.xp += valor;
+        verificadorExperiencia(this.xp);
     }
     public void verificadorExperiencia(int experiencia) {
 
         if(experiencia == this.subirDeNivel ){
-            setExperiencia(0);
+            setXp(0);
             this.nivel++;
         }
         subirDeNivel = 200 * nivel;
@@ -133,13 +142,6 @@ public abstract class Personagem implements Habilidades {
     }
 
 
-    public boolean isUsouHabilidade() {
-        return usouHabilidade;
-    }
-
-    public void setUsouHabilidade(boolean usouHabilidade) {
-        this.usouHabilidade = usouHabilidade;
-    }
 
     public String getHabilidadeUsada() {
         return habilidadeUsada;
@@ -153,12 +155,10 @@ public abstract class Personagem implements Habilidades {
         this.habilidadeUsada = habilidadeUsada;
     }
 
-    public void setGanhouBatalha(){
-
-
-    }
-    public void setPerdeuBatalha(){
-
+    public void RedefinirAtributos(){
+        this.hp = hp * nivel;
+        this.ataque =  ataque * nivel;
+        this.defesa = defesa * nivel;
     }
 
 
@@ -169,7 +169,7 @@ public abstract class Personagem implements Habilidades {
         return "ATRIBUTOS PERSONAGEM\n" +
                 "Nível: " + getNivel() + "\n" +
                 " " + "\n" +
-                "Saúde: " + getSaude() + "\n" +
+                ": " +   "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
     }

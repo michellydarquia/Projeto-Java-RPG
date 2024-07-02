@@ -1,94 +1,63 @@
 package game.personagens.classesJogador;
+
 import game.personagens.Personagem;
 
 public class Guerreiro extends Personagem {
 
     private int energia;
 
-
     public Guerreiro() {
-        // iniciando com esses atributos
-        super(100, 17, 15); // ataque
-
+        super(100, 17, 15); // Ataque específico do Guerreiro
         energia = 100;
-
-
-    }
-
-    @Override
-    public void usarHabilidade1(Personagem inimigo) {
-        // Ataque Físico: Dano Moderado, não consome energia
-
-
-
-        if (energia < 10) {
-
-            System.out.println("Energia insuficiente para usar Ataque Físico!");
-
-
-        } else {
-            setEnergia(-10);
-            System.out.println("Guerreiro usa Ataque Físico!");
-
-        }
-    }
-
-
-    @Override
-    public void usarHabilidade2() {
-        // Proteção: Aumenta Defesa Temporária, recupera energia
-
-
-        setEnergia(20);
-        System.out.println("Guerreiro usa Proteção! Defesa aumentada temporariamente e energia recuperada.");
-    }
-
-    @Override
-    public void usarHabilidade3() {
-        // Investida: Ataque Poderoso com Redução de Defesa do Alvo, consome energia
-
-
-
-        if (energia >= 30) {
-            setEnergia(-30);
-
-            System.out.println("Guerreiro usa Investida! Ataque poderoso com redução de defesa do alvo.");
-        } else {
-
-            System.out.println("Energia insuficiente para usar Investida!");
-        }
-    }
-
-    @Override
-    public void usarHabilidade4() {
-
-    }
-
-    @Override
-    public void getPlayerImage() {
-
-    }
-
-
-    public void setEnergia(int energia) {
-
-            this.energia +=  energia;
-
     }
 
     public int getEnergia() {
         return energia;
     }
 
-    public String imprimiratributos() {
+    public void setEnergia(int energia) {
+        this.energia = energia;
+    }
 
-        return "ATRIBUTOS PERSONAGEM\n" +
-                "Nível: " + getNivel() + "\n" +
-                " " + "\n" +
+    @Override
+    public void usarHabilidade1(Personagem inimigo) {
+        if (energia >= 20) {
+            setHabilidadeUsada("Guerreiro usa Golpe Furioso! \nDano aplicado (+20).");
+            inimigo.alterarSaude(-20);
+            energia -= 20;
+        } else {
+            setHabilidadeUsada("Energia insuficiente para usar Golpe Furioso!");
+        }
+    }
+
+    @Override
+    public void usarHabilidade2(Personagem inimigo) {
+        setHabilidadeUsada("Guerreiro se prepara para o próximo ataque!");
+        setDefesa(10);
+    }
+
+    @Override
+    public void usarHabilidade3(Personagem inimigo) {
+        setHabilidadeUsada("Guerreiro utiliza Impacto Brutal! \nDano aplicado (+30).");
+        inimigo.alterarSaude(-30);
+    }
+
+    @Override
+    public void usarHabilidade4(Personagem inimigo) {
+        setHabilidadeUsada("Guerreiro se concentra e recupera energia!");
+        energia += 20;
+    }
+
+    @Override
+    public void getPlayerImage() {
+    }
+
+    public String imprimiratributos() {
+        return "Arqueiro  - Nível: " + getNivel() + "  " + getXp() + "/" + getSubirDeNivel() + "\n" +
                 "Energia: " + getEnergia() + "\n" +
-                "Saúde: " + getSaude() + "\n" +
+                "    " +                "\n" +
+                "    " +                "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
     }
-
 }

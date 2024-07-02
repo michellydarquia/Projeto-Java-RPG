@@ -28,7 +28,6 @@ public class Mago extends Personagem {
         if (mana >= 20) {
 
             setHabilidadeUsada("Mago usou Raio Mágico! \nDano aplicado ( + 40 ).");
-            setExperiencia(100);
             inimigo.alterarSaude(-40);
 
         } else {
@@ -39,21 +38,20 @@ public class Mago extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2() {
+    public void usarHabilidade2(Personagem inimigo) {
 
         if (mana < 40) {
             setHabilidadeUsada("Mana insuficiente para usar Bola de Fogo!");
 
         } else {
             setMana(-40);
-            setExperiencia(100);
             setHabilidadeUsada("Mago usa Bola de Fogo! \nDano aplicado ( + 20 ).");
         }
     }
 
 
     @Override
-    public void usarHabilidade3() {// Escudo Arcano, +20 mana
+    public void usarHabilidade3(Personagem inimigo) {// Escudo Arcano, +20 mana
         alterarDefesa(20);
         setMana(30);
         setHabilidadeUsada("Mago ataca com escudo arcano! \nDefesa aumentada  ( + 20 ) \nMana recuperada (+ 30 ) ");
@@ -62,7 +60,7 @@ public class Mago extends Personagem {
     }
 
     @Override
-    public void usarHabilidade4() {
+    public void usarHabilidade4(Personagem inimigo) {
         alterarSaude(50);
 
     }
@@ -74,10 +72,10 @@ public class Mago extends Personagem {
 
     public String imprimiratributos() {
 
-        return "MAGO  - Nível: " + getNivel() + "  " + getExperiencia() + "/" + getSubirDeNivel() + "\n" +
+        return "MAGO  - Nível: " + getNivel() + "  " + getXp() + "/" + getSubirDeNivel() + "\n" +
                 "Mana: " + getMana() + "\n" +
                 "    " +                "\n" +
-                "Saúde: " + getSaude() + "\n" +
+                "    " +                "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
     }

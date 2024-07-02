@@ -39,22 +39,23 @@ public class GoblinArcher extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2() { // Ataque Rápido, causa dano duplo
+    public void usarHabilidade2(Personagem jogador) { // Ataque Rápido, causa dano duplo
 
         setHabilidadeUsada("Goblin Archer usa Ataque Rápido!  \nCausa dano duplo.");
+        jogador.alterarSaude(23);
 
 
     }
 
     @Override
-    public void usarHabilidade3() { // Esquiva Ágil, aumenta a agilidade temporariamente
+    public void usarHabilidade3(Personagem jogador) { // Esquiva Ágil, aumenta a agilidade temporariamente
         setHabilidadeUsada("Goblin Archer usa Defesa Ágil! \nDefesa aumentada temporariamente.");
         alterarDefesa(5);
 
     }
 
     @Override
-    public void usarHabilidade4() {
+    public void usarHabilidade4(Personagem jogador) {
 
     }
 
@@ -62,7 +63,7 @@ public class GoblinArcher extends Personagem {
 
         return "ATRIBUTOS GOBLIN - Nível: " + getNivel() + "\n" +
                 " " + "\n" +
-                "Saúde: " + getSaude() + "\n" +
+                " " + "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
     }

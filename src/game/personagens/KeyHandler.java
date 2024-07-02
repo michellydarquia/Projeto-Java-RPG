@@ -1,6 +1,7 @@
 package game.personagens;
 
 import Menu.GamePanel;
+import Menu.MenuBatalha;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,6 +13,7 @@ public class KeyHandler implements KeyListener {
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
+
     }
 
     @Override
@@ -52,7 +54,7 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
 
             } if(code == KeyEvent.VK_I ){
-                gp.gameState = gp.stateinicioBatalha;
+                gp.gameState = gp.stateMenuBatalha;
             }
 
         }

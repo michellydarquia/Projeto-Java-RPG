@@ -1,19 +1,19 @@
 package game.personagens;
 
-import gui.GamePanel;
+import Menu.GamePanel;
+import Menu.MenuBatalha;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, inventarioAberto;
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
+
     }
 
     @Override
@@ -26,54 +26,39 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode(); // RETORNA UM NUMERO A CADA TECLA PRESSIONADA, PESQUISAR EXAMPLES OF KEYCODE PARA SABER MAIS
 
 
-        if(gp.gameState == gp.menuinicialState) {
+        // Conferindo qual o estado do jogo para pode trazer as configuraçoes especificas do teclado de cada menu
+        if (gp.gameState == gp.stateMenuInicial) {
+            gp.menu.navigateMenu1(code);
 
-            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-                gp.uiM.comandomenu--;
-                if (gp.uiM.comandomenu == -1 ) {
-                    gp.uiM.comandomenu = 2;
-                }
+        } else if (gp.gameState == gp.stateMenuclasses) {
+            gp.menuClass.navigateMenuClasses(code);
+
+        } else if (gp.gameState == gp.stateMenuBatalha) {
+            gp.menuBatalha.navigateMenuBatalha(code);
+
+        } else if (gp.gameState == gp.stateSubMenuBatalha) {
+            gp.menuBatalha.navigateSubMenuBatalha(code);
+
+        } else {
+
+            if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
+                upPressed = true;
             }
-            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-                gp.uiM.comandomenu++;
-                if (gp.uiM.comandomenu == 3 ) {
-                gp.uiM.comandomenu = 0;
-                }
+            if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN ){
+                downPressed = true;
             }
-            if (code == KeyEvent.VK_ENTER) {
-                int escolha = gp.uiM.comandomenu;
+            if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT ){
+                leftPressed = true;
+            }
+            if(code == KeyEvent.VK_D ||code == KeyEvent.VK_RIGHT ){
+                rightPressed = true;
 
-                if (escolha == 0 ) { //JOGAR
-
-                    //IMPLEMENTAR MINI MENU DE ESCOLHA DA CLASSE DO PERSONAGEM
-
-                    gp.gameState = gp.playState;
-
-                }if (escolha == 1 ) { // CARREGAR O MESMO JOGO
-                    gp.gameState = gp.playState;
-
-
-                }if (escolha == 2 ) { // QUIT
-                    System.exit(0);
-
-                }
-
+            } if(code == KeyEvent.VK_I ){
+                gp.gameState = gp.stateMenuBatalha;
             }
 
         }
 
-        if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
-            upPressed = true;
-        }
-        if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN ){
-            downPressed = true;
-        }
-        if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT ){
-            leftPressed = true;
-        }
-        if(code == KeyEvent.VK_D ||code == KeyEvent.VK_RIGHT ){
-            rightPressed = true;
-        }
 
     }
 
@@ -95,9 +80,11 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_D ||code == KeyEvent.VK_RIGHT ){
             rightPressed = false;
+        }if(code == KeyEvent.VK_I ){
+            inventarioAberto = false;
         }
 
-
-
     }
+
+
 }

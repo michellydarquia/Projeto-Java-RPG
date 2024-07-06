@@ -64,7 +64,6 @@ public class Jogador {
     }
 
     public void atualizar() {
-
         if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed){
             moverJogador();
             //MUDANDO A IMAGEM A CADA MOVIMENTO
@@ -74,7 +73,6 @@ public class Jogador {
                 spriteCounter = 0;
             }
         }
-
     }
 
     public void moverJogador(){
@@ -98,8 +96,10 @@ public class Jogador {
         System.out.println(" cordenadas x: "+ x );
         System.out.println(" cordenadas y: "+ y );
 
-        verificarTransicaoMapa();
-        verificarBordasMapa();
+//        gp.blocoM.verificarTransicaoMapa(x,y);
+//        verificarTransicaoMapa();
+        gp.blocoM.verificarBordasMapa();
+
     }
 
 
@@ -124,8 +124,37 @@ public class Jogador {
         g2.drawImage(image, x, y, gp.sizeLadrilho, gp.sizeLadrilho, null);
     }
 
+    private void definirPeculiaridadesMapa() {
+        if (gp.blocoM.getMapaAtual().equals("/maps/map01.txt")) {
+            peculiaridadesMapa01();
+        } else if (gp.blocoM.getMapaAtual().equals("/maps/map02.txt")) {
+//            peculiaridadesMapa02();
+        } else if (gp.blocoM.getMapaAtual().equals("/maps/map03.txt")) {
+//            peculiaridadesMapa03();
+        }
+    }
 
-    public Personagem getClassePersonagem() {
+    private void peculiaridadesMapa01() {
+        int jogadorX = Math.floorDiv(x, gp.sizeLadrilho);
+        int jogadorY = Math.floorDiv(y, gp.sizeLadrilho);
+        if (jogadorX < 0 || jogadorX > 14) { // borda esqueda e direita
+            if (x > 16) {
+                x = 16;
+            } else {
+                x = 1;
+            }
+
+        } else if (y < 0 || y > 500) { // borda cima e baixo
+            if (y > 500) {
+                y = 500;
+            } else {
+                y = 0;
+            }
+        }
+    }
+
+
+        public Personagem getClassePersonagem() {
         return classePersonagem;
     }
 
@@ -139,36 +168,59 @@ public class Jogador {
     }
 
     public void verificarTransicaoMapa() {
-        Point coordenadas = new Point(x , y );
+        // Verifica se o jogador está na área específica para o mapa 1
+        if(gp.blocoM.getMapaAtual().equals("/maps/map01.txt") ){
+        int p = 0;
+        int o = 0;
+        if (y < -44) {
+            System.out.println("CAMINHO PARA MAPA 02");
+            p = 336;
+            o = -36;
+        }
+        Point coordenadas = new Point(p, o);
+
+        // Verifica se o jogador atingiu a área de transição para o mapa 3
         if (gp.blocoM.pontosTransicao.containsKey(coordenadas)) {
             System.out.println("ENTREI NA TRANSIÇÃO");
-            gp.blocoM.trocarMapa(coordenadas);
+            gp.blocoM.switchMap("/maps/map03.txt");
+            x = 324;
+            y = -8;
         }
+        }
+
 
     }
 
     public void verificarBordasMapa() {
-        Point coordenadas = new Point(x , y );
 
-        if (x < 20 || x > 700 ) { // borda esqueda e direita
-            if(x > 700){
-                x=700;
-            }else {
-                x=20;
-            }
+        boolean colisaobordas = true;
 
-        }else if (y < 0 || y > 500 ){ // borda cima e baixo
-            if(y > 500) {
-                y = 500;
-            }else {
-                y = 0;
+        if(x >= 324 && x <= 356 && y < 0 ){
+            System.out.println("CAMINHO PARA MAPA 02");
+            colisaobordas = false;
+        }
+        if(y >= 252 && y <= 284 && x >= 704 ){
+            System.out.println("CAMINHO PARA MAPA 03");
+            colisaobordas = false;
+        }
+
+        if(colisaobordas) {
+            if (x < 20 || x > 700) { // borda esqueda e direita
+                if (x > 700) {
+                    x = 700;
+                } else {
+                    x = 20;
+                }
+
+            } else if (y < 0 || y > 500) { // borda cima e baixo
+                if (y > 500) {
+                    y = 500;
+                } else {
+                    y = 0;
+                }
             }
         }
-        if(x > 332 && x < 356 && y == 0){
-            System.out.println("CXAMINHO");
-            x=336;
-            y=-4;
-        }
+
 
     }
 

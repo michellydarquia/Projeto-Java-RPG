@@ -1,10 +1,10 @@
 package Menu;
 
-import game.map.BlocosManager;
+import game.map.MapManager;
 import game.personagens.KeyHandler;
 import game.personagens.Jogador;
 import game.personagens.Personagem;
-import game.personagens.enemies.GoblinArcher;
+import game.personagens.enemies.Goblin;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -37,7 +37,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int stateMenuclasses = 5;
     public final int stateMenuBatalha =6;
     public final int stateSubMenuBatalha = 7;
-
+    public final int stateCarregarMapa = 8;
+    public final int statePlayMapa02 = 9;
+    public final int statePlayMapa03 = 10;
 
 
 
@@ -46,9 +48,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-    Jogador jogador = new Jogador(this, keyH);
-    public BlocosManager blocoM = new BlocosManager(this);
-    Personagem inimigo = new GoblinArcher();
+    public Jogador jogador = new Jogador(this, keyH);
+    public MapManager blocoM = new MapManager(this);
+    Personagem inimigo = new Goblin();
 
     public Menu menu = new Menu(this);
     public MenuClasses menuClass = new MenuClasses(this);
@@ -136,6 +138,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         }
         if(gameState == statePlay){  // JOGANDO
+
             blocoM.draw(g2);
             jogador.draw(g2);
         }
@@ -154,8 +157,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-    public void trocarMapa(Point coordenadas) {
-        blocoM.trocarMapa(coordenadas);
-        repaint(); // Força a chamada de paintComponent
-    }
+//    public void trocarMapa(Point coordenadas) {
+//        blocoM.trocarMapa(coordenadas);
+//
+//        System.out.println("FORÇANDO, SAINDO DO TROCARMAPA GP" );
+//    }
 }

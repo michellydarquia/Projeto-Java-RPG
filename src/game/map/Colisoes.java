@@ -7,7 +7,7 @@ public class Colisoes {
 
     GamePanel gp;
     Jogador jogador;
-    BlocosManager blocos;
+    MapManager blocos;
 
     public Colisoes(){
 

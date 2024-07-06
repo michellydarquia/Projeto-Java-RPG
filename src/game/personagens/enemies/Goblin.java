@@ -7,11 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class GoblinArcher extends Personagem {
+public class Goblin extends Personagem {
 
     private int acumulo;
 
-    public GoblinArcher() {
+    public Goblin() {
         super(100, 9 , 18  );
 
         getPlayerImage();

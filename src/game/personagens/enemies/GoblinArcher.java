@@ -9,14 +9,13 @@ import java.util.Objects;
 
 public class GoblinArcher extends Personagem {
 
-
+    private int acumulo;
 
     public GoblinArcher() {
         super(100, 9 , 18  );
 
         getPlayerImage();
-        System.out.println(imprimiratributos());
-        System.out.println(getImagemGrande());
+        acumulo = 0;
 
     }
 
@@ -32,31 +31,32 @@ public class GoblinArcher extends Personagem {
     @Override
     public void usarHabilidade1(Personagem jogador) { // Flecha Venenosa, causa dano e envenena
 
-        setHabilidadeUsada("Goblin Archer usa Flecha Venenosa! \nCausa dano e envenena o alvo ( -20 ). ");
-        System.out.println(getHabilidadeUsada());
+        setStringHabilidadeUsada("Goblin Archer usa Flecha Venenosa! \nCausa dano e envenena o alvo ( -20 ). ");
         jogador.alterarSaude(-30);
-
+        acumulo += 10;
     }
 
     @Override
     public void usarHabilidade2(Personagem jogador) { // Ataque Rápido, causa dano duplo
 
-        setHabilidadeUsada("Goblin Archer usa Ataque Rápido!  \nCausa dano duplo.");
-        jogador.alterarSaude(23);
-
-
+        setStringHabilidadeUsada("Goblin Archer usa Ataque Rápido!  \nCausa dano duplo ( - 25 )");
+        jogador.alterarSaude(-25);
+        acumulo += 10;
     }
 
     @Override
     public void usarHabilidade3(Personagem jogador) { // Esquiva Ágil, aumenta a agilidade temporariamente
-        setHabilidadeUsada("Goblin Archer usa Defesa Ágil! \nDefesa aumentada temporariamente.");
+        setStringHabilidadeUsada("Goblin Archer usa Defesa Ágil! \nDefesa aumentada ( +5 )).");
         alterarDefesa(5);
-
+        acumulo += 5;
     }
 
     @Override
     public void usarHabilidade4(Personagem jogador) {
-
+        if(acumulo == 50) {
+            setStringHabilidadeUsada("Goblin Archer usa Golpe Fatal! \nDano causado ( - 60 )).");
+            jogador.alterarSaude(-60);
+        }
     }
 
     public String imprimiratributos() {

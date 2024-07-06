@@ -46,8 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-    BlocosManager blocoM = new BlocosManager(this);
     Jogador jogador = new Jogador(this, keyH);
+    public BlocosManager blocoM = new BlocosManager(this);
     Personagem inimigo = new GoblinArcher();
 
     public Menu menu = new Menu(this);
@@ -129,17 +129,15 @@ public class GamePanel extends JPanel implements Runnable{
 
         if(gameState == stateMenuInicial){   // TELA DE MENU
             menu.draw(g2);
-            System.out.println("GP - MENU");
         }
         if(gameState == stateMenuclasses){ // TELA DE MENU CLASSES
-        System.out.println(" GP - SELECIONANDO CLASSES");
+
         menuClass.draw(g2);
 
         }
         if(gameState == statePlay){  // JOGANDO
             blocoM.draw(g2);
-            jogador.draw(g2);// tem q ficar dps des blocos
-            System.out.println("GP -JOGANDO");
+            jogador.draw(g2);
         }
 
         if(gameState == stateMenuBatalha  || gameState == stateSubMenuBatalha ) {
@@ -156,5 +154,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-
+    public void trocarMapa(Point coordenadas) {
+        blocoM.trocarMapa(coordenadas);
+        repaint(); // Força a chamada de paintComponent
+    }
 }

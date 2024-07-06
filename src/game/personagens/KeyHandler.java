@@ -34,10 +34,17 @@ public class KeyHandler implements KeyListener {
             gp.menuClass.navigateMenuClasses(code);
 
         } else if (gp.gameState == gp.stateMenuBatalha) {
-            gp.menuBatalha.navigateMenuBatalha(code);
+            if(gp.menuBatalha.turnoDojogadorVez) {
+                gp.menuBatalha.navigateMenuBatalha(code);
+            }else {
+                System.out.println("DENTRO DO ELSE DO KEYHANDLER");
+            }
 
         } else if (gp.gameState == gp.stateSubMenuBatalha) {
-            gp.menuBatalha.navigateSubMenuBatalha(code);
+            if(gp.menuBatalha.turnoDojogadorVez) {
+                gp.menuBatalha.navigateSubMenuBatalha(code);
+            }
+
 
         } else {
 

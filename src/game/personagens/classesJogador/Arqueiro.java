@@ -22,35 +22,49 @@ public class Arqueiro extends Personagem {
     @Override
     public void usarHabilidade1(Personagem inimigo) {
         if (flechas >= 5) {
-            setHabilidadeUsada("Arqueiro usa Flecha Veloz! \nDano aplicado (+15).");
+            setStringHabilidadeUsada("Arqueiro usa Flecha Veloz! \nDano aplicado (+15).");
             inimigo.alterarSaude(-15);
             flechas -= 5;
+            setUsouHabilidade(true);
         } else {
-            setHabilidadeUsada("Flechas insuficientes para usar Flecha Veloz!");
+            setStringHabilidadeUsada("Flechas insuficientes para usar Flecha Veloz! \nEscolha outra habilidade");
+            setUsouHabilidade(false);
         }
     }
 
     @Override
     public void usarHabilidade2(Personagem inimigo) {
         if (flechas >= 10) {
-            setHabilidadeUsada("Arqueiro usa Chuva de Flechas! \nDano aplicado (+30).");
+            setStringHabilidadeUsada("Arqueiro usa Chuva de Flechas! \nDano aplicado (+30).");
             inimigo.alterarSaude(-30);
             flechas -= 10;
+            setUsouHabilidade(true);
         } else {
-            setHabilidadeUsada("Flechas insuficientes para usar Chuva de Flechas!");
+            setStringHabilidadeUsada("Flechas insuficientes para usar Chuva de Flechas! \nEscolha outra habilidade");
+            setUsouHabilidade(false);
         }
     }
 
     @Override
     public void usarHabilidade3(Personagem inimigo) {
         setDefesa(10);
-        setHabilidadeUsada("Arqueiro prepara Postura Defensiva! \nDefesa aumentada (+10).");
+        flechas += 10;
+        setStringHabilidadeUsada("Arqueiro prepara Postura Defensiva! \nDefesa aumentada (+10).");
+        setUsouHabilidade(true);
     }
 
     @Override
     public void usarHabilidade4(Personagem inimigo) {
-        setHabilidadeUsada("Arqueiro usa Tiro Certeiro! \nDano aplicado (+25).");
-        inimigo.alterarSaude(-25);
+
+        if (flechas >= 60) {
+            setStringHabilidadeUsada("Arqueiro usa Tiro Certeiro! \nDano aplicado (+25).");
+            inimigo.alterarSaude(-25);
+            flechas -= 60;
+            setUsouHabilidade(true);
+        }else {
+            setStringHabilidadeUsada("Flechas insuficientes para usar Tiro Certeiro! \nEscolha outra habilidade");
+            setUsouHabilidade(false);
+        }
     }
 
     @Override

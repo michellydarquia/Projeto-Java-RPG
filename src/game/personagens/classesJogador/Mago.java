@@ -9,7 +9,7 @@ public class Mago extends Personagem {
 
     public Mago() {
         super(100, 9, 17);
-        mana = 100 ;
+        mana = 80 ;
 
     }
 
@@ -27,13 +27,14 @@ public class Mago extends Personagem {
 
         if (mana >= 20) {
 
-            setHabilidadeUsada("Mago usou Raio Mágico! \nDano aplicado ( + 40 ).");
+            setStringHabilidadeUsada("Mago usou Raio Mágico! \nDano aplicado ( + 40 ).");
             inimigo.alterarSaude(-40);
+            setUsouHabilidade(true);
 
         } else {
             setMana(-20);
-            setHabilidadeUsada("Mana insuficiente para usar Raio Mágico!");
-
+            setStringHabilidadeUsada("Mana insuficiente para usar Raio Mágico!");
+            setUsouHabilidade(false);
         }
     }
 
@@ -41,11 +42,15 @@ public class Mago extends Personagem {
     public void usarHabilidade2(Personagem inimigo) {
 
         if (mana < 40) {
-            setHabilidadeUsada("Mana insuficiente para usar Bola de Fogo!");
+            setStringHabilidadeUsada("Mana insuficiente para usar Bola de Fogo!");
+            setUsouHabilidade(false);
 
         } else {
             setMana(-40);
-            setHabilidadeUsada("Mago usa Bola de Fogo! \nDano aplicado ( + 20 ).");
+            inimigo.alterarSaude(-20);
+            setStringHabilidadeUsada("Mago usa Bola de Fogo! \nDano aplicado ( + 20 ).");
+            setUsouHabilidade(true);
+
         }
     }
 
@@ -54,8 +59,8 @@ public class Mago extends Personagem {
     public void usarHabilidade3(Personagem inimigo) {// Escudo Arcano, +20 mana
         alterarDefesa(20);
         setMana(30);
-        setHabilidadeUsada("Mago ataca com escudo arcano! \nDefesa aumentada  ( + 20 ) \nMana recuperada (+ 30 ) ");
-
+        setStringHabilidadeUsada("Mago usa com escudo arcano! \nDefesa aumentada  ( + 20 ) \nMana recuperada (+ 30 ) ");
+        setUsouHabilidade(true);
 
     }
 

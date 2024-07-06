@@ -31,6 +31,10 @@ public class Jogador {
     }
 
 
+
+
+
+
     public void setDefaultValues() {
         x = 100;
         y = 100;
@@ -74,6 +78,9 @@ public class Jogador {
     }
 
     public void moverJogador(){
+
+//        iniciarBatalhaGoblinArvores();
+
         if (keyH.upPressed) {
             direcao = "up";
             y -= speed;
@@ -88,6 +95,11 @@ public class Jogador {
             x += speed;
         }
 
+        System.out.println(" cordenadas x: "+ x );
+        System.out.println(" cordenadas y: "+ y );
+
+        verificarTransicaoMapa();
+        verificarBordasMapa();
     }
 
 
@@ -126,6 +138,39 @@ public class Jogador {
 
     }
 
+    public void verificarTransicaoMapa() {
+        Point coordenadas = new Point(x , y );
+        if (gp.blocoM.pontosTransicao.containsKey(coordenadas)) {
+            System.out.println("ENTREI NA TRANSIÇÃO");
+            gp.blocoM.trocarMapa(coordenadas);
+        }
+
+    }
+
+    public void verificarBordasMapa() {
+        Point coordenadas = new Point(x , y );
+
+        if (x < 20 || x > 700 ) { // borda esqueda e direita
+            if(x > 700){
+                x=700;
+            }else {
+                x=20;
+            }
+
+        }else if (y < 0 || y > 500 ){ // borda cima e baixo
+            if(y > 500) {
+                y = 500;
+            }else {
+                y = 0;
+            }
+        }
+        if(x > 332 && x < 356 && y == 0){
+            System.out.println("CXAMINHO");
+            x=336;
+            y=-4;
+        }
+
+    }
 
 }
 

@@ -22,30 +22,43 @@ public class Guerreiro extends Personagem {
     @Override
     public void usarHabilidade1(Personagem inimigo) {
         if (energia >= 20) {
-            setHabilidadeUsada("Guerreiro usa Golpe Furioso! \nDano aplicado (+20).");
+            setStringHabilidadeUsada("Guerreiro usa Golpe Furioso! \nDano aplicado (+20).");
             inimigo.alterarSaude(-20);
             energia -= 20;
+            setUsouHabilidade(true);
         } else {
-            setHabilidadeUsada("Energia insuficiente para usar Golpe Furioso!");
+            setStringHabilidadeUsada("Energia insuficiente para usar Golpe Furioso! \nEscolha outra habilidade ");
+            setUsouHabilidade(false);
         }
     }
 
     @Override
     public void usarHabilidade2(Personagem inimigo) {
-        setHabilidadeUsada("Guerreiro se prepara para o próximo ataque!");
-        setDefesa(10);
+        setStringHabilidadeUsada("Guerreiro se concentra e recupera energia!");
+        energia += 20;
+
+        setUsouHabilidade(true);
     }
 
     @Override
     public void usarHabilidade3(Personagem inimigo) {
-        setHabilidadeUsada("Guerreiro utiliza Impacto Brutal! \nDano aplicado (+30).");
-        inimigo.alterarSaude(-30);
+        if (energia >= 15) {
+            setStringHabilidadeUsada("Guerreiro usa Impacto Brutal! \nDano aplicado (+30).");
+            inimigo.alterarSaude(-30);
+            setUsouHabilidade(true);
+        }else {
+            setStringHabilidadeUsada("Energia insuficiente para usar Impacto Brutal! \nEscolha outra habilidade ");
+            setUsouHabilidade(false);
+        }
     }
 
     @Override
     public void usarHabilidade4(Personagem inimigo) {
-        setHabilidadeUsada("Guerreiro se concentra e recupera energia!");
-        energia += 20;
+        if(energia > 50){
+            setStringHabilidadeUsada("Guerreiro se prepara para o próximo ataque!");
+            setDefesa(10);
+        }
+
     }
 
     @Override

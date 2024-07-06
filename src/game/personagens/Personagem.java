@@ -14,7 +14,7 @@ public abstract class Personagem implements Habilidades {
     private int subirDeNivel;
     private int limiteSaude;;
 
-    private String habilidadeUsada;
+    private String stringHabilidadeUsada;
     private boolean usouHabilidade = false;
     private boolean vivo = true;
     public BufferedImage imagemGrande;
@@ -69,10 +69,8 @@ public abstract class Personagem implements Habilidades {
     public void alterarSaude(int valor) {
         int novaSaude = this.hp + valor;
         if (novaSaude < 0) {
-            System.out.println("MORREU");
             this.hp = 0;
             vivo = false;
-            System.out.println("ESTOU VIVO?: " + isVivo());
 
         } else if (novaSaude >  limiteSaude ) {
             this.hp = novaSaude + (limiteSaude - novaSaude);
@@ -81,8 +79,15 @@ public abstract class Personagem implements Habilidades {
         }
     }
 
-    public void setDefesa(int defesa) {
-        this.defesa = defesa;
+    public void setDefesa(int valor) {
+        int novaDefesa = this.defesa + valor;
+        int limiteDefesa = 30;
+
+        if (novaDefesa >  limiteDefesa ) {
+            this.defesa = novaDefesa + (limiteDefesa - novaDefesa);
+        } else {
+            this.defesa = valor;
+        }
     }
 
 
@@ -143,16 +148,26 @@ public abstract class Personagem implements Habilidades {
 
 
 
-    public String getHabilidadeUsada() {
-        return habilidadeUsada;
+    public boolean isUsouHabilidade() {
+        return usouHabilidade;
     }
 
-    public void setHabilidadeUsada(String habilidadeUsada) {
-        if (this.habilidadeUsada == null) {
+    public void setUsouHabilidade(boolean usouHabilidade) {
+        this.usouHabilidade = usouHabilidade;
+    }
+
+
+
+    public String getStringHabilidadeUsada() {
+        return stringHabilidadeUsada;
+    }
+
+    public void setStringHabilidadeUsada(String habilidadeUsada) {
+        if (this.stringHabilidadeUsada == null) {
             habilidadeUsada = ""; // Garantir que a mensagem não seja nula
         }
 
-        this.habilidadeUsada = habilidadeUsada;
+        this.stringHabilidadeUsada = habilidadeUsada;
     }
 
     public void RedefinirAtributos(){

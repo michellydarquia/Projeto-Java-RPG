@@ -55,26 +55,20 @@ public class Menu {
         g2.setFont(menuFont);
 
         // Ajustando a posição das opções do menu
-        String texto2 = "new game";
+        String texto2 = "Jogar";
         int x2 = getXdoCentroTexto(texto2, g2);
-        g2.drawString(texto2, x2, y + 120);
+        g2.drawString(texto2, x2, y + 180);
         if (comandomenu==0){
-            g2.drawString(">", x2 - gp.sizeLadrilho,y+120);
-        }
-
-        String texto3 = "load game";
-        int x3 = getXdoCentroTexto(texto3, g2);
-        g2.drawString(texto3, x3, y + 180);
-        if (comandomenu==1){
             g2.drawString(">", x2 - gp.sizeLadrilho,y+180);
         }
 
-        String texto4 = "quit";
-        int x4 = getXdoCentroTexto(texto4, g2);
-        g2.drawString(texto4, x4, y + 240);
-        if (comandomenu==2){
-            g2.drawString(">", x2 - gp.sizeLadrilho,y+240);
+        String texto3 = "Sair";
+        int x3 = getXdoCentroTexto(texto3, g2);
+        g2.drawString(texto3, x3, y + 220);
+        if (comandomenu==1){
+            g2.drawString(">", x2 - gp.sizeLadrilho,y+220);
         }
+
     }
     public void drawBack(Graphics g2) {
         if (background  != null) {
@@ -94,12 +88,12 @@ public class Menu {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             comandomenu--;
             if (comandomenu < 0) {
-                comandomenu = 2;
+                comandomenu = 1;
             }
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             comandomenu++;
-            if (comandomenu > 2) {
+            if (comandomenu > 1) {
                 comandomenu = 0;
             }
         }

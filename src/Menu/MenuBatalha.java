@@ -27,6 +27,7 @@ public class MenuBatalha {
     public final int stateBatalhaInfoJogador = 3;
     public final int stateBatalhaInfoInimigo = 4;
     public final int stateBatalhaFinalizado = 5;
+    public final int stateBatalhaMensagemFinal = 6;
     public int stateBatalha;
 
     public long tempoFinalizarBatalha;
@@ -39,7 +40,7 @@ public class MenuBatalha {
         getImagemPersonagem();
         stateBatalha = stateBatalhaInicioBatalha;
         turnoDojogadorVez = true;
-        batalhaTerminada = false;
+//        batalhaTerminada = false;
     }
 
     public void draw(Graphics2D g2) {
@@ -50,13 +51,10 @@ public class MenuBatalha {
         drawPlayerAtributos1(g2, inimigo, 1, false);
         drawImagemPersonagens(g2, inimigo, jogador);
         drawRetanguloTranslucidoComBordas(g2, 70, y + 400, 576, y + 70);
+        inimigo.getPlayerImage();
 
-        getVencedor();
-
-
-        if (isBatalhaAcabou()) {
-            System.out.println("ENTRANDO NO FINALIZAR BATALHA 1");
-            stateBatalha = stateBatalhaFinalizado;
+        if (isBatalhaAcabou() && !batalhaTerminada) {
+            batalhaTerminada = true;
             tempoFinalizarBatalha = System.currentTimeMillis();
         }
 
@@ -67,14 +65,15 @@ public class MenuBatalha {
             case stateBatalhaMenuP:
                 if (turnoDojogadorVez) {
                     drawTituloMenu(g2);
-                }else {
+                    gp.gameState = gp.stateMenuBatalha;
+                } else {
                     batalhaTurno();
                 }
                 break;
             case stateBatalhaSubMenu:
-                if (jogador.getHabilidadeUsada() == null || inimigo.getHabilidadeUsada() == null) {
-                    jogador.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
-                    inimigo.setHabilidadeUsada("NENHUMA HABILIDADE USADA");
+                if (jogador.getStringHabilidadeUsada() == null || inimigo.getStringHabilidadeUsada() == null) {
+                    jogador.setStringHabilidadeUsada("NENHUMA HABILIDADE USADA");
+                    inimigo.setStringHabilidadeUsada("NENHUMA HABILIDADE USADA");
                 }
                 gp.gameState = gp.stateSubMenuBatalha;
                 drawTituloSubMenu(g2);
@@ -85,13 +84,13 @@ public class MenuBatalha {
             case stateBatalhaInfoInimigo:
                 drawInfoBatalha(g2, inimigo);
                 break;
-            case stateBatalhaFinalizado:
+            case stateBatalhaMensagemFinal:
                 drawMensagemWinOrNot(g2);
-
+                break;
+            case stateBatalhaFinalizado:
                 encerrarBatalha();
                 break;
         }
-
     }
 
 ////////////////////// CONFIG DA BATALHA ////////////////////////
@@ -102,24 +101,19 @@ public class MenuBatalha {
             System.out.println("Turno do Jogador 1");
             turnoJogador();
         } else {
-//            turnoInimigo();
             System.out.println("Turno do inimigo");
             turnoInimigo();
         }
         System.out.println("Turno fim");
 
 
-
     }
 
     public void turnoJogador() {
-
         stateBatalha = stateBatalhaMenuP;
     }
 
     public void turnoInimigo() {
-
-
         int acaoInimigo = (int) (Math.random() * 3);
         switch (acaoInimigo) {
             case 0:
@@ -130,6 +124,9 @@ public class MenuBatalha {
                 break;
             case 2:
                 inimigo.usarHabilidade3(jogador);
+                break;
+            case 4:
+                inimigo.usarHabilidade4(jogador);
                 break;
         }
 
@@ -142,12 +139,12 @@ public class MenuBatalha {
         long tempofinal = System.currentTimeMillis();
         long tempoDecorrido = tempofinal - gp.tempoInicial;
 
-        int segundos = 3000; // 2 segundos de espera
+        int segundos = 3000; // 3 segundos de espera
 
         String qualtaprintando = "\"INFO DO JOGADOR\"";
 
         if (personagem == inimigo) {
-            segundos = segundos * 2; // 3 segundos de espera para o inimigo
+            segundos = 6000; // 6 segundos de espera para o inimigo
             qualtaprintando = " INFO DO INIMIGO";
         }
 
@@ -156,7 +153,11 @@ public class MenuBatalha {
         System.out.println(tempoDecorrido);
 
         if (tempoDecorrido >= segundos) {
-            stateBatalha = stateBatalhaInicioBatalha;
+            if (isBatalhaAcabou()) {
+                stateBatalha = stateBatalhaMensagemFinal;
+            } else {
+                stateBatalha = stateBatalhaInicioBatalha;
+            }
         }
     }
 
@@ -166,8 +167,13 @@ public class MenuBatalha {
     }
 
     public void encerrarBatalha() {
-        gp.gameState = gp.statePlay;
         System.out.println("Batalha Encerrada!");
+        if(getVencedor() == jogador){
+            jogador.setXp(jogador.getXp() + 40); // Adiciona 40 de experiência ao jogador
+
+        }
+        gp.gameState = gp.statePlay;
+
     }
 
     public Personagem getVencedor() {
@@ -203,13 +209,12 @@ public class MenuBatalha {
                     break;
                 case 1: // ESPECIAL
                     jogador.usarHabilidade4(inimigo);
-                    turnoDojogadorVez = false;
-                    stateBatalha = stateBatalhaInfoJogador;
+                    gerenciarVez();
+
                     break;
                 case 2: // USAR ITEM
                     //COLOCAR INVENTARIO AQUIIIII
-                    turnoDojogadorVez = false;
-                    stateBatalha = stateBatalhaInfoJogador;
+                    stateBatalha = stateBatalhaMenuP;
                     break;
                 case 3: // DESISTIR
                     gp.gameState = gp.statePlay;
@@ -236,21 +241,19 @@ public class MenuBatalha {
             switch (comandomenu) {
                 case 0: // HABILIDADE 1
                     jogador.usarHabilidade1(inimigo);
+                    gerenciarVez();
 
-                    turnoDojogadorVez = false;
-                    stateBatalha = stateBatalhaInfoJogador;
                     break;
                 case 1: // HABILIDADE 2
                     jogador.usarHabilidade2(inimigo);
+                    gerenciarVez();
 
-                    turnoDojogadorVez = false;
-                    stateBatalha = stateBatalhaInfoJogador;
                     break;
                 case 2: // HABILIDADE 3
                     jogador.usarHabilidade3(inimigo);
+                    gerenciarVez();
 
-                    turnoDojogadorVez = false;
-                    stateBatalha = stateBatalhaInfoJogador;
+
                     break;
                 case 3: // VOLTAR
                     stateBatalha = stateBatalhaMenuP;
@@ -264,9 +267,72 @@ public class MenuBatalha {
 
     //////////////////////////////// DRAW E GETS ////////////////////////////////////////////////////////////////////
 
+    public void gerenciarVez(){
+        if(jogador.isUsouHabilidade()) {
+            stateBatalha = stateBatalhaInfoJogador;
+            turnoDojogadorVez = false;
+        }else {
+            stateBatalha = stateBatalhaMenuP;
+            turnoDojogadorVez = true;
+        }
+
+    }
 
 
 
+    public void drawMensagemWinOrNot(Graphics2D g2) {
+        long tempofinal = System.currentTimeMillis();
+        long tempoDecorrido = tempofinal - tempoFinalizarBatalha;
+
+        int segundosEspera = 8000; // 3 segundos de espera para exibir a mensagem
+
+        String mensagem = "";
+        int x = 150; // Coordenada X ajustada para a mesma posição do método drawMensagem
+        int y = 440; // Coordenada Y ajustada para a mesma posição do método drawMensagem
+        Font mensagemFont = new Font("Arial", Font.BOLD, 20);
+        g2.setFont(mensagemFont);
+
+        if (getVencedor() == jogador) {
+            g2.setColor(Color.green);
+            mensagem = "VOCÊ GANHOU A BATALHA +40 EXPERIÊNCIA";
+            drawInfoBatalha(g2, jogador); // Imprime informações do jogador
+        } else if (getVencedor() == inimigo) {
+            g2.setColor(Color.red);
+            mensagem = "VOCÊ PERDEU A BATALHA";
+            drawInfoBatalha(g2, inimigo); // Imprime informações do inimigo
+        }
+
+        for (String line : mensagem.split("\n")) {
+            g2.drawString(line, x, y); // Ajuste as coordenadas conforme necessário
+            y += 20;
+        }
+
+        if (tempoDecorrido >= segundosEspera) {
+            stateBatalha = stateBatalhaFinalizado;
+        }
+    }
+
+    public void drawMensagem(Graphics2D g2, Personagem personagem) {
+
+        String mensagem = personagem.getStringHabilidadeUsada();
+        if (mensagem != null && !mensagem.isEmpty()) {
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+
+            if (personagem == inimigo){
+                g2.setColor(Color.white);
+            } else {
+                g2.setColor(Color.black);
+            }
+            int x = 150;
+            int y = 490;
+
+            for (String line : mensagem.split("\n")){
+                g2.drawString(line, x, y); // Ajuste as coordenadas conforme necessário
+                y+= 20;
+            }
+
+        }
+    }
 
 
 
@@ -400,63 +466,6 @@ public class MenuBatalha {
         g2.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
     }
 
-
-
-    public void drawMensagemWinOrNot(Graphics2D g2) {
-        long tempofinal = System.currentTimeMillis();
-        long tempoDecorrido = tempofinal - tempoFinalizarBatalha;
-
-        int segundos = 3000; // 2 segundos de espera
-
-        System.out.println(tempoDecorrido);
-
-
-        String mensagem = "" ;
-
-        int x = gp.sizeLadrilho * 2 + 40;
-        int y = gp.sizeLadrilho * 7+ 40;
-        Font mensagemFont = new Font("Arial", Font.BOLD, 20);
-        g2.setFont(mensagemFont);
-
-        if (getVencedor() == jogador) {
-            g2.setColor(Color.green);
-            mensagem = " VOCE GANHOU A BATALHA +40 EXPERIENCIA" ;
-            jogador.setXp(40);
-
-        }else if(getVencedor() == inimigo){
-            mensagem = " VOCE PERDEU A BATALHA";
-            g2.setColor(Color.red);
-
-        }
-
-        g2.drawString(mensagem, x, y);
-
-        if (tempoDecorrido >= segundos) {
-            encerrarBatalha();
-        }
-    }
-
-    public void drawMensagem(Graphics2D g2, Personagem personagem) {
-
-    String mensagem = personagem.getHabilidadeUsada();
-    if (mensagem != null && !mensagem.isEmpty()) {
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
-
-        if (personagem == inimigo){
-            g2.setColor(Color.white);
-        } else {
-            g2.setColor(Color.black);
-        }
-        int x = 150;
-        int y = 490;
-
-        for (String line : mensagem.split("\n")){
-            g2.drawString(line, x, y); // Ajuste as coordenadas conforme necessário
-            y+= 20;
-        }
-
-    }
-}
 
     public void drawPlayerHP(Graphics2D g2, Personagem personagem, int pos, boolean isPlayer) {
         int x =  gp.sizeLadrilho - 5;

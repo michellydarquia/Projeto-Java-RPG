@@ -3,6 +3,7 @@ package game.personagens.enemies;
 import game.personagens.Personagem;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -10,19 +11,49 @@ import java.util.Objects;
 public class Goblin extends Personagem {
 
     private int acumulo;
+    public BufferedImage imagemPrinGoblin;
+
 
     public Goblin() {
-        super(100, 9 , 18  );
+        super(100, 9, 18);
 
-        getPlayerImage();
+        getImageGrande();
         acumulo = 0;
+
+        getGerarImagem();
 
     }
 
 
-
     public BufferedImage getImagemGrande() {
         return imagemGrande;
+    }
+
+    public BufferedImage getImagem() {
+        return imagemGrande;
+    }
+
+
+    public void getGerarImagem() {
+        try {
+            int gerearimagemaleatoria = (int) (Math.random() * 3);
+            switch (gerearimagemaleatoria) {
+                case 0:
+                    imagemPrinGoblin = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/GoblinMap.png")));
+                    break;
+                case 1:
+                    imagemPrinGoblin = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/GoblinArcher1.png")));
+                    break;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void draw(Graphics g2) {
+        g2.drawImage(imagemPrinGoblin, 0, 0, 48, 48, null);
     }
 
 
@@ -59,6 +90,16 @@ public class Goblin extends Personagem {
         }
     }
 
+    @Override
+    public void getImage() {
+
+    }
+
+//    @Override
+//    public void getImageGrande() {
+//
+//    }
+
     public String imprimiratributos() {
 
         return "ATRIBUTOS GOBLIN - Nível: " + getNivel() + "\n" +
@@ -69,7 +110,7 @@ public class Goblin extends Personagem {
     }
 
 
-    public void getPlayerImage() {
+    public void getImageGrande() {
         try {
 
             if (getSaude() >= 80) {
@@ -84,8 +125,6 @@ public class Goblin extends Personagem {
                 setImagemGrande(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/GoblinStunningGD.png"))));
 
             }
-
-//            setImagemGrande(ImageIO.read(getClass().getResourceAsStream("/enemies/GoblinArcher1.png")));
 
 
 

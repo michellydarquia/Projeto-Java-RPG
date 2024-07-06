@@ -7,7 +7,9 @@ public interface Habilidades {
     void usarHabilidade3(Personagem personagem);
     void usarHabilidade4(Personagem personagem);
 
-    void getPlayerImage();
+    void getImage();
+    void getImageGrande();
+
 
 
 }

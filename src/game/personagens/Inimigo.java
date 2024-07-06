@@ -20,7 +20,7 @@ public class Inimigo {
     private boolean vivo = true;
     public BufferedImage imagemGrande;
 
-    public Personagem(int hp, int defesa, int ataque) {
+    public Inimigo(int hp, int defesa, int ataque) {
         this.hp = hp;
         this.defesa = defesa;
         this.ataque = ataque;

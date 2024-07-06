@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler(this);
     public Jogador jogador = new Jogador(this, keyH);
     public MapManager blocoM = new MapManager(this);
-    Personagem inimigo = new Goblin();
+    public Personagem inimigo = new Goblin();
 
     public Menu menu = new Menu(this);
     public MenuClasses menuClass = new MenuClasses(this);
@@ -141,6 +141,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             blocoM.draw(g2);
             jogador.draw(g2);
+
         }
 
         if(gameState == stateMenuBatalha  || gameState == stateSubMenuBatalha ) {

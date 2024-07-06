@@ -67,8 +67,13 @@ public class Druida extends Personagem {
     }
 
     @Override
-    public void getPlayerImage() {
+    public void getImage() {
         // Implementação específica do Druida para obter a imagem do jogador
+    }
+
+    @Override
+    public void getImageGrande() {
+
     }
 
     public String imprimiratributos() {

@@ -68,8 +68,13 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void getPlayerImage() {
+    public void getImage() {
         // Implementação específica do Arqueiro para obter a imagem do jogador
+    }
+
+    @Override
+    public void getImageGrande() {
+
     }
 
     public String imprimiratributos() {

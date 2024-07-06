@@ -71,7 +71,12 @@ public class Mago extends Personagem {
     }
 
     @Override
-    public void getPlayerImage() {
+    public void getImage() {
+
+    }
+
+    @Override
+    public void getImageGrande() {
 
     }
 

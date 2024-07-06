@@ -62,7 +62,12 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void getPlayerImage() {
+    public void getImage() {
+    }
+
+    @Override
+    public void getImageGrande() {
+
     }
 
     public String imprimiratributos() {

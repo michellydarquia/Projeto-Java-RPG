@@ -2,7 +2,11 @@ package game.personagens;
 
 
 import Exceptions.ExceptionAtributo;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public abstract class Personagem implements Habilidades {
 
@@ -17,7 +21,12 @@ public abstract class Personagem implements Habilidades {
     private String stringHabilidadeUsada;
     private boolean usouHabilidade = false;
     private boolean vivo = true;
+
     public BufferedImage imagemGrande;
+    public BufferedImage imagem;
+
+
+
 
     public Personagem(int hp, int defesa, int ataque) {
         this.hp = hp;
@@ -89,6 +98,8 @@ public abstract class Personagem implements Habilidades {
             this.defesa = valor;
         }
     }
+
+
 
 
     public void alterarDefesa(int defesa) {

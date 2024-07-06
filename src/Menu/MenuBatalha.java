@@ -51,7 +51,7 @@ public class MenuBatalha {
         drawPlayerAtributos1(g2, inimigo, 1, false);
         drawImagemPersonagens(g2, inimigo, jogador);
         drawRetanguloTranslucidoComBordas(g2, 70, y + 400, 576, y + 70);
-        inimigo.getPlayerImage();
+        inimigo.getImageGrande();
 
         if (isBatalhaAcabou() && !batalhaTerminada) {
             batalhaTerminada = true;

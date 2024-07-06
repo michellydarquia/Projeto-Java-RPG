@@ -178,12 +178,81 @@ public class MapManager extends Blocos{
 
     private void peculiaridadesMapa02() {
         System.out.println("Configurações específicas para o mapa 02");
+
         // spawn de inimigos, eventos, etc.
     }
 
     private void peculiaridadesMapa03() {
         System.out.println("Configurações específicas para o mapa 03");
     }
+    public void draw(Graphics2D g2){
+        int coluna = 0;
+        int linha = 0;
+        int x = 0;
+        int y = 0;
+
+
+        while (coluna < gp.maxTelaColunas && linha < gp.maxTelaLinhas){
+
+            int blocoNum = mapBlocoNumero[coluna][linha];
+            g2.drawImage(bloco[blocoNum].image, x,y, gp.sizeLadrilho, gp.sizeLadrilho, null);
+            coluna++;
+            x += gp.sizeLadrilho;
+
+            if (coluna == gp.maxTelaColunas){
+                coluna=0;
+                x=0;
+                linha++;
+                y+= gp.sizeLadrilho;
+            }
+
+        }
+
+
+
+    }
+    public void verificarTransicaoMapa(int jogadorX, int jogadorY) {
+        int x = Math.floorDiv(jogadorX, gp.sizeLadrilho);
+        int y=Math.floorDiv(jogadorY, gp.sizeLadrilho);
+        Point jogadorPosicaoMatriz = new Point(x, y);
+
+        loadpontosTransicao();
+
+        String novoMapa = pontosTransicao.get(jogadorPosicaoMatriz);
+        System.out.println("AAAAAAAAAAAAAAAAAAA");
+        System.out.println(jogadorPosicaoMatriz);
+        System.out.println("novo mapa: " + novoMapa);
+        System.out.println("atual mapa: " + mapaAtual);
+        System.out.println("AAAAAAAAAAAAAAAAAAA");
+
+        if (novoMapa != null) {
+
+            System.out.println("NAO É NULL");
+            System.out.println(novoMapa);
+            System.out.println(mapaAtual);
+            if(novoMapa.equals("/maps/map03.txt") && mapaAtual.equals("/maps/map01.txt")) {
+                gp.jogador.x = 336;
+                gp.jogador.y = 488;
+            }else if (novoMapa.equals("/maps/map02.txt") && mapaAtual.equals("/maps/map01.txt")){
+                gp.jogador.x = 28;
+                gp.jogador.y = 276;
+            }else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map03.txt")){
+                gp.jogador.x = 328;
+                gp.jogador.y = 8;
+            }else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map02.txt")){
+                gp.jogador.x = 664;
+                gp.jogador.y = 276;
+            }
+            switchMap(novoMapa);
+
+
+
+
+        }
+
+
+    }
+
 
     public void getImagemdosBlocos(){
         try {
@@ -245,76 +314,9 @@ public class MapManager extends Blocos{
         }
     }
 
-    public void draw(Graphics2D g2){
-        int coluna = 0;
-        int linha = 0;
-        int x = 0;
-        int y = 0;
-
-
-        while (coluna < gp.maxTelaColunas && linha < gp.maxTelaLinhas){
-
-            int blocoNum = mapBlocoNumero[coluna][linha];
-            g2.drawImage(bloco[blocoNum].image, x,y, gp.sizeLadrilho, gp.sizeLadrilho, null);
-            coluna++;
-            x += gp.sizeLadrilho;
-
-                if (coluna == gp.maxTelaColunas){
-                    coluna=0;
-                    x=0;
-                    linha++;
-                    y+= gp.sizeLadrilho;
-                }
-
-        }
 
 
 
-    }
-
-
-
-    public void verificarTransicaoMapa(int jogadorX, int jogadorY) {
-         int x = Math.floorDiv(jogadorX, gp.sizeLadrilho);
-         int y=Math.floorDiv(jogadorY, gp.sizeLadrilho);
-        Point jogadorPosicaoMatriz = new Point(x, y);
-
-        loadpontosTransicao();
-
-        String novoMapa = pontosTransicao.get(jogadorPosicaoMatriz);
-        System.out.println("AAAAAAAAAAAAAAAAAAA");
-        System.out.println(jogadorPosicaoMatriz);
-        System.out.println("novo mapa: " + novoMapa);
-        System.out.println("atual mapa: " + mapaAtual);
-        System.out.println("AAAAAAAAAAAAAAAAAAA");
-
-        if (novoMapa != null) {
-
-            System.out.println("NAO É NULL");
-            System.out.println(novoMapa);
-            System.out.println(mapaAtual);
-            if(novoMapa.equals("/maps/map03.txt") && mapaAtual.equals("/maps/map01.txt")) {
-                gp.jogador.x = 336;
-                gp.jogador.y = 488;
-            }else if (novoMapa.equals("/maps/map02.txt") && mapaAtual.equals("/maps/map01.txt")){
-                gp.jogador.x = 28;
-                gp.jogador.y = 276;
-            }else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map03.txt")){
-                gp.jogador.x = 328;
-                gp.jogador.y = 8;
-            }else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map02.txt")){
-            gp.jogador.x = 664;
-            gp.jogador.y = 276;
-        }
-            switchMap(novoMapa);
-
-
-
-
-        }
-
-
-    }
 
 
 }

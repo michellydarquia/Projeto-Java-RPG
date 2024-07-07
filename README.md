@@ -1,6 +1,5 @@
 # Jogo RPG de Turnos em JAVA
 
-## 
 
 Este jogo levará os jogadores a uma jornada épica em um mundo de fantasia. Este jogo será focado em lógica de programação e estratégia, proporcionando uma experiência desafiadora para os jogadores.
 O projeto é implementado em Java.

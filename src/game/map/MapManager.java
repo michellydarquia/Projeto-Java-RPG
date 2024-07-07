@@ -1,9 +1,5 @@
 package game.map;
 
-
-
-
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,24 +8,24 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.List;
 import Menu.GamePanel;
-import Menu.MenuBatalha;
-import game.personagens.enemies.Goblin;
+import Menu.Batalha;
+import game.inventorio.Item;
+import game.personagens.inimigo.Inimigo;
+import game.personagens.inimigo.classes.Goblin;
 import javax.imageio.ImageIO;
 
-
 // resp por carregar, descarregar e trocar os mapas.
-
-
 
 public class MapManager extends Blocos{
 
     GamePanel gp;
     Blocos[] bloco;
-    MenuBatalha menuBatalha;
+    Batalha menuBatalha;
     private int[][] mapBlocoNumero;
     public Map<Point, String> pontosTransicao;
     private String mapaAtual;
     public List<Goblin> inimigos;
+    public boolean colisaoInimigo;
 
 
     public MapManager(GamePanel gp){
@@ -46,8 +42,6 @@ public class MapManager extends Blocos{
 
         loadpontosTransicao();
         loadInimigos();
-
-
 
     }
 
@@ -107,12 +101,10 @@ public class MapManager extends Blocos{
     }
 
     public void switchMap(String novoMapa){
-        System.out.println("ENTREI EM SWITHMAP");
         unloadMap();        // chamo unload para descarregar o mapa atual
         loadMap(novoMapa); // depois chamo load para carregar o novo mapa
         loadpontosTransicao();
         loadInimigos();
-
         mapaAtual = novoMapa;
         definirPeculiaridadesMapa();
     }
@@ -121,25 +113,23 @@ public class MapManager extends Blocos{
     public void loadInimigos() {
         switch (mapaAtual) {
             case "/maps/map01.txt":
-                inimigos.add(new Goblin(223, 223));
-
+                inimigos.add(new Goblin(233, 125));
                 break;
             case "/maps/map02.txt":
-                inimigos.add(new Goblin(45, 12));
+                inimigos.add(new Goblin(133, 111));
                 break;
             case "/maps/map03.txt":
-                inimigos.add(new Goblin(455, 120));
-                inimigos.add(new Goblin(223, 223));
-                inimigos.add(new Goblin(44, 42));
-                inimigos.add(new Goblin(24, 23));
+                inimigos.add(new Goblin(123, 123));
+                inimigos.add(new Goblin(123, 11));
+                inimigos.add(new Goblin(442, 244));
+                inimigos.add(new Goblin(423, 121));
                 break;
-
         }
-
     }
 
 
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void definirPeculiaridadesMapa() {
         if (mapaAtual.equals("/maps/map01.txt")) {
             peculiaridadesMapa01();
@@ -154,9 +144,18 @@ public class MapManager extends Blocos{
 
 
 
-        System.out.println("Configurações específicas para o mapa 01");
+    }
+
+    private void peculiaridadesMapa02() {
+
+        // spawn de inimigos, eventos, etc.
+    }
+
+    private void peculiaridadesMapa03() {
 
     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -164,74 +163,85 @@ public class MapManager extends Blocos{
 
     public void verificarBordasMapa() {
         boolean colisaoBordas = true;
-        int x = Math.floorDiv(gp.jogador.x, gp.sizeLadrilho);
-        int y = Math.floorDiv(gp.jogador.y, gp.sizeLadrilho);
+        int x = Math.floorDiv(gp.play.jogador.x, gp.sizeLadrilho);
+        int y = Math.floorDiv(gp.play.jogador.y, gp.sizeLadrilho);
 
         Point jogadorPosicaoMatriz = new Point(x, y);
         System.out.println(jogadorPosicaoMatriz);
-        System.out.println(mapaAtual);
 
 
-        // Verificações específicas para cada mapa
+
+        // Verificações específicas para cada mapa para poder passar a borda e mduar de mapa
         if (mapaAtual.equals("/maps/map01.txt")) {
             if ((x == 6 ) && y < 0) { // Transição para mapa 03
                 colisaoBordas = false;
-                verificarTransicaoMapa(gp.jogador.x, gp.jogador.y);
+                verificarTransicaoMapa(gp.play.jogador.x, gp.play.jogador.y);
             } else if ((x == 14 || x == 15) && y == 5) { // Transição para mapa 02
                 colisaoBordas = false;
-                verificarTransicaoMapa(gp.jogador.x, gp.jogador.y);
+                verificarTransicaoMapa(gp.play.jogador.x, gp.play.jogador.y);
             }
         } else if (mapaAtual.equals("/maps/map02.txt")) {
             if (x <= 0 && y == 5) { // Transição para mapa 01
                 colisaoBordas = false;
-                System.out.println("INDO AO MAPA 1");
-                verificarTransicaoMapa(gp.jogador.x, gp.jogador.y);
+//                System.out.println("INDO AO MAPA 1");
+                verificarTransicaoMapa(gp.play.jogador.x, gp.play.jogador.y);
             }
         } else if (mapaAtual.equals("/maps/map03.txt")) {
             if ((x == 6 || x == 7) && y >= 10) { // Transição para mapa 01
                 colisaoBordas = false;
-                verificarTransicaoMapa(gp.jogador.x, gp.jogador.y);
-                System.out.println("INDO AO MAPA 11");
+                verificarTransicaoMapa(gp.play.jogador.x, gp.play.jogador.y);
+//                System.out.println("INDO AO MAPA 11");
             }
         }
 
-        // Verifica as bordas padrão se não houver transição
+        // verif as bordas padrão se não houver transição
         if (colisaoBordas) {
-            if (gp.jogador.x < 20 || gp.jogador.x > 700) {
-                gp.jogador.x = gp.jogador.x < 20 ? 20 : 700;
+            if (gp.play.jogador.x < 20 || gp.play.jogador.x > 700) {
+                gp.play.jogador.x = gp.play.jogador.x < 20 ? 20 : 700;
             }
 
-            if (gp.jogador.y < 0 || gp.jogador.y > 484) {
-                gp.jogador.y = gp.jogador.y < 0 ? 0 : 484;
+            if (gp.play.jogador.y < 0 || gp.play.jogador.y > 484) {
+                gp.play.jogador.y = gp.play.jogador.y < 0 ? 0 : 484;
             }
         }
     }
 
 
     public void verificarColisaoInimigo() {
-        int x = Math.floorDiv(gp.jogador.x, gp.sizeLadrilho);
-        int y = Math.floorDiv(gp.jogador.y, gp.sizeLadrilho);
-        Point jogadorPosicaoMatriz = new Point(x, y);
-        System.out.println("VERIFICANDO COLISÃO COM INIMIGO");
+        int jogadorX = gp.play.jogador.x ;  // gp.sizeLadrilho;
+        int jogadorY = gp.play.jogador.y ;  // gp.sizeLadrilho;
+//
+//        Point jogadorPosicaoMatriz = new Point(jogadorX, jogadorY);
+//        System.out.println("VERIFICANDO COLISÃO COM INIMIGO");
+//        System.out.println(jogadorPosicaoMatriz);
 
-        for (Goblin inimigo : inimigos) {
-            if (inimigo.getPosx() == x && inimigo.getPosy() == y) {
+        for (Goblin inimigo : inimigos){
+//            System.out.printf("inimigo %s em x = %d, y = %d\n", inimigos, inimigo.getPosx(), inimigo.getPosy());
+//            System.out.printf("jogador em x = %d, y = %d\n", jogadorX, jogadorY);
+
+            int inimigoX = inimigo.getPosx();
+            int inimigoY = inimigo.getPosy();
+
+
+            if ((Math.abs(inimigoX - jogadorX) <= 8) && (Math.abs(inimigoY - jogadorY) <= 8)) { // POSSSO COLOCAR UM DIALOGO AQUII
                 System.out.println("COLIDIU COM INIMIGO, INICIANDO BATALHA");
-                menuBatalha = new MenuBatalha(gp, gp.jogador.getClassePersonagem(), inimigo);
-                gp.gameState = gp.stateMenuBatalha;
+                colisaoInimigo = true;
+                gp.play.menuBatalha = new Batalha(gp, gp.play.jogador.getClassePersonagem(), inimigo);
+                gp.play.statePlay = gp.play.stateMenuBatalha;
+                System.out.println(gp.play.menuBatalha.isBatalhaAcabou());
+
+
+                break;
             }
         }
+
     }
 
-    private void peculiaridadesMapa02() {
-        System.out.println("Configurações específicas para o mapa 02");
 
-        // spawn de inimigos, eventos, etc.
+    public void removerInimigo(Inimigo inimigo) {
+        inimigos.remove(inimigo);
     }
 
-    private void peculiaridadesMapa03() {
-        System.out.println("Configurações específicas para o mapa 03");
-    }
     public void draw(Graphics2D g2){
         int coluna = 0;
         int linha = 0;
@@ -279,17 +289,17 @@ public class MapManager extends Blocos{
 
     private void ajustarPosicaoJogadorParaNovoMapa(String novoMapa) {
         if (novoMapa.equals("/maps/map03.txt") && mapaAtual.equals("/maps/map01.txt")) {
-            gp.jogador.x = 336;
-            gp.jogador.y = 488;
+            gp.play.jogador.x = 336;
+            gp.play.jogador.y = 488;
         } else if (novoMapa.equals("/maps/map02.txt") && mapaAtual.equals("/maps/map01.txt")) {
-            gp.jogador.x = 28;
-            gp.jogador.y = 276;
+            gp.play.jogador.x = 28;
+            gp.play.jogador.y = 276;
         } else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map03.txt")) {
-            gp.jogador.x = 328;
-            gp.jogador.y = 8;
+            gp.play.jogador.x = 328;
+            gp.play.jogador.y = 8;
         } else if (novoMapa.equals("/maps/map01.txt") && mapaAtual.equals("/maps/map02.txt")) {
-            gp.jogador.x = 664;
-            gp.jogador.y = 276;
+            gp.play.jogador.x = 664;
+            gp.play.jogador.y = 276;
         }
     }
 

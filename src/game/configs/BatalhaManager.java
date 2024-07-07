@@ -1,7 +1,7 @@
 //package game.configs;
 //
 //import Menu.MenuBatalha;
-//import game.personagens.Personagem;
+//import game.personagens.jogador.Personagem;
 //
 //import java.awt.*;
 //

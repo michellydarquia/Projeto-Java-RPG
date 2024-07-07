@@ -1,6 +1,7 @@
 package Menu;
 
 import Exceptions.ExceptionBatalha;
+import game.personagens.Inimigo;
 import game.personagens.Personagem;
 
 import javax.imageio.ImageIO;
@@ -17,7 +18,7 @@ public class MenuBatalha {
     public int comandomenu = 0;
     public BufferedImage background;
     Personagem jogador;
-    Personagem inimigo;
+    Inimigo inimigo;
     public boolean turnoDojogadorVez;
     private boolean batalhaTerminada;
 
@@ -32,7 +33,7 @@ public class MenuBatalha {
 
     public long tempoFinalizarBatalha;
 
-    public MenuBatalha(GamePanel gp, Personagem jogador, Personagem inimigo) {
+    public MenuBatalha(GamePanel gp, Personagem jogador, Inimigo inimigo) {
         this.gp = gp;
         this.jogador = jogador;
         this.inimigo = inimigo;
@@ -79,7 +80,9 @@ public class MenuBatalha {
                 drawTituloSubMenu(g2);
                 break;
             case stateBatalhaInfoJogador:
+                System.out.println("TENTANDO INFO 1");
                 drawInfoBatalha(g2, jogador);
+                System.out.println("TENTANDO INFO 2");
                 break;
             case stateBatalhaInfoInimigo:
                 drawInfoBatalha(g2, inimigo);
@@ -93,7 +96,7 @@ public class MenuBatalha {
         }
     }
 
-////////////////////// CONFIG DA BATALHA ////////////////////////
+////////////////////////////////////// CONFIG DA BATALHA /////////////////////////////////////
     public void batalhaTurno() {
 
         System.out.println("Turno inicio");
@@ -135,7 +138,7 @@ public class MenuBatalha {
 
     }
 
-    public void drawInfoBatalha(Graphics2D g2, Personagem personagem) {
+    public void drawInfoBatalha(Graphics2D g2, Object personagem) {
         long tempofinal = System.currentTimeMillis();
         long tempoDecorrido = tempofinal - gp.tempoInicial;
 
@@ -143,7 +146,7 @@ public class MenuBatalha {
 
         String qualtaprintando = "\"INFO DO JOGADOR\"";
 
-        if (personagem == inimigo) {
+        if (personagem instanceof Inimigo) {
             segundos = 6000; // 6 segundos de espera para o inimigo
             qualtaprintando = " INFO DO INIMIGO";
         }
@@ -176,13 +179,24 @@ public class MenuBatalha {
 
     }
 
-    public Personagem getVencedor() {
+    public Object getVencedor() {
         if (!jogador.isVivo()) {
             return inimigo;
         } else if (!inimigo.isVivo()) {
             return jogador;
         }
         return null;
+    }
+
+    public void gerenciarVez(){
+        if(jogador.isUsouHabilidade()) {
+            System.out.println("USOU HABILIDADE");
+            turnoDojogadorVez = false;
+        }else {
+            System.out.println("NÃO USOU HABILIDADE");
+            turnoDojogadorVez = true;
+        }
+        stateBatalha = stateBatalhaInfoJogador;
     }
 
     //////////////////////////// NAVEGAR NO MENU //////////////////////////////////////
@@ -263,21 +277,7 @@ public class MenuBatalha {
     }
 
 
-
-
     //////////////////////////////// DRAW E GETS ////////////////////////////////////////////////////////////////////
-
-    public void gerenciarVez(){
-        if(jogador.isUsouHabilidade()) {
-            stateBatalha = stateBatalhaInfoJogador;
-            turnoDojogadorVez = false;
-        }else {
-            stateBatalha = stateBatalhaMenuP;
-            turnoDojogadorVez = true;
-        }
-
-    }
-
 
 
     public void drawMensagemWinOrNot(Graphics2D g2) {
@@ -312,28 +312,33 @@ public class MenuBatalha {
         }
     }
 
-    public void drawMensagem(Graphics2D g2, Personagem personagem) {
+    public void drawMensagem(Graphics2D g2, Object  personagem) {
+        String mensagem = "";
 
-        String mensagem = personagem.getStringHabilidadeUsada();
+        if (personagem instanceof Personagem) {
+            mensagem = ((Personagem) personagem).getStringHabilidadeUsada();
+        } else if (personagem instanceof Inimigo) {
+            mensagem = ((Inimigo) personagem).getStringHabilidadeUsada();
+        }
+
         if (mensagem != null && !mensagem.isEmpty()) {
             g2.setFont(new Font("Arial", Font.BOLD, 20));
 
-            if (personagem == inimigo){
+            if (personagem instanceof Personagem) {
                 g2.setColor(Color.white);
-            } else {
+            } else if (personagem instanceof Inimigo) {
                 g2.setColor(Color.black);
             }
+
             int x = 150;
             int y = 490;
 
-            for (String line : mensagem.split("\n")){
+            for (String line : mensagem.split("\n")) {
                 g2.drawString(line, x, y); // Ajuste as coordenadas conforme necessário
-                y+= 20;
+                y += 20;
             }
-
         }
     }
-
 
 
     public void getImagemPersonagem() {
@@ -437,7 +442,7 @@ public class MenuBatalha {
         g2.drawImage(background, 0, 0, gp.telaWidth, gp.telaHeight, null);
     }
 
-    public void drawImagemPersonagens(Graphics2D g2, Personagem inimigo, Personagem jogador) {
+    public void drawImagemPersonagens(Graphics2D g2, Inimigo inimigo, Personagem jogador) {
 
         g2.drawImage(inimigo.getImagemGrande(), 420, 120, inimigo.getImagemGrande().getWidth() *4 , inimigo.getImagemGrande().getHeight() *4, null);
         g2.drawImage(jogador.getImagemGrande(), 80, 200, jogador.getImagemGrande().getWidth() * 12 , jogador.getImagemGrande().getHeight() * 12, null);;
@@ -467,46 +472,67 @@ public class MenuBatalha {
     }
 
 
-    public void drawPlayerHP(Graphics2D g2, Personagem personagem, int pos, boolean isPlayer) {
-        int x =  gp.sizeLadrilho - 5;
+    public void drawPlayerHP(Graphics2D g2, Object personagem, int pos) {
+        int x = gp.sizeLadrilho - 5;
         int y = 35 + gp.sizeLadrilho + (gp.sizeLadrilho * 4 * pos);
         int width = gp.sizeLadrilho * 4;
-        int height = gp.sizeLadrilho / 2; // Reduz a altura da barra de HP
+        int height = gp.sizeLadrilho / 2;
+        int hp;
+        int limiteSaude;
 
-        if (!isPlayer) {
+        if(personagem instanceof  Inimigo){
             y = 55;
             x =450;
         }
-        g2.setColor(new Color(144, 238, 144)); // Cor verde suave
+
+        if (personagem instanceof Personagem) {
+            hp = ((Personagem) personagem).getSaude();
+            limiteSaude = ((Personagem) personagem).getLimiteSaude();
+        } else if (personagem instanceof Inimigo) {
+            hp = ((Inimigo) personagem).getSaude();
+            limiteSaude = ((Inimigo) personagem).getLimiteSaude();
+        } else {
+            throw new IllegalArgumentException("Objeto personagem inválido");
+        }
+
+        g2.setColor(new Color(238, 144, 144));
         g2.fillRect(x, y, width, height);
 
-        // Barra de HP
-        g2.setColor(new Color(220, 220, 220)); // Cor mais suave
-        g2.fillRect(x, y, (int) (width * (personagem.getSaude() / (double) (100 * personagem.getSaude()))), height);
-
-        // Borda da barra de HP
-        g2.setColor(new Color(169, 169, 169)); // Cor cinza suave
+        // barra de HP
+        // Calcula e define a cor da barra de HP de acordo com a porcentagem de saúde restante
+        g2.setColor(new Color(144, 238, 144)); // cor  suave
+        g2.fillRect(x, y, (int) (width * (hp / (double) limiteSaude)), height);
+        g2.setColor(new Color(169, 169, 169));
         g2.drawRect(x, y, width, height);
 
-        // Texto de HP
+        // txto
         g2.setColor(Color.black);
-        g2.drawString("HP: " + personagem.getSaude() + "/" + (personagem.getLimiteSaude()), x + 10, y + 15);
+        g2.drawString("HP: " + hp + "/" + limiteSaude, x + 10, y + 15);
     }
 
-    public void drawPlayerAtributos1(Graphics g2, Personagem jogador, int indice, boolean isPlayer) {
+
+    public void drawPlayerAtributos1(Graphics g2, Object personagem, int indice, boolean isPlayer) {
         int x = gp.sizeLadrilho; // 48
         int y = gp.sizeLadrilho;
 
         Font fm = new Font("Arial", Font.BOLD, 15); // Alterar "48" para o tamanho desejado
         g2.setFont(fm);
-        String atributos = jogador.imprimiratributos();
+        String atributos;
+
+        if (personagem instanceof Personagem) {
+            atributos = ((Personagem) personagem).imprimiratributos();
+        } else if (personagem instanceof Inimigo) {
+            atributos = ((Inimigo) personagem).imprimiratributos();
+        } else {
+            throw new IllegalArgumentException("Objeto personagem inválido");
+        }
 
         if (indice == 0) {
             drawRetanguloTranslucidoComBordas((Graphics2D) g2, x - 40, y - 30, 280, 150);
-            drawPlayerHP((Graphics2D) g2, jogador, 0, isPlayer);
+            drawPlayerHP((Graphics2D) g2, personagem, 0 );
         } else {
             drawRetanguloTranslucidoComBordas((Graphics2D) g2, x + 380, y - 30, 280, 150);
-            drawPlayerHP((Graphics2D) g2, jogador, 1, isPlayer);
+            drawPlayerHP((Graphics2D) g2, personagem, 1);
             x = x + 408;
         }
 
@@ -516,7 +542,6 @@ public class MenuBatalha {
             y += 20;
         }
     }
-
 
 
 }

@@ -1,80 +1,62 @@
 package game.personagens;
 
 import Exceptions.ExceptionAtributo;
+import game.personagens.enemies.HabiliadesInimigo;
 
 import java.awt.image.BufferedImage;
 
-public class Inimigo {
-
+public abstract class Inimigo implements HabiliadesInimigo {
 
     private int hp;
     private int defesa;
     private int ataque;
     private int nivel;
-    private int xp = 0;
-    private int subirDeNivel;
-    private int limiteSaude;;
-
     private String stringHabilidadeUsada;
     private boolean usouHabilidade = false;
     private boolean vivo = true;
     public BufferedImage imagemGrande;
+    public int limiteSaude;
+    private int posx;
+  private int posy;
 
-    public Inimigo(int hp, int defesa, int ataque) {
+    public Inimigo(int hp, int defesa, int ataque, int posx, int posy) {
+        this.posx = posx;
+        this.posy = posy;
         this.hp = hp;
         this.defesa = defesa;
         this.ataque = ataque;
         this.nivel = 1;
-
-        subirDeNivel = 200 * nivel;
-        limiteSaude = 100 * nivel;
+        limiteSaude =hp*nivel;
     }
 
     public void setImagemGrande(BufferedImage imagemGrande) {
         this.imagemGrande = imagemGrande;
     }
+
     public BufferedImage getImagemGrande() {
         return imagemGrande;
     }
 
-
-    public void verificadorLimiteAtributos(String atributo, int valor){
-        switch (atributo.toLowerCase()){
-            case "saude":
-
-            case "defesa":
-
-            case "ataque":
-
-            case "nivel":
-
-            case "experiencia":
-
-
-
-        }
-
-    }
-
-
-
-    public int getLimiteSaude() {
-        return limiteSaude;
-    }
-
-
     public boolean isVivo() {
         return vivo;
     }
+
+    public int getPosx() {
+        return posx;
+    }
+
+    public int getPosy() {
+        return posy;
+    }
+
+
+
 
     public void alterarSaude(int valor) {
         int novaSaude = this.hp + valor;
         if (novaSaude < 0) {
             this.hp = 0;
             vivo = false;
-
-        } else if (novaSaude >  limiteSaude ) {
-            this.hp = novaSaude + (limiteSaude - novaSaude);
         } else {
             this.hp = novaSaude;
         }
@@ -84,23 +66,20 @@ public class Inimigo {
         int novaDefesa = this.defesa + valor;
         int limiteDefesa = 30;
 
-        if (novaDefesa >  limiteDefesa ) {
-            this.defesa = novaDefesa + (limiteDefesa - novaDefesa);
+        if (novaDefesa > limiteDefesa) {
+            this.defesa = limiteDefesa;
         } else {
-            this.defesa = valor;
+            this.defesa = novaDefesa;
         }
     }
-
 
     public void alterarDefesa(int defesa) {
         this.defesa = defesa;
     }
 
-
     public void alterarAtaque(int ataque) {
         this.ataque = ataque;
     }
-
 
     public int getDefesa() {
         return defesa;
@@ -110,7 +89,6 @@ public class Inimigo {
         return hp;
     }
 
-
     public int getAtaque() {
         return ataque;
     }
@@ -118,36 +96,6 @@ public class Inimigo {
     public int getNivel() {
         return nivel;
     }
-
-    public int getSubirDeNivel() {
-        return subirDeNivel;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public void setXp(int valor) {
-
-        if(valor < 0){
-            throw new ExceptionAtributo("experiencia");
-        } else if (valor == 0) {
-            this.xp = 0;
-        }
-        this.xp += valor;
-        verificadorExperiencia(this.xp);
-    }
-    public void verificadorExperiencia(int experiencia) {
-
-        if(experiencia == this.subirDeNivel ){
-            setXp(0);
-            this.nivel++;
-        }
-        subirDeNivel = 200 * nivel;
-
-    }
-
-
 
     public boolean isUsouHabilidade() {
         return usouHabilidade;
@@ -157,38 +105,45 @@ public class Inimigo {
         this.usouHabilidade = usouHabilidade;
     }
 
-
-
     public String getStringHabilidadeUsada() {
         return stringHabilidadeUsada;
     }
 
     public void setStringHabilidadeUsada(String habilidadeUsada) {
-        if (this.stringHabilidadeUsada == null) {
+        if (habilidadeUsada == null) {
             habilidadeUsada = ""; // Garantir que a mensagem não seja nula
         }
-
         this.stringHabilidadeUsada = habilidadeUsada;
     }
 
-    public void RedefinirAtributos(){
-        this.hp = hp * nivel;
-        this.ataque =  ataque * nivel;
-        this.defesa = defesa * nivel;
+
+    public int getLimiteSaude() {
+        return limiteSaude;
+    }
+
+    public void setLimiteSaude(int limiteSaude) {
+        this.limiteSaude = limiteSaude;
     }
 
 
-
-
     public String imprimiratributos() {
-
-        return "ATRIBUTOS PERSONAGEM\n" +
-                "Nível: " + getNivel() + "\n" +
+        return "ATRIBUTOS GOBLIN - Nível: " + getNivel() + "\n" +
                 " " + "\n" +
-                ": " +   "\n" +
+                " " + "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
     }
 
 
+
+
+    @Override
+    public void getImage() {
+
+    }
+
+    @Override
+    public void getImageGrande() {
+
+    }
 }

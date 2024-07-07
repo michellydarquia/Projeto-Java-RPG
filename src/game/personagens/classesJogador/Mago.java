@@ -1,4 +1,5 @@
 package game.personagens.classesJogador;
+import game.personagens.Inimigo;
 import game.personagens.Personagem;
 
 
@@ -23,7 +24,7 @@ public class Mago extends Personagem {
 
 
     @Override
-    public void usarHabilidade1(Personagem inimigo) { // Raio Mágico, -20 mana
+    public void usarHabilidade1(Inimigo inimigo) { // Raio Mágico, -20 mana
 
         if (mana >= 20) {
 
@@ -39,7 +40,7 @@ public class Mago extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2(Personagem inimigo) {
+    public void usarHabilidade2(Inimigo inimigo) {
 
         if (mana < 40) {
             setStringHabilidadeUsada("Mana insuficiente para usar Bola de Fogo!");
@@ -56,7 +57,7 @@ public class Mago extends Personagem {
 
 
     @Override
-    public void usarHabilidade3(Personagem inimigo) {// Escudo Arcano, +20 mana
+    public void usarHabilidade3(Inimigo inimigo) {// Escudo Arcano, +20 mana
         alterarDefesa(20);
         setMana(30);
         setStringHabilidadeUsada("Mago usa com escudo arcano! \nDefesa aumentada  ( + 20 ) \nMana recuperada (+ 30 ) ");
@@ -65,7 +66,7 @@ public class Mago extends Personagem {
     }
 
     @Override
-    public void usarHabilidade4(Personagem inimigo) {
+    public void usarHabilidade4(Inimigo inimigo) {
         alterarSaude(50);
 
     }

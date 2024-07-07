@@ -2,10 +2,10 @@ package game.personagens;
 
 public interface Habilidades {
 
-    void usarHabilidade1(Personagem personagem);
-    void usarHabilidade2(Personagem personagem);
-    void usarHabilidade3(Personagem personagem);
-    void usarHabilidade4(Personagem personagem);
+    void usarHabilidade1(Inimigo inimigo);
+    void usarHabilidade2(Inimigo inimigo);
+    void usarHabilidade3(Inimigo inimigo);
+    void usarHabilidade4(Inimigo inimigo);
 
     void getImage();
     void getImageGrande();

@@ -1,5 +1,6 @@
 package game.personagens.classesJogador;
 
+import game.personagens.Inimigo;
 import game.personagens.Personagem;
 
 public class Arqueiro extends Personagem {
@@ -20,7 +21,7 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade1(Personagem inimigo) {
+    public void usarHabilidade1(Inimigo inimigo) {
         if (flechas >= 5) {
             setStringHabilidadeUsada("Arqueiro usa Flecha Veloz! \nDano aplicado (+15).");
             inimigo.alterarSaude(-15);
@@ -33,7 +34,7 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2(Personagem inimigo) {
+    public void usarHabilidade2(Inimigo inimigo) {
         if (flechas >= 10) {
             setStringHabilidadeUsada("Arqueiro usa Chuva de Flechas! \nDano aplicado (+30).");
             inimigo.alterarSaude(-30);
@@ -46,7 +47,7 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade3(Personagem inimigo) {
+    public void usarHabilidade3(Inimigo inimigo) {
         setDefesa(10);
         flechas += 10;
         setStringHabilidadeUsada("Arqueiro prepara Postura Defensiva! \nDefesa aumentada (+10).");
@@ -54,7 +55,7 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade4(Personagem inimigo) {
+    public void usarHabilidade4(Inimigo inimigo) {
 
         if (flechas >= 60) {
             setStringHabilidadeUsada("Arqueiro usa Tiro Certeiro! \nDano aplicado (+25).");

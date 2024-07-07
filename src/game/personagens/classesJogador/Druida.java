@@ -1,5 +1,6 @@
 package game.personagens.classesJogador;
 
+import game.personagens.Inimigo;
 import game.personagens.Personagem;
 
 public class Druida extends Personagem {
@@ -20,7 +21,7 @@ public class Druida extends Personagem {
     }
 
     @Override
-    public void usarHabilidade1(Personagem inimigo) {
+    public void usarHabilidade1(Inimigo inimigo) {
         if (essenciaNatural >= 20){
             setStringHabilidadeUsada("Druida usa Raízes Entrelaçadas! \nInimigo paralisado (-10) defesa.");
             inimigo.alterarDefesa(-10);
@@ -32,7 +33,7 @@ public class Druida extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2(Personagem inimigo) {
+    public void usarHabilidade2(Inimigo inimigo) {
 
         if (essenciaNatural >= 30){
             setStringHabilidadeUsada("Druida invoca Enxame de Abelhas! \nDano aplicado (+10).");
@@ -47,14 +48,14 @@ public class Druida extends Personagem {
     }
 
     @Override
-    public void usarHabilidade3(Personagem inimigo) {
+    public void usarHabilidade3(Inimigo inimigo) {
         setStringHabilidadeUsada("Druida utiliza Escudo de Espinhos! \nDefesa aumentada (+15). .");
         alterarDefesa(15);
         setUsouHabilidade(true);
     }
 
     @Override
-    public void usarHabilidade4(Personagem inimigo) {
+    public void usarHabilidade4(Inimigo inimigo) {
 
         if (essenciaNatural >= 40){
             setStringHabilidadeUsada("Druida cura a si mesmo! \nSaúde restaurada (+30).");

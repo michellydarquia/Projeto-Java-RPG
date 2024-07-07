@@ -1,5 +1,6 @@
 package game.personagens.classesJogador;
 
+import game.personagens.Inimigo;
 import game.personagens.Personagem;
 
 public class Guerreiro extends Personagem {
@@ -20,7 +21,7 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade1(Personagem inimigo) {
+    public void usarHabilidade1(Inimigo inimigo) {
         if (energia >= 20) {
             setStringHabilidadeUsada("Guerreiro usa Golpe Furioso! \nDano aplicado (+20).");
             inimigo.alterarSaude(-20);
@@ -33,7 +34,7 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade2(Personagem inimigo) {
+    public void usarHabilidade2(Inimigo inimigo) {
         setStringHabilidadeUsada("Guerreiro se concentra e recupera energia!");
         energia += 20;
 
@@ -41,7 +42,7 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade3(Personagem inimigo) {
+    public void usarHabilidade3(Inimigo inimigo) {
         if (energia >= 15) {
             setStringHabilidadeUsada("Guerreiro usa Impacto Brutal! \nDano aplicado (+30).");
             inimigo.alterarSaude(-30);
@@ -53,7 +54,7 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void usarHabilidade4(Personagem inimigo) {
+    public void usarHabilidade4(Inimigo inimigo) {
         if(energia > 50){
             setStringHabilidadeUsada("Guerreiro se prepara para o próximo ataque!");
             setDefesa(10);

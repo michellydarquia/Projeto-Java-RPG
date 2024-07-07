@@ -95,6 +95,7 @@ public class Jogador {
         System.out.println(" cordenadas y: "+ y );
 
         gp.blocoM.verificarBordasMapa();
+        gp.blocoM.verificarColisaoInimigo();
 
 
     }

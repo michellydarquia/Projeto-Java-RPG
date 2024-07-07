@@ -1,6 +1,7 @@
 package Menu;
 
 import game.map.MapManager;
+import game.personagens.Inimigo;
 import game.personagens.KeyHandler;
 import game.personagens.Jogador;
 import game.personagens.Personagem;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler(this);
     public Jogador jogador = new Jogador(this, keyH);
     public MapManager blocoM = new MapManager(this);
-    public Personagem inimigo = new Goblin();
+//    public Inimigo inimigo = new Goblin(12,55);
 
     public Menu menu = new Menu(this);
     public MenuClasses menuClass = new MenuClasses(this);
@@ -120,6 +121,8 @@ public class GamePanel extends JPanel implements Runnable{
 
         jogador.atualizar();
 
+
+
     }
 
 
@@ -145,12 +148,13 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         if(gameState == stateMenuBatalha  || gameState == stateSubMenuBatalha ) {
-            if(menuBatalha == null) {
-                menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
-            }
+            if(menuBatalha != null) {
+//                menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
+//            }
 //            System.out.println("GP - BATALAHDNO");
             menuBatalha.draw(g2);
 
+            }
         }
 
 
@@ -158,9 +162,5 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-//    public void trocarMapa(Point coordenadas) {
-//        blocoM.trocarMapa(coordenadas);
-//
-//        System.out.println("FORÇANDO, SAINDO DO TROCARMAPA GP" );
-//    }
+
 }

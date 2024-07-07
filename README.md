@@ -14,9 +14,8 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 >>>>>>> back
 
 
-## Autoras
+## Autora
 
--  Maria Luísa Barreto dos Santos Costa
 -  Michelly Darquia da Silva
 
 ##

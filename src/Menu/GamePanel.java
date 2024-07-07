@@ -1,16 +1,15 @@
 package Menu;
 
-import game.map.BlocosManager;
-import game.personagens.KeyHandler;
-import game.personagens.Jogador;
-import game.personagens.Personagem;
-import game.personagens.enemies.GoblinArcher;
-
+import game.map.MapManager;
+import game.personagens.jogador.Jogador;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class GamePanel extends JPanel implements Runnable{
+
 
     // constantes de config
     public final int originalSizeLadrilho = 16;
@@ -33,10 +32,12 @@ public class GamePanel extends JPanel implements Runnable{
     public final int stateMenuInicial = 1;
     public final int statePlay = 2;
     public final int statePause =3;
-    public final int stateDialoge =4;
+    public final int stateDialogeeHistoria =4;
     public final int stateMenuclasses = 5;
-    public final int stateMenuBatalha =6;
-    public final int stateSubMenuBatalha = 7;
+//    public final int stateMenuBatalha =6;
+//    public final int stateSubMenuBatalha = 7;
+
+
 
 
 
@@ -46,13 +47,17 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-    BlocosManager blocoM = new BlocosManager(this);
-    Jogador jogador = new Jogador(this, keyH);
-    Personagem inimigo = new GoblinArcher();
+//    public Jogador jogador = new Jogador(this, keyH);
+//    public MapManager mapa = new MapManager(this);
+//    public Inimigo inimigo = new Goblin(12,55);
 
-    public Menu menu = new Menu(this);
+    public MenuInicial menu = new MenuInicial(this);
     public MenuClasses menuClass = new MenuClasses(this);
-    public MenuBatalha menuBatalha;
+//    public Batalha menuBatalha;
+    public Play play = new Play(this,keyH);
+
+    public Font monogramExtended;
+    Font OldLondon;
 
 
     public GamePanel(){
@@ -64,6 +69,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 
         configurarGame();
+        iniciandoFonte();
+
+
     }
 
 
@@ -77,6 +85,21 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
     }
 
+
+    public void iniciandoFonte(){
+
+
+        try {
+            InputStream is = getClass().getResourceAsStream("/fonte/monogramExtended.ttf");
+            monogramExtended = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("/fonte/OldLondon.ttf");
+            OldLondon = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
     @Override
@@ -114,9 +137,8 @@ public class GamePanel extends JPanel implements Runnable{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    public void atualizar(){
-
-        jogador.atualizar();
+    public void atualizar() {
+        play.jogador.atualizar();
 
     }
 
@@ -129,28 +151,14 @@ public class GamePanel extends JPanel implements Runnable{
 
         if(gameState == stateMenuInicial){   // TELA DE MENU
             menu.draw(g2);
-            System.out.println("GP - MENU");
         }
         if(gameState == stateMenuclasses){ // TELA DE MENU CLASSES
-        System.out.println(" GP - SELECIONANDO CLASSES");
         menuClass.draw(g2);
 
         }
         if(gameState == statePlay){  // JOGANDO
-            blocoM.draw(g2);
-            jogador.draw(g2);// tem q ficar dps des blocos
-            System.out.println("GP -JOGANDO");
+            play.draw(g2);
         }
-
-        if(gameState == stateMenuBatalha  || gameState == stateSubMenuBatalha ) {
-            if(menuBatalha == null) {
-                menuBatalha = new MenuBatalha(this, jogador.getClassePersonagem(), inimigo);
-            }
-//            System.out.println("GP - BATALAHDNO");
-            menuBatalha.draw(g2);
-
-        }
-
 
         g2.dispose();
 

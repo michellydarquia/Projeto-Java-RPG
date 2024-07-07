@@ -1,10 +1,10 @@
 package Menu;
 
-import game.personagens.Personagem;
-import game.personagens.classesJogador.Arqueiro;
-import game.personagens.classesJogador.Druida;
-import game.personagens.classesJogador.Guerreiro;
-import game.personagens.classesJogador.Mago;
+import game.personagens.jogador.Personagem;
+import game.personagens.jogador.classes.Arqueiro;
+import game.personagens.jogador.classes.Druida;
+import game.personagens.jogador.classes.Guerreiro;
+import game.personagens.jogador.classes.Mago;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,42 +47,42 @@ public class MenuClasses {
     }
     public void drawTituloMenu(Graphics2D g2) {
 
-        Font InfmenuFont = new Font("Arial", Font.PLAIN, 20); // Alterar "48" para o tamanho desejado
-        g2.setFont(InfmenuFont);
+        Font fonte = gp.OldLondon.deriveFont((float) 45);
+        g2.setFont(fonte);
         g2.setColor(Color.white);
 
-        String texto = "ESCOLHA A CLASSE DO SEU PERSONAGEM";
+        String texto = "escolha a classe do personagem";
         int x = getXdoCentroTexto(texto, g2);
         int y = gp.sizeLadrilho * 3;
         g2.drawString(texto, x, y);
 
         // Reduzindo o tamanho da fonte para as opções do menu
-        Font menuFont = new Font("Arial", Font.PLAIN, 30); // alterar "36" para o tamanho desejado
-        g2.setFont(menuFont);
+        Font font = gp.OldLondon.deriveFont((float) 30);
+        g2.setFont(font);
 
         // Ajustando a posição das opções do menu
-        String texto2 = "Arqueiro";
+        String texto2 = "arqueiro";
         int x2 = getXdoCentroTexto(texto2, g2);
         g2.drawString(texto2, x2, y + 140);
         if (comandomenu==0){
             g2.drawString(">", x2 - gp.sizeLadrilho,y+140);
         }
 
-        String texto3 = "Druida";
+        String texto3 = "druida";
         int x3 = getXdoCentroTexto(texto3, g2);
         g2.drawString(texto3, x3, y + 180);
         if (comandomenu==1){
             g2.drawString(">", x2 - gp.sizeLadrilho,y+180);
         }
 
-        String texto4 = "Guerreiro";
+        String texto4 = "guerreiro";
         int x4 = getXdoCentroTexto(texto4, g2);
         g2.drawString(texto4, x4, y + 220);
         if (comandomenu==2){
             g2.drawString(">", x2 - gp.sizeLadrilho,y+220);
         }
 
-        String texto5 = "Mago";
+        String texto5 = "mago";
         int x5 = getXdoCentroTexto(texto5, g2);
         g2.drawString(texto5, x5, y + 260);
         if (comandomenu==3){
@@ -130,7 +130,7 @@ public class MenuClasses {
                     jogador = new Mago();
                     break;
             }
-            gp.jogador.setClassePersonagem(jogador);
+            gp.play.jogador.setClassePersonagem(jogador);
             gp.gameState = gp.statePlay;
         }
 

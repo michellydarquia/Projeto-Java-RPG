@@ -1,8 +1,8 @@
-# Guardiões das Lendas Antigas - Jogo RPG de Turnos
+# Jogo RPG de Turnos em JAVA
 
-## Introdução
 
-Este jogo levará os jogadores a uma jornada épica em um mundo de fantasia, onde eles controlarão um grupo de heróis em uma missão para salvar o reino de uma antiga ameaça. Este jogo será focado em lógica de programação e estratégia, proporcionando uma experiência desafiadora para os jogadores.
+Este jogo levará os jogadores a uma jornada épica em um mundo de fantasia. Este jogo será focado em lógica de programação e estratégia, proporcionando uma experiência desafiadora para os jogadores.
+O projeto é implementado em Java.
 
 ## Desenvolvimento
 
@@ -10,9 +10,8 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 
 
 
-## Autoras
+## Autora
 
--  Maria Luísa Barreto dos Santos Costa
 -  Michelly Darquia da Silva
 
 ##
@@ -21,6 +20,6 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 - **Curso:** Engenharia de Computação
 - **Disciplina:** Programação Orientada a Objetos - LPOO
 - **Professor:** Bruno José Torres Fernandes
-- **Monitores:** 
 
-Este projeto promete oferecer uma experiência desafiadora para os jogadores, focada em lógica de programação e estratégia. Vamos em frente, Guardiões das Lendas Antigas aguarda! 🛡️🐉✨
+Este projeto promete oferecer uma experiência desafiadora para os jogadores, focada em lógica de programação e estratégia. 🛡️🐉✨
+

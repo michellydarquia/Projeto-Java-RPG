@@ -7,12 +7,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import java.util.Objects;
 
 public class Goblin extends Inimigo {
 
     private int acumulo;
     public BufferedImage imagemPrinGoblin;
+    public BufferedImage imagem1;
+    public BufferedImage imagem2;
+    private int atualizarImagem;
 
 
 
@@ -35,17 +39,42 @@ public class Goblin extends Inimigo {
 
     public void getGerarImagem() {
         try {
-            imagemPrinGoblin = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/GoblinMap.png")));
-
+            imagem1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/Goblin1.png")));
+            imagem2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/enemies/Goblin2.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics g2) {
+
+        int contador = (int) (Math.random() * 20);
+
+        switch (contador) {
+            case 1:
+                imagemPrinGoblin = imagem1;
+                break;
+            case 0:
+                imagemPrinGoblin = imagem2;
+                break;
+        }
+
         g2.drawImage(imagemPrinGoblin, getPosx(), getPosy() , 48, 48, null);
 
     }
+
+//    public void atualizar() {
+//        if(){
+//
+//            //MUDANDO A IMAGEM A CADA MOVIMENTO
+//
+//            if (spriteCounter > 5) {
+//                spriteNum = spriteNum == 1 ? 2 : 1;
+//                spriteCounter = 0;
+//            }
+//        }
+//    }
+
 
     @Override
     public void usarHabilidade1(Personagem jogador) { // Flecha Venenosa, causa dano e envenena

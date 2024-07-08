@@ -60,14 +60,14 @@ public class Jogador {
     public void getPlayerImage() {
         try {
 
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_costa1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_costa2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente3.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_left2.png")));
-            rigth1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_right1.png")));
-            rigth2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_right2.png")));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_up1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_up2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_down1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_down2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_left1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_left2.png")));
+            rigth1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_rigth1.png")));
+            rigth2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_rigth2.png")));
 
 
 

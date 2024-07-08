@@ -5,7 +5,14 @@ import game.inventorio.Inventario;
 import game.map.MapManager;
 import game.personagens.jogador.Jogador;
 
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.*;
+
+
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class Play {
 
@@ -22,6 +29,16 @@ public class Play {
     public final int stateJogando = 1;
     public final int stateMenuBatalha = 2;
     public final int stateSubMenuBatalha = 3;
+    public boolean tocandoMusica = true;
+
+    public void setTocandoMusica(boolean tocandoMusica) {
+        this.tocandoMusica = tocandoMusica;
+    }
+
+    public String music1 = "C:\\Users\\miche\\OneDrive\\Documentos\\FACUL_COMP\\GITHUB\\Projeto-Java-RPG\\res\\musica\\Medieval_Jogo.wav";
+
+    public static Clip clip; // Variável para armazenar o clip de áudio
+
 
     public Play(GamePanel gp, KeyHandler keyH){
 
@@ -33,16 +50,18 @@ public class Play {
         utils = new Utils(gp);
     }
 
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2)  {
         this.g2 = g2;
 
         if(statePlay== stateJogando){
+            musicaPlay(music1);
             mapa.draw(g2);
             jogador.draw(g2);
             drawInventario();
 
         }
         if(statePlay == stateMenuBatalha || statePlay == stateSubMenuBatalha ){
+//            musicaStop();
             if(menuBatalha != null) {
                 System.out.println("DESENHANDO MENUBATALHA");
                 menuBatalha.draw(g2);
@@ -62,5 +81,42 @@ public class Play {
             utils.drawRetanguloTranslucidoComBordas(g2, 70, 400, 576, 70);
         }
     }
+
+
+    public void musicaPlay(String soundFile) {
+        if(tocandoMusica) {
+            try {
+                File file = new File(soundFile);
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+
+                clip = AudioSystem.getClip();
+                clip.open(audioStream);
+                clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                tocandoMusica = false;
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public void musicaStop(){
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+        }
+
+    }
+
+    public void verificarmusica(){
+        if(gp.play.clip.isRunning()){
+            gp.play.musicaStop();
+            gp.play.setTocandoMusica(true);
+
+        }
+    }
+
 
 }

@@ -5,6 +5,7 @@ import game.personagens.inimigo.Inimigo;
 import game.personagens.jogador.Personagem;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,7 @@ public class Batalha {
     public int stateBatalha;
 
     public long tempoFinalizarBatalha;
+    private String music2 = "C:\\Users\\miche\\OneDrive\\Documentos\\FACUL_COMP\\GITHUB\\Projeto-Java-RPG\\res\\musica\\Medieval_Batalha.wav";
 
     public Batalha(GamePanel gp, Personagem jogador, Inimigo inimigo) {
         this.gp = gp;
@@ -46,6 +48,9 @@ public class Batalha {
 
         utils = new Utils(gp);
 
+
+        gp.play.verificarmusica();
+        gp.play.musicaPlay(music2);
     }
 
     public void draw(Graphics2D g2) {
@@ -151,6 +156,7 @@ public class Batalha {
 
         String qualtaprintando = "\"INFO DO JOGADOR\"";
 
+
         if (personagem instanceof Inimigo) {
             segundos = 6000; // 6 segundos de espera para o inimigo
             qualtaprintando = " INFO DO INIMIGO";
@@ -185,6 +191,10 @@ public class Batalha {
             inimigo.redefinirAtributos();
         }
 
+        gp.play.verificarmusica();
+
+
+
         jogador.redefinirAtributos();
         gp.play.statePlay = gp.play.stateJogando;
 
@@ -198,6 +208,8 @@ public class Batalha {
         }
         return null;
     }
+
+
 
 
     //////////////////////////// NAVEGAR NO MENU //////////////////////////////////////
@@ -359,7 +371,7 @@ public class Batalha {
 
     public void getImagemPersonagem() {
         try {
-            jogador.setImagemGrande(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/guerreiro_frente3.png"))));
+            jogador.setImagemGrande(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Archer_down1.png"))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

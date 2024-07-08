@@ -32,7 +32,7 @@ public class MenuInicial {
 
     public void getBlackGroundImage() {
         try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/Background.png")));
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/square.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,8 +40,8 @@ public class MenuInicial {
 
     public void drawTituloMenu(Graphics2D g2) {
         String[] opcoes = {"A Ameaça dos Goblins", "jogar", "instruções", "sair"};
-        int y = gp.sizeLadrilho * 3;
-        g2.setColor(Color.white);
+        int y =0 ;  ;
+        g2.setColor(Color.black);
 
         for (int i = 0; i < opcoes.length; i++) {
             String opcao = opcoes[i];
@@ -49,8 +49,11 @@ public class MenuInicial {
             Font fonte;
             if (i == 0) {
                 fonte = gp.OldLondon.deriveFont((float) 70);
+                y =  gp.sizeLadrilho * 3 + 100;
             } else {
-                fonte = gp.OldLondon.deriveFont((float) 40);
+                y = gp.sizeLadrilho * 3;
+                fonte = gp.OldLondon.deriveFont((float) 45);
+
 
 
             }

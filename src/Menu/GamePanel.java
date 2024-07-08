@@ -72,6 +72,9 @@ public class GamePanel extends JPanel implements Runnable{
         iniciandoFonte();
 
 
+
+
+
     }
 
 
@@ -139,6 +142,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void atualizar() {
         play.jogador.atualizar();
+//        play.inimigo.atualizar();
 
     }
 
@@ -156,7 +160,8 @@ public class GamePanel extends JPanel implements Runnable{
         menuClass.draw(g2);
 
         }
-        if(gameState == statePlay){  // JOGANDO
+        if(gameState == statePlay){ // JOGANDO
+
             play.draw(g2);
         }
 

@@ -9,7 +9,7 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     Play play;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, inventarioAberto;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, inventarioAberto, uPressed;;
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -69,6 +69,18 @@ public class KeyHandler implements KeyListener {
                 gp.play.jogador.getInventario().inventarioAberto = !gp.play.jogador.getInventario().inventarioAberto ;
 
             }if(code == KeyEvent.VK_O ){
+
+            }if (code == KeyEvent.VK_U){
+
+
+                if(Play.clip.isRunning()){
+                    System.out.println("Musica DESATIVADA");
+                    gp.play.musicaStop();
+                }else {
+                    gp.play.setTocandoMusica(true);
+                    System.out.println("Musica ATIVADA");
+                    gp.play.musicaPlay(gp.play.music1);
+                }
 
             }
 

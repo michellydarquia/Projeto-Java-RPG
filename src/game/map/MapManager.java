@@ -313,49 +313,95 @@ public class MapManager extends Blocos{
             bloco[1] = new Blocos(); // grama2
             bloco[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/grama2.png")));
 
-            bloco[2] = new Blocos(); // pedra
-            bloco[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/pedra.png")));
+            bloco[2] = new Blocos(); // arvore1
+            bloco[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_5.png")));
 
-            bloco[3] = new Blocos(); // arvore
-            bloco[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/arvore1.png")));
+            bloco[3] = new Blocos(); // arvore2
+            bloco[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_7.png")));
 
-            bloco[4] = new Blocos(); // arvore
-            bloco[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/arvore2.png")));
+            bloco[4] = new Blocos(); // mato1
+            bloco[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_28.png")));
 
-            bloco[5] = new Blocos(); // caminho
-            bloco[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/caminho1.png")));
 
-            // -------------  AGUAAAAAS ----------------
-            bloco[6] = new Blocos(); // agua centro
-            bloco[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguacentro.png")));
+            // -------------  CAMINHOS ----------------
 
-            bloco[7] = new Blocos(); // agua borda cima esquerda
-            bloco[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordacimaesquerda.png")));
+            bloco[5] = new Blocos(); // caminho horizontal
+            bloco[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_72.png")));
 
-            bloco[8] = new Blocos();  // agua borda cima
-            bloco[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordacima.png")));
+            bloco[6] = new Blocos(); // caminho vertical
+            bloco[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_78.png")));
 
-            bloco[9] = new Blocos(); // agua borda cima direita
-            bloco[9].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordacimadireita.png")));
+            bloco[7] = new Blocos(); // caminho cruzada
+            bloco[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_79.png")));
 
-            bloco[10] = new Blocos(); // agua borda esquerda
-            bloco[10].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordaesquerda.png")));
 
-            bloco[11] = new Blocos(); // agua borda direita
-            bloco[11].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordadireita.png")));
 
-            bloco[12] = new Blocos(); // agua borda  baixo esquerda
-            bloco[12].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordabaixoesquerda.png")));
+            // -------------  BORDAS REINO ----------------
 
-            bloco[13] = new Blocos(); // agua borda baixo direita
-            bloco[13].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordabaixodireita.png")));
+            bloco[8] = new Blocos(); // borda superior direita
+            bloco[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_220.png")));
 
-            bloco[14] = new Blocos(); // agua borda baixo
-            bloco[14].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/aguabordabaixo.png")));
+            bloco[9] = new Blocos();  // borda horinzontal
+            bloco[9].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_221.png")));
 
-            // ---------------------------------------
-            bloco[15] = new Blocos(); // caminho2
-            bloco[15].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/caminho2.png")));
+
+            bloco[10] = new Blocos(); // borda superior esquerda
+            bloco[10].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_222.png")));
+
+
+            bloco[11] = new Blocos(); // borda vertical
+            bloco[11].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_227.png")));
+
+
+            bloco[12] = new Blocos(); // borda inferior esquerda
+            bloco[12].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_236.png")));
+
+            bloco[13] = new Blocos(); // borda inferior direita
+            bloco[13].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_234.png")));
+
+            // -------------------- CASTELO E CASAS -------------------
+
+            bloco[14] = new Blocos(); // castelo cima direita
+            bloco[14].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_54.png")));
+
+            bloco[15] = new Blocos(); // castelo cima esquerda
+            bloco[15].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_55.png")));
+
+            bloco[16] = new Blocos(); // castelo baixo direita
+            bloco[16].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_61.png")));
+
+            bloco[17] = new Blocos(); // castelo baixo esquerda
+            bloco[17].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_62.png")));
+
+            bloco[18] = new Blocos(); // 3 casas
+            bloco[18].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_16.png")));
+
+            bloco[19] = new Blocos(); // uma casa andar meio palha
+            bloco[19].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_15.png")));
+
+            bloco[20] = new Blocos(); //uma casa teto vermelho
+            bloco[20].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_18.png")));
+
+            bloco[21] = new Blocos(); // cabanas vermelhas
+            bloco[21].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_38.png")));
+
+            bloco[22] = new Blocos(); // cabanas amarelas
+            bloco[22].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_41.png")));
+
+            bloco[23] = new Blocos(); // acampamento verde
+            bloco[23].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_44.png")));
+
+            bloco[24] = new Blocos(); // acampamento amarelo
+            bloco[24].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_43.png")));
+
+            bloco[25] = new Blocos(); // casa destruida
+            bloco[25].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_36.png")));
+
+            bloco[26] = new Blocos(); // casa destruid 2
+            bloco[26].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_29.png")));
+
+            bloco[27] = new Blocos(); // torre medieval
+            bloco[27].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/novo/tile_26.png")));
 
 
 

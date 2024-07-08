@@ -40,24 +40,24 @@ public class MenuClasses {
 
     public void getBlackGroundImage() {
         try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/Background.png")));
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/medium.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public void drawTituloMenu(Graphics2D g2) {
 
-        Font fonte = gp.OldLondon.deriveFont((float) 45);
+        Font fonte = gp.OldLondon.deriveFont((float) 50);
         g2.setFont(fonte);
-        g2.setColor(Color.white);
+        g2.setColor(Color.black);
 
         String texto = "escolha a classe do personagem";
         int x = getXdoCentroTexto(texto, g2);
         int y = gp.sizeLadrilho * 3;
-        g2.drawString(texto, x, y);
+        g2.drawString(texto, x, y + 60);
 
         // Reduzindo o tamanho da fonte para as opções do menu
-        Font font = gp.OldLondon.deriveFont((float) 30);
+        Font font = gp.OldLondon.deriveFont((float) 40);
         g2.setFont(font);
 
         // Ajustando a posição das opções do menu

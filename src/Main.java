@@ -8,7 +8,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("A Conspiração na Corte Real");
+        window.setTitle("A revolta dos goblins");
 
 
         GamePanel gamePanel = new GamePanel();

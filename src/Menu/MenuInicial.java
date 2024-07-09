@@ -14,6 +14,7 @@ public class MenuInicial {
     Graphics2D g2;
     public int comandomenu = 0;
     public BufferedImage background;
+    public BufferedImage backgroundInstru;
 
 
     public MenuInicial(GamePanel gp) {
@@ -45,7 +46,6 @@ public class MenuInicial {
 
         for (int i = 0; i < opcoes.length; i++) {
             String opcao = opcoes[i];
-            // Ajuste o tamanho da fonte baseado na posição do texto no menu
             Font fonte;
             if (i == 0) {
                 fonte = gp.OldLondon.deriveFont((float) 70);
@@ -53,8 +53,6 @@ public class MenuInicial {
             } else {
                 y = gp.sizeLadrilho * 3;
                 fonte = gp.OldLondon.deriveFont((float) 45);
-
-
 
             }
             g2.setFont(fonte);
@@ -85,6 +83,55 @@ public class MenuInicial {
     }
 
 
+    public void drawInstruções(Graphics g2){
+        int x = 100 ;
+        int y = gp.sizeLadrilho *3 ;
+        getBlackGroundImageInstrucoes();
+
+        g2.setColor(Color.darkGray);
+
+
+        String[] instrucoes = {
+                "Tecla U = Parar música",
+                "Tecla I = Abrir inventário",
+                "Teclas de Seta = Navegar menus",
+                "Enter = Selecionar opção",
+                "  ",
+                "Batalha em Turnos:",
+                "- Setas Laterais = Selecionar ação",
+                "- Enter = Confirmar ação",
+                "  ",
+                "Exploração:",
+                "- Setas = Mover personagem",
+                "- Espaço = Interagir",
+
+        };
+
+        if (backgroundInstru  != null) {
+            g2.drawImage(backgroundInstru, 0, 0, backgroundInstru.getWidth(), backgroundInstru.getHeight(), null);
+        }
+        Font fonte = gp.monogramExtended.deriveFont((float) 20);
+        g2.setFont(fonte);
+        g2.drawString("aperte enter para voltar", x + 190 ,y + 330);
+
+        Font fonte2 = gp.monogramExtended.deriveFont((float) 30);
+        g2.setFont(fonte2);
+        for (int i = 0; i < instrucoes.length; i++) {
+            g2.drawString(instrucoes[i], x, y);
+            y+= 25;
+
+        }
+
+
+    }
+
+    public void getBlackGroundImageInstrucoes() {
+        try {
+            backgroundInstru = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Menu/tall.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void navigateMenu1(int code) {
 
@@ -105,8 +152,8 @@ public class MenuInicial {
                 case 0: // Jogar
                     gp.gameState = gp.stateMenuclasses;
                     break;
-                case 1: // Carregar o mesmo jogo
-                    gp.play.statePlay = gp.play.stateMenuBatalha;
+                case 1: // Instrucoes
+                    gp.gameState = gp.stateInstrucoes;
                     break;
                 case 2: // Quit
                     System.exit(0);
@@ -115,6 +162,17 @@ public class MenuInicial {
         }
 
     }
+
+    public void navigateMenuInstrucao(int code) {
+
+        if (code == KeyEvent.VK_ENTER) {
+            gp.gameState = gp.stateMenuInicial;
+
+        }
+
+    }
+
+
 }
 
 

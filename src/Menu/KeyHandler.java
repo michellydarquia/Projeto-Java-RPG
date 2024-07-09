@@ -1,5 +1,6 @@
 package Menu;
 
+import Exceptions.ExceptionBatalha;
 import game.inventorio.Inventario;
 
 import java.awt.event.KeyEvent;
@@ -9,7 +10,7 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     Play play;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, inventarioAberto, uPressed;;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, inventarioAberto, pPressed;;
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -43,12 +44,23 @@ public class KeyHandler implements KeyListener {
             }
 
         } else if (gp.play.statePlay == gp.play.stateSubMenuBatalha) {
-            if(gp.play.menuBatalha.turnoDojogadorVez) {
+            if (gp.play.menuBatalha.turnoDojogadorVez) {
                 gp.play.menuBatalha.navigateSubMenuBatalha(code);
             }
+        }
+        else if (gp.gameState == gp.stateInstrucoes) {
+                System.out.println("INSTR");
+                gp.menu.navigateMenuInstrucao(code);
+
+        } else if (gp.gameState == gp.statePause) {
+            System.out.println("PAUSE");
+            gp.play.navigateMenuPause(code);
+//            gp.gameState = gp.statePause;
 
 
-        } else {
+
+
+        } else if (gp.gameState == gp.statePlay) {
 
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
@@ -68,10 +80,10 @@ public class KeyHandler implements KeyListener {
 
                 gp.play.jogador.getInventario().inventarioAberto = !gp.play.jogador.getInventario().inventarioAberto ;
 
-            }if(code == KeyEvent.VK_O ){
+            }if(code == KeyEvent.VK_P ){
+                gp.gameState = gp.statePause;
 
             }if (code == KeyEvent.VK_U){
-
 
                 if(Play.clip.isRunning()){
                     System.out.println("Musica DESATIVADA");
@@ -84,6 +96,8 @@ public class KeyHandler implements KeyListener {
 
             }
 
+        }else {
+            throw new ExceptionBatalha("SEM CONFIGURAÇÃO PARA O KEYHANDLER");
         }
 
 

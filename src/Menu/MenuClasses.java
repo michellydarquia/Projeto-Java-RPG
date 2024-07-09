@@ -89,6 +89,13 @@ public class MenuClasses {
             g2.drawString(">", x2 - gp.sizeLadrilho,y+260);
         }
 
+        String texto6 = "retornar";
+        int x6 = getXdoCentroTexto(texto6, g2);
+        g2.drawString(texto6, x6, y + 320);
+        if (comandomenu==4){
+            g2.drawString(">", x2 - gp.sizeLadrilho,y+320);
+        }
+
     }
     public void drawBackGround(Graphics g2) {
         if (background  != null) {
@@ -107,31 +114,42 @@ public class MenuClasses {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             comandomenu--;
             if (comandomenu < 0) {
-                comandomenu = 3;
+                comandomenu = 4;
             }
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             comandomenu++;
-            if (comandomenu > 3) {
+            if (comandomenu > 4) {
                 comandomenu = 0;
             }
         }if (code == KeyEvent.VK_ENTER) {
             switch (comandomenu) {
                 case 0: // ARQUEIRO
                     jogador  = new Arqueiro();
+                    gp.play.jogador.setClassePersonagem(jogador);
+                    gp.gameState = gp.statePlay;
                     break;
                 case 1: // DRUIDA
                     jogador  = new Druida();
+                    gp.play.jogador.setClassePersonagem(jogador);
+                    gp.gameState = gp.statePlay;
                     break;
                 case 2: // GUERREIRO
                     jogador = new Guerreiro();
+                    gp.play.jogador.setClassePersonagem(jogador);
+                    gp.gameState = gp.statePlay;
                     break;
                 case 3: // MAGO
                     jogador = new Mago();
+                    gp.play.jogador.setClassePersonagem(jogador);
+                    gp.gameState = gp.statePlay;
+                    break;
+                case 4: // retornar
+                    gp.gameState = gp.stateMenuInicial;
                     break;
             }
-            gp.play.jogador.setClassePersonagem(jogador);
-            gp.gameState = gp.statePlay;
+
+
         }
 
     }

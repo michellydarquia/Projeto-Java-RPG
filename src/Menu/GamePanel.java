@@ -34,8 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int statePause =3;
     public final int stateDialogeeHistoria =4;
     public final int stateMenuclasses = 5;
-//    public final int stateMenuBatalha =6;
-//    public final int stateSubMenuBatalha = 7;
+    public final int stateInstrucoes =6;
 
 
 
@@ -43,17 +42,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-    // instanciando a atualização de tela, movimentação do jogador, player, blocos, inimgios, menus , batalhas
 
     Thread gameThread; // é uma classe que precisa do metodo run, com ela conseguimos iniciar e parar o game ( um fluxo de execução separado dentro de um programa.)
     KeyHandler keyH = new KeyHandler(this);
-//    public Jogador jogador = new Jogador(this, keyH);
-//    public MapManager mapa = new MapManager(this);
-//    public Inimigo inimigo = new Goblin(12,55);
 
     public MenuInicial menu = new MenuInicial(this);
     public MenuClasses menuClass = new MenuClasses(this);
-//    public Batalha menuBatalha;
     public Play play = new Play(this,keyH);
 
     public Font monogramExtended;
@@ -80,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void configurarGame(){
         gameState = stateMenuInicial;
+//            gameState = statePause;
     }
 
 
@@ -142,7 +137,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void atualizar() {
         play.jogador.atualizar();
-//        play.inimigo.atualizar();
 
     }
 
@@ -160,8 +154,15 @@ public class GamePanel extends JPanel implements Runnable{
         menuClass.draw(g2);
 
         }
-        if(gameState == statePlay){ // JOGANDO
+        if(gameState == stateInstrucoes){ // TELA instruções
+        menu.drawInstruções(g2);
 
+        }if(gameState == statePause){ // TELA DE pause
+            play.musicaStop();
+            play.drawMenuPause(g2);
+
+        }
+        if(gameState == statePlay){ // JOGANDO
             play.draw(g2);
         }
 

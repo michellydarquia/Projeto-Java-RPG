@@ -51,11 +51,11 @@ public class MenuInicial {
             String opcao = opcoes[i];
             Font fonte;
             if (i == 0) {
-                fonte = utils.OldLondon.deriveFont((float) 70);
+                fonte = utils.OldLondon.deriveFont((float) 25);
                 y =  gp.sizeLadrilho * 3 + 100;
             } else {
                 y = gp.sizeLadrilho * 3;
-                fonte = utils.OldLondon.deriveFont((float) 45);
+                fonte = utils.OldLondon.deriveFont((float) 15);
             }
             g2.setFont(fonte);
 
@@ -112,11 +112,11 @@ public class MenuInicial {
         if (backgroundInstru  != null) {
             g2.drawImage(backgroundInstru, 0, 0, backgroundInstru.getWidth(), backgroundInstru.getHeight(), null);
         }
-        Font fonte = utils.monogramExtended.deriveFont((float) 20);
+        Font fonte = utils.monogramExtended.deriveFont((float) 5);
         g2.setFont(fonte);
         g2.drawString("aperte enter para voltar", x + 190 ,y + 330);
 
-        Font fonte2 = utils.monogramExtended.deriveFont((float) 30);
+        Font fonte2 = utils.monogramExtended.deriveFont((float) 10);
         g2.setFont(fonte2);
         for (int i = 0; i < instrucoes.length; i++) {
             g2.drawString(instrucoes[i], x, y);
@@ -129,7 +129,7 @@ public class MenuInicial {
 
     public void getBlackGroundImageInstrucoes() {
         try {
-            backgroundInstru = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Estados/tall.png")));
+            backgroundInstru = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/square.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

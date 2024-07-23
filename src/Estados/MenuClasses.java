@@ -50,7 +50,7 @@ public class MenuClasses {
     }
     public void drawTituloMenu(Graphics2D g2) {
 
-        Font fonte = utils.OldLondon.deriveFont((float) 50);
+        Font fonte = utils.OldLondon.deriveFont((float) 30);
         g2.setFont(fonte);
         g2.setColor(Color.black);
 
@@ -60,7 +60,7 @@ public class MenuClasses {
         g2.drawString(texto, x, y + 60);
 
         // Reduzindo o tamanho da fonte para as opções do menu
-        Font font = utils.OldLondon.deriveFont((float) 40);
+        Font font = utils.OldLondon.deriveFont((float) 20);
         g2.setFont(font);
 
         // Ajustando a posição das opções do menu

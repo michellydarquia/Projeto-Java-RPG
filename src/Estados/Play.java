@@ -23,7 +23,6 @@ public class Play {
     KeyHandler keyH;
     Graphics2D g2;
     Utils utils;
-    Historia historia;
 
     public Jogador jogador;
     public MapManager mapa;
@@ -34,12 +33,8 @@ public class Play {
     public final int stateMenuBatalha = 2;
     public final int stateSubMenuBatalha = 3;
     public final int stateInventario = 4;
-    public final int stateDialogo = 5;
     public boolean mostrarMissao ;
-    public boolean tocandoMusica = true;
     public BufferedImage backgroundPause;
-    public String music1 = "res\\musica\\Medieval_Jogo.wav";
-    public static Clip clip;
     public int comandomenu = 0;
 
 
@@ -60,7 +55,6 @@ public class Play {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         if (statePlay == stateJogando || statePlay == stateInventario) {
-            musicaPlay(music1);
             mapa.draw(g2);
             jogador.draw(g2);
             drawInventario();
@@ -70,17 +64,10 @@ public class Play {
             if(gp.historia.isDialogoAtivo()){
                 gp.historia.draw(g2);
             }
-
         }
 
-
         if (statePlay == stateMenuBatalha || statePlay == stateSubMenuBatalha ) {
-            if (menuBatalha != null) {
                 menuBatalha.draw(g2);
-            }
-            if (menuBatalha == null) {
-                menuBatalha.draw(g2);
-            }
         }
 
     }
@@ -98,46 +85,6 @@ public class Play {
 
 
     // -----------------------------------------------MUSICA ------------------------------------------------------------
-    public void musicaPlay(String soundFile) {
-        if (tocandoMusica) {
-            try {
-                File file = new File(soundFile);
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-
-                clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-                tocandoMusica = false;
-
-                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                volumeControl.setValue(-10.0f); // Reduz o volume em 10 decibéis
-
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void musicaStop() {
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
-            clip.close();
-        }
-
-    }
-
-    public void verificarmusica() {
-        if (gp.play.clip.isRunning()) {
-            gp.play.musicaStop();
-            gp.play.setTocandoMusica(true);
-
-        }
-    }
-
-    public void setTocandoMusica(boolean tocandoMusica) {
-        this.tocandoMusica = tocandoMusica;
-    }
 
 // -----------------------------------------------------------------------------------------------------------
 

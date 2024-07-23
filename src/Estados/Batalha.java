@@ -37,7 +37,7 @@ public class Batalha {
     private int stateBatalha;
 
     public long tempoFinalizarBatalha;
-    private String music2 = "res\\musica\\Medieval_Batalha.wav";
+
 
     public Batalha(GamePanel gp, Jogador jogador, Inimigo inimigo) {
         this.gp = gp;
@@ -61,8 +61,7 @@ public class Batalha {
 
         utils = new Utils();
 
-        gp.play.verificarmusica();
-        gp.play.musicaPlay(music2);
+
     }
 
     public void draw(Graphics2D g2) {
@@ -199,7 +198,6 @@ public class Batalha {
             inimigo.redefinirAtributos();
         }
         gp.play.mapa.colisaoInimigo = false;
-        gp.play.verificarmusica();
 
 
 
@@ -325,7 +323,7 @@ public class Batalha {
         String mensagem = "";
         int x = 150; // Coordenada X ajustada para a mesma posição do método drawMensagem
         int y = 440; // Coordenada Y ajustada para a mesma posição do método drawMensagem
-        Font fonte = utils.monogramExtended.deriveFont((float) 35);
+        Font fonte = utils.monogramExtended.deriveFont((float) 15);
         g2.setFont(fonte);
 
         if (getVencedor() == jogador) {
@@ -359,7 +357,7 @@ public class Batalha {
 
         if (mensagem != null && !mensagem.isEmpty()) {
 
-            Font fonte = utils.monogramExtended.deriveFont((float) 35);
+            Font fonte = utils.monogramExtended.deriveFont((float) 15);
 
             g2.setFont(fonte);
 
@@ -403,7 +401,7 @@ public class Batalha {
     }
 
     public void drawTituloMenu(Graphics2D g2) {
-        Font fonte = utils.monogramExtended.deriveFont((float) 35);
+        Font fonte = utils.monogramExtended.deriveFont((float) 15);
         g2.setFont(fonte);
         g2.setColor(Color.black);
 
@@ -438,7 +436,7 @@ public class Batalha {
     }
 
     public void drawTituloSubMenu(Graphics2D g2) {
-        Font fonte = utils.monogramExtended.deriveFont((float) 35);
+        Font fonte = utils.monogramExtended.deriveFont((float) 15);
         g2.setFont(fonte);
         g2.setColor(Color.black);
 
@@ -529,7 +527,7 @@ public class Batalha {
         int x = gp.sizeLadrilho; // 48
         int y = gp.sizeLadrilho;
 
-        Font fonte = utils.monogramExtended.deriveFont((float) 25);
+        Font fonte = utils.monogramExtended.deriveFont((float) 15);
         g2.setFont(fonte);
 
         String atributos;

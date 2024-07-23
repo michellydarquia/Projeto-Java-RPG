@@ -14,14 +14,12 @@ import javax.swing.Timer;
 public class Historia {
     GamePanel gp;
     String[] dialogos;
-    String[] dialogosMissao;
     Utils utils;
     private Timer timer;
     int dialogoIndex = 0;
     private String mensagemAtual = "";
     private int index = 0;
     private BufferedImage imagem;
-    private int andamentoHistoria;
     private boolean isNpcDialog = false;
     private Npc npcAtual;
     private boolean dialogoAtivo;
@@ -30,9 +28,7 @@ public class Historia {
         this.gp = gp;
         this.utils = new Utils();
         getImage();
-        andamentoHistoria = 0;
         this.dialogoAtivo = false;
-
     }
 
     public void draw(Graphics2D g2) {

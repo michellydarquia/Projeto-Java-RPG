@@ -11,7 +11,6 @@ import java.util.Objects;
 
 public class MissoesManager {
 
-
     private ArrayList<Missao> missoes;
     private Jogador jogador;
     private BufferedImage backgroundMissao;
@@ -104,8 +103,6 @@ public class MissoesManager {
     public ArrayList<Missao> getMissoes() {
         return missoes;
     }
-
-
 
     public void getBlackGroundImage() {
         try {

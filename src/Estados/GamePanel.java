@@ -135,7 +135,6 @@ public class GamePanel extends JPanel implements Runnable {
             menu.drawInstruções(g2);
 
         } if (gameState == statePause) { // TELA DE pause
-            play.musicaStop();
             play.drawMenuPause(g2);
 
         }

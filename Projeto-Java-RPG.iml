@@ -5,6 +5,15 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res/enemies" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/fonte" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/fundo" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/itens" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/maps" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/musica" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/npc" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/player" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/tiles" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

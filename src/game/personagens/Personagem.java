@@ -39,7 +39,7 @@ public abstract class Personagem implements Habilidades {
         this.defesa = calcularAtributo(baseDefesa, nivel);
         this.ataque = calcularAtributo(baseAtaque, nivel);
 
-        this.equipamentos = new ArrayList<>(5);
+        this.equipamentos = new ArrayList<>(2);
     }
 
     private int calcularAtributo(int base, int nivel) {
@@ -203,18 +203,11 @@ public abstract class Personagem implements Habilidades {
 
         int index = -1;
 
-        if (equipamento instanceof Capacete) {
+        if (equipamento instanceof Peitoral) {
             index = 0;
-        } else if (equipamento instanceof Peitoral) {
+        } else if (equipamento instanceof Espada || equipamento instanceof Cajado ) {
             index = 1;
-        } else if (equipamento instanceof Calca) {
-            index = 2;
-        } else if (equipamento instanceof Bota) {
-            index = 3;
-        } else if (equipamento instanceof Espada || equipamento instanceof Escudo ||
-                equipamento instanceof Machado || equipamento instanceof Arco || equipamento instanceof Cajado) {
-            index = 4;
-        } else {
+        }else {
             throw new ExceptionAtributo("Tipo de equipamento desconhecido.");
         }
 

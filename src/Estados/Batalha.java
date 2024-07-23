@@ -37,7 +37,6 @@ public class Batalha {
     private int stateBatalha;
 
     public long tempoFinalizarBatalha;
-    private String music2 = "res\\musica\\Medieval_Batalha.wav";
 
     public Batalha(GamePanel gp, Jogador jogador, Inimigo inimigo) {
         this.gp = gp;
@@ -61,8 +60,6 @@ public class Batalha {
 
         utils = new Utils();
 
-        gp.play.verificarmusica();
-        gp.play.musicaPlay(music2);
     }
 
     public void draw(Graphics2D g2) {
@@ -199,7 +196,6 @@ public class Batalha {
             inimigo.redefinirAtributos();
         }
         gp.play.mapa.colisaoInimigo = false;
-        gp.play.verificarmusica();
 
 
 

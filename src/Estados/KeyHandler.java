@@ -92,17 +92,6 @@ public class KeyHandler implements KeyListener {
             }
         }
 
-        if (code == KeyEvent.VK_U) {
-            if (Play.clip.isRunning()) {
-                System.out.println("Musica DESATIVADA");
-                gp.play.musicaStop();
-            } else {
-                gp.play.setTocandoMusica(true);
-                System.out.println("Musica ATIVADA");
-                gp.play.musicaPlay(gp.play.music1);
-            }
-        }
-
         if (code == KeyEvent.VK_P) {
             gp.gameState = gp.statePause;
         }

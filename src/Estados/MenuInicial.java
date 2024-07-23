@@ -129,7 +129,7 @@ public class MenuInicial {
 
     public void getBlackGroundImageInstrucoes() {
         try {
-            backgroundInstru = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Estados/tall.png")));
+            backgroundInstru = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/fundo/square.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

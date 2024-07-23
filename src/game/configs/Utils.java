@@ -1,8 +1,5 @@
 package game.configs;
 
-import game.personagens.inimigo.Inimigo;
-import game.personagens.Personagem;
-import game.personagens.jogador.Jogador;
 
 import java.awt.*;
 import java.io.IOException;
@@ -33,33 +30,6 @@ public class Utils {
         }
     }
 
-
-
-    public String quebrarTexto(Graphics g2, String texto, Font fonte) {
-
-        fonte = monogramExtended.deriveFont((float) 35);
-
-        g2.setFont(fonte);
-
-        FontMetrics fm = g2.getFontMetrics(fonte);
-        g2.setFont(fonte);
-
-        int larguraMaxima = 768; // ou o valor adequado para seu painel
-        String[] palavras = texto.split(" ");
-        StringBuilder linhaAtual = new StringBuilder();
-        StringBuilder textoQuebrado = new StringBuilder();
-
-        for (String palavra : palavras) {
-            if (fm.stringWidth(linhaAtual + palavra) > larguraMaxima) {
-                textoQuebrado.append(linhaAtual).append("\n");
-                linhaAtual = new StringBuilder();
-            }
-            linhaAtual.append(palavra).append(" ");
-        }
-        textoQuebrado.append(linhaAtual);
-
-        return textoQuebrado.toString();
-    }
     public void drawRetanguloTranslucidoComBordas(Graphics2D g2, int x, int y, int width, int height, float transparencia) {
 
         int arcWidth = 20 ;

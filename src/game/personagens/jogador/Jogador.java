@@ -1,14 +1,18 @@
 package game.personagens.jogador;
 
-import Menu.GamePanel;
-import Menu.KeyHandler;
+import Estados.GamePanel;
+import Estados.KeyHandler;
+import game.configs.MissoesManager;
 import game.inventorio.Inventario;
 import game.inventorio.Item;
+import game.inventorio.itens.*;
+import game.personagens.Personagem;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Jogador {
@@ -22,9 +26,7 @@ public class Jogador {
     private int spriteNum = 0;
 
     private Inventario inventario;
-
-
-
+    private MissoesManager missoesManager;
     GamePanel gp;
     KeyHandler keyH;
     Personagem classePersonagem;
@@ -36,11 +38,17 @@ public class Jogador {
         setDefaultValues();
         getPlayerImage();
 
-        inventario = new Inventario();
+        inventario = new Inventario(this);
+        this.missoesManager = new MissoesManager(this);
 
-        Item poção = new Item("poção","curar");
-        inventario.adicionarItem(poção);
-//        System.out.println(inventario.getItens());
+        Item tonico = new Tonico();
+        Item peitoral = new Peitoral();
+
+        getInventario().adicionarItem(peitoral);
+        getInventario().adicionarItem(tonico);
+
+        int quantidade = inventario.procurarItens(Artefato.class);
+        System.out.println(quantidade);
 
     }
 
@@ -104,11 +112,13 @@ public class Jogador {
             x += speed;
         }
 
-        System.out.printf(" cordenadas x: %s - cordenadas y: %s ", x,y );
+//        System.out.printf(" cordenadas x: %s - cordenadas y: %s ", x,y );
 
 
-        gp.play.mapa.verificarBordasMapa();
+        gp.play.mapa.verificarColisaoNpc();
         gp.play.mapa.verificarColisaoInimigo();
+        gp.play.mapa.verificarBordasMapa();
+//        gp.play.mapa.verificarColisaoInimigo();
 
 
     }
@@ -135,7 +145,6 @@ public class Jogador {
         g2.drawImage(image, x, y, gp.sizeLadrilho, gp.sizeLadrilho, null);
     }
 
-
     public Personagem getClassePersonagem() {
         return classePersonagem;
     }
@@ -148,6 +157,12 @@ public class Jogador {
         this.classePersonagem = classePersonagem;
 
     }
+
+    public MissoesManager getMissoesManager() {
+        return missoesManager;
+    }
+
+
 
 
 }

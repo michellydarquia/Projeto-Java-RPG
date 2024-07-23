@@ -1,99 +1,99 @@
 package game.personagens.jogador.classes;
 
-import game.personagens.inimigo.Inimigo;
-import game.personagens.jogador.Personagem;
+import game.personagens.Personagem;
 
 public class Arqueiro extends Personagem {
 
-    private int flechas;
+    private int energia;
 
     public Arqueiro() {
-        super(100, 9, 17);
-        flechas = 15;
+        super(90, 12, 18); // Valores base para HP, Defesa e Ataque do Arqueiro
+        this.energia = 100;
     }
 
-    public int getFlechas() {
-        return flechas;
+    public int getEnergia() {
+        return energia;
     }
 
-    public void setFlechas(int flechas) {
-        this.flechas = flechas;
+    public void setEnergia(int energia) {
+        this.energia = energia;
     }
 
     @Override
-    public void usarHabilidade1(Inimigo inimigo) {
-        if (flechas >= 5) {
-            setStringHabilidadeUsada("Arqueiro usa Flecha Veloz! \nDano aplicado (+15).");
-            inimigo.alterarSaude(-15);
-            flechas -= 5;
+    public void usarHabilidade1(Personagem inimigo) {
+        if (energia >= 20) {
+            setStringHabilidadeUsada("Arqueiro usa Flecha veloz! \nDano aplicado (+25).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            energia -= 20;
             setUsouHabilidade(true);
         } else {
-            setStringHabilidadeUsada("Flechas insuficientes para usar Flecha Veloz! \nEscolha outra habilidade");
+            setStringHabilidadeUsada("Energia insuficiente para usar \nFlecha veloz! \nEscolha outra habilidade ");
             setUsouHabilidade(false);
         }
     }
 
     @Override
-    public void usarHabilidade2(Inimigo inimigo) {
-        if (flechas >= 10) {
-            setStringHabilidadeUsada("Arqueiro usa Chuva de Flechas! \nDano aplicado (+30).");
-            inimigo.alterarSaude(-30);
-            flechas -= 10;
-            setUsouHabilidade(true);
-        } else {
-            setStringHabilidadeUsada("Flechas insuficientes para usar Chuva de Flechas! \nEscolha outra habilidade");
-            setUsouHabilidade(false);
-        }
-    }
-
-    @Override
-    public void usarHabilidade3(Inimigo inimigo) {
-        setDefesa(10);
-        flechas += 10;
-        setStringHabilidadeUsada("Arqueiro prepara Postura Defensiva! \nDefesa aumentada (+10).");
+    public void usarHabilidade2(Personagem inimigo) {
+        setStringHabilidadeUsada("Arqueiro se concentra e\nrecupera energia!");
+        energia += 20;
         setUsouHabilidade(true);
     }
 
     @Override
-    public void usarHabilidade4(Inimigo inimigo) {
-
-        if (flechas >= 60) {
-            setStringHabilidadeUsada("Arqueiro usa Tiro Certeiro! \nDano aplicado (+25).");
-            inimigo.alterarSaude(-25);
-            flechas -= 60;
+    public void usarHabilidade3(Personagem inimigo) {
+        if (energia >= 15) {
+            setStringHabilidadeUsada("Arqueiro usa Chuva de Flechas! \nDano aplicado (+20).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            energia -= 15;
             setUsouHabilidade(true);
-        }else {
-            setStringHabilidadeUsada("Flechas insuficientes para usar Tiro Certeiro! \nEscolha outra habilidade");
+        } else {
+            setStringHabilidadeUsada("Energia insuficiente para usar\nChuva de Flechas! \nEscolha outra habilidade ");
             setUsouHabilidade(false);
         }
     }
 
     @Override
-    public void redefinirAtributos() {
-        setFlechas(300);
-        setDefesa(getLimiteDefesa());
-        setHp(getLimiteSaude());
-        setAtaque(getLimiteAtaque());
-        setVivo(true);
+    public void usarHabilidade4(Personagem inimigo) {
+        if (energia >= 25) {
+            setStringHabilidadeUsada("Arqueiro usa Tiro Explosivo! \nDano aplicado (+35).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            energia -= 25;
+            setUsouHabilidade(true);
+        } else {
+            setStringHabilidadeUsada("Energia insuficiente para usar\nTiro Explosivo! \nEscolha outra habilidade ");
+            setUsouHabilidade(false);
+        }
     }
 
     @Override
     public void getImage() {
-        // Implementação específica do Arqueiro para obter a imagem do jogador
-    }
-
-    @Override
-    public void getImageGrande() {
 
     }
-
     public String imprimiratributos() {
-        return "Arqueiro  - Nível: " + getNivel() + "  " + getXp() + "/" + getSubirDeNivel() + "\n" +
-                "Flechas: " + getFlechas() + "\n" +
+
+        return "Arqueiro - Nível: " + getNivel() + "  " + getXp() + "/" + getSubirDeNivel() + "\n" +
+                "Energia: " + getEnergia() + "\n" +
                 "    " +                "\n" +
                 "    " +                "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
+    }
+
+
+    public String getHabilidade1(){
+        return "FLECHA VELOZ";
+    }
+
+    public String getHabilidade2(){
+        return "POSTURA DEFENSIVA";
+    }
+
+    public String getHabilidade3(){
+        return "CHUVA DE FLECHAS";
+    }
+
+    public String getHabilidade4(){
+        return "TIRO CERTEIRO";
     }
 
 }

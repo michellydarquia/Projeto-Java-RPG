@@ -1,34 +1,26 @@
 package game.inventorio;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.util.Objects;
+import game.personagens.Personagem;
 
-public class Item {
+import java.awt.image.BufferedImage;
+
+public abstract class Item {
 
     private String nome;
     private String descricao;
+    private String tipo;
     private BufferedImage imagem;
+    Personagem personagem;
 
-    public Item(String nome, String descricao){
+    public Item(String nome, String descricao, String tipo){
         this.nome = nome;
         this.descricao = descricao;
-
-        getImagem();
-
+        this.tipo = tipo;
     }
 
-    private void getImagem(){
-
-        try {
-            imagem = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/itens/ArtefatoMagico.png")));
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+    public BufferedImage getImagem(){
+        return imagem;
     }
-
 
     public String getDescricao() {
         return descricao;
@@ -38,11 +30,11 @@ public class Item {
         return nome;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
 
-
-
-
-
-
-
+    public abstract void uso(Personagem personagem);
+    public abstract int getBonusAtaque(Personagem personagem);
+    public abstract int getBonusDefesa(Personagem personagem);
 }

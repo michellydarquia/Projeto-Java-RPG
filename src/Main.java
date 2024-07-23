@@ -1,4 +1,4 @@
-import Menu.GamePanel;
+import Estados.GamePanel;
 
 import javax.swing.*;
 

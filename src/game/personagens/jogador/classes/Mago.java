@@ -1,17 +1,14 @@
 package game.personagens.jogador.classes;
-import game.personagens.inimigo.Inimigo;
-import game.personagens.jogador.Personagem;
 
+import game.personagens.Personagem;
 
 public class Mago extends Personagem {
 
     private int mana;
 
-
     public Mago() {
-        super(100, 9, 17);
-        mana = 80 ;
-
+        super(70, 8, 25); // Valores base para HP, Defesa e Ataque do Mago
+        this.mana = 120;
     }
 
     public int getMana() {
@@ -19,74 +16,57 @@ public class Mago extends Personagem {
     }
 
     public void setMana(int mana) {
-        this.mana += mana;
+        this.mana = mana;
     }
 
-
     @Override
-    public void usarHabilidade1(Inimigo inimigo) { // Raio Mágico, -20 mana
-
+    public void usarHabilidade1(Personagem inimigo) {
         if (mana >= 20) {
-
-            setStringHabilidadeUsada("Mago usou Raio Mágico! \nDano aplicado ( + 40 ).");
-            inimigo.alterarSaude(-40);
+            setStringHabilidadeUsada("Mago usa Bola de Fogo! \nDano aplicado (+30).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            mana -= 20;
             setUsouHabilidade(true);
-
         } else {
-            setMana(-20);
-            setStringHabilidadeUsada("Mana insuficiente para usar Raio Mágico!");
+            setStringHabilidadeUsada("Mana insuficiente para usar\nBola de Fogo! \nEscolha outra habilidade ");
             setUsouHabilidade(false);
         }
     }
 
     @Override
-    public void usarHabilidade2(Inimigo inimigo) {
-
-        if (mana < 40) {
-            setStringHabilidadeUsada("Mana insuficiente para usar Bola de Fogo!");
-            setUsouHabilidade(false);
-
-        } else {
-            setMana(-40);
-            inimigo.alterarSaude(-20);
-            setStringHabilidadeUsada("Mago usa Bola de Fogo! \nDano aplicado ( + 20 ).");
-            setUsouHabilidade(true);
-
-        }
-    }
-
-
-    @Override
-    public void usarHabilidade3(Inimigo inimigo) {// Escudo Arcano, +20 mana
-        alterarDefesa(20);
-        setMana(30);
-        setStringHabilidadeUsada("Mago usa com escudo arcano! \nDefesa aumentada  ( + 20 ) \nMana recuperada (+ 30 ) ");
+    public void usarHabilidade2(Personagem inimigo) {
+        setStringHabilidadeUsada("Mago usa Escudo de Gelo\ne recupera mana!");
+        mana += 20;
         setUsouHabilidade(true);
-
     }
 
     @Override
-    public void usarHabilidade4(Inimigo inimigo) {
-        alterarSaude(50);
-
+    public void usarHabilidade3(Personagem inimigo) {
+        if (mana >= 15) {
+            setStringHabilidadeUsada("Mago usa Raio Magico! \nDano aplicado (+25).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            mana -= 15;
+            setUsouHabilidade(true);
+        } else {
+            setStringHabilidadeUsada("Mana insuficiente para usar\nRaio Magico! \nEscolha outra habilidade ");
+            setUsouHabilidade(false);
+        }
     }
 
-    public void redefinirAtributos(){
-
-        setMana(100);
-        setDefesa(getLimiteDefesa());
-        setHp(getLimiteSaude());
-        setAtaque(getLimiteAtaque());
-        setVivo(true);
+    @Override
+    public void usarHabilidade4(Personagem inimigo) {
+        if (mana >= 25) {
+            setStringHabilidadeUsada("Mago usa Magia Obscura! \nDano aplicado (+40).");
+            inimigo.alterarSaude(-calcularDano(inimigo));
+            mana -= 25;
+            setUsouHabilidade(true);
+        } else {
+            setStringHabilidadeUsada("Mana insuficiente para usar\nMagia Obscura! \nEscolha outra habilidade ");
+            setUsouHabilidade(false);
+        }
     }
 
     @Override
     public void getImage() {
-
-    }
-
-    @Override
-    public void getImageGrande() {
 
     }
 
@@ -98,6 +78,22 @@ public class Mago extends Personagem {
                 "    " +                "\n" +
                 "Defesa: " + getDefesa() + "\n" +
                 "Ataque: " + getAtaque() + "\n" ;
+    }
+
+    public String getHabilidade1(){
+        return "BOLA DE FOGO";
+    }
+
+    public String getHabilidade2(){
+        return "ESCUDO ARCANO";
+    }
+
+    public String getHabilidade3(){
+        return "RAIO MAGICO";
+    }
+
+    public String getHabilidade4(){
+        return "MAGIA OBSCURA";
     }
 
 

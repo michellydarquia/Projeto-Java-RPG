@@ -10,12 +10,11 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 
 
 
-## Autora
+## Versões
 
--  Michelly Darquia da Silva
+- O game foi desenvolvido no IntelliJ. Se houver erros ao compilar no VS Code, recomenda-se utilizar o IntelliJ para evitar problemas de compatibilidade.
 
-##
-
+## Instituição
 - **Instituição:** Universidade de Pernambuco 
 - **Curso:** Engenharia de Computação
 - **Disciplina:** Programação Orientada a Objetos - LPOO

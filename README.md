@@ -12,7 +12,7 @@ O projeto será implementado em Java. Java oferece uma ampla gama de recursos pa
 
 ## Versões
 
-- O game foi desenvolvido no IntelliJ. Se houver erros ao compilar no VS Code, recomenda-se utilizar o IntelliJ para evitar problemas de compatibilidade.
+- O game foi desenvolvido no IntelliJ. Se houver erros ao compilar no VS Code ou em outras IDES, recomenda-se utilizar o IntelliJ para evitar problemas de compatibilidade.
 
 ## Instituição
 - **Instituição:** Universidade de Pernambuco 

@@ -8,9 +8,16 @@ O projeto é implementado em Java.
 
 O projeto será implementado em Java. Java oferece uma ampla gama de recursos para lidar com lógica de programação e algoritmos, tornando-a uma escolha ideal para o desenvolvimento deste jogo para a disciplina de Programação Orientada a Objetos.
 
+## Branches
+
+O projeto possui três branches principais:
+
+- **main**: Esta é a branch principal com todas as funcionalidades, incluindo música e fontes personalizadas.
+- **no-music**: Esta branch não inclui músicas para deixar o jogo mais leve.
+- **no-music-no-font**: Esta branch não inclui músicas nem fontes personalizadas para deixar o jogo ainda mais leve.
 
 
-## Versões
+## Erros
 
 - O game foi desenvolvido no IntelliJ. Se houver erros ao compilar no VS Code ou em outras IDEs, recomenda-se utilizar o IntelliJ para evitar problemas de compatibilidade.
 
